@@ -1,0 +1,11 @@
+Space Derelict Icons. 
+
+
+From left to right, top to bottom, the items are:
+
+- Trooper --- helmet, armour, boots, rifle, knife --- shoot action, slash action
+- Space Warrior --- helmet, armour, boots, shoulder pads, bolter, energy sword, power fist --- shoot action, slash action, punch action
+- Swarm Alien --- Head, chitinous plate, alien claw --- slash action
+
+- Space Warrior controled zone, Swarm Aliens entry area (4 directions)
+- Blips (4 variants), ammunition counters, psi points, command points

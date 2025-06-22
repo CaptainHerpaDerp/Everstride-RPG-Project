@@ -1,0 +1,7 @@
+When making your custom monuments, to achieve similar results to the premade samples:
+
+- You will need to work with different layers and outside the boundaries of the 8x8 grid. 
+
+- Some elements will need to be placed offset to be aligned to your liking.
+
+- I recommend assembling them on Aseprite, or a similar software, before adding custom monuments to your game.

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EncodableAsset" id="{1c5c9705-3e6c-4a8b-834f-52b3aa18612d}">
+		<property name="assetPath">
+			<value>Minifantasy_Creatures_SFX_v3.0/Monsters/Skeleton/</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{6a941106-237d-4ec2-9001-26935f256730}</destination>
+		</relationship>
+	</object>
+</objects>

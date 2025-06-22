@@ -1,0 +1,35 @@
+Icon Guide
+
++ First Row:
+
+- Bleed
+- Poisoned
+- Sick
+- Petrified
+- Burning
+- Frozen
+- Electrified
+- Rooted
+
+
++ Second Row:
+
+- Sleep
+- Lucky
+- Scared
+- Blind
+- Silence
+- Spellbound
+- Angry
+
+
++ Third Row:
+
+- Broken
+- Disarmed
+- Regeneration
+- Knocked out
+- Confused
+- Taunt
+- Condemned
+- Dead

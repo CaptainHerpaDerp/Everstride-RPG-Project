@@ -1,0 +1,8 @@
+*Frame size* 
+
+- 72x72px (8x8 for individual tiles)
+
+
+*Frame Duration*
+
+- 200ms

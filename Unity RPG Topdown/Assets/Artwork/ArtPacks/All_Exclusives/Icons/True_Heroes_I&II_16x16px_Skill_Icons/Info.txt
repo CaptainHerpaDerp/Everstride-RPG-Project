@@ -1,0 +1,55 @@
+Each  one of these 37 icons represents one of the skills animations for the heroes included in Minifantasy - True Heroes I and II.
+
+Using the list below and the visual guide included (Guide.png) you will be able to easily identify the Icons that belong to each hero.
+
+From left to right, top to bottom:
+
+- Barbarian
+    - Regular attack
+    - Battle cry
+    - Guard
+    - Throw things
+    - Thunder blade
+
+- Druid
+    - Regular attack
+    - Root summoning
+    - Shape shifting (from human to owl)
+        - Shape shifting (from owl to human)
+    - Shape shifting (from human to hound)
+        - Shape shifting (from hound to human)
+    - Shape shifting (from human to beast)
+        - Shape shifting (from  beast to human)
+
+- Rogue
+    - Regular attack
+    - Run
+    - Dodge
+    - Shurikens
+    - Throw bomb
+
+- Bard
+    - Regular attack
+    - Apotheosis
+    - Dissonant chord
+    - Ballad song
+    - Vicious mockery song
+    - Enhancement song
+        - Melee
+        - Defense
+        - Magic
+        - Ranged
+
+- Cleric
+    - Regular attack
+    - Divine fire
+    - Healing words prayer
+    - Word of pain prayer
+    - Spirit guardian prayer
+
+- Paladin
+    - Regular attack
+    - Blades of justice dictum
+    - Dome of rigthfulness dictum
+    - Holy hammer
+    - Shield bash

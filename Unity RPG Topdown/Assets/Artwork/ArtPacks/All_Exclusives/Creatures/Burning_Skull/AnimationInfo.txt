@@ -1,0 +1,14 @@
+This creature has been created with the idea of being a suicidal enemy. 
+It does not have a dedicated Attack animation, but 2 different explosion animations. 
+One direct explosion (designed to be triggered upon impact with the player)
+and one telegraphed explosion (designed to be triggered after missing a direct hit or after X amount of time)
+
+*Frame size* 
+
+- 32x32px: For all the animations.
+
+
+*Frame Duration*
+
+- 100ms: For all the animations.
+

@@ -1,0 +1,11 @@
+*Frame size* 
+
+- 40x40px: Die, Dmg, Idle, Move, Shot, Shot_Goblin, Shot_Rock
+- 32x32px: Goblin_Landing, Rock_Impact, Goblin_Projectile, Rock_Projectile
+
+
+*Frame Duration*
+
+- 100ms: Die, Dmg, Shot, Goblin_Landing, Rock_Impact
+
+- 200ms: Idle, Move

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{a5d512a0-3967-41a1-a306-7f2baa1f371a}">
+		<property name="assetPath">
+			<value>Minifantasy_MagicAndSorcery_SFX/Spells/Earth/05_Earth_Explosion.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>2.0425623582766441</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{6a941106-237d-4ec2-9001-26935f256730}</destination>
+		</relationship>
+	</object>
+</objects>

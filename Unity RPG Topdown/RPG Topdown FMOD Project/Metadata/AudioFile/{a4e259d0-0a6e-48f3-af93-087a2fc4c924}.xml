@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{a4e259d0-0a6e-48f3-af93-087a2fc4c924}">
+		<property name="assetPath">
+			<value>Minifantasy_TrueHeroes_SFX/Druid/Special_Sounds/Root_Summoning/Druid_Root.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>2.5531972789115644</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{6a941106-237d-4ec2-9001-26935f256730}</destination>
+		</relationship>
+	</object>
+</objects>

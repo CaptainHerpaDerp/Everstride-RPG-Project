@@ -1,0 +1,45 @@
+Icon Guide
+
+The red dotted columns mark the materials used to craft the gear (From Minifantasy - Crafting And Profession I).
+Excluding these red dotted columns, the icons are:
+
++ First Column:
+
+- Simple hooks
+- Double hooks
+
+
++ Second Column:
+
+- Weights of various sizes
+
+
++ Third Column:
+
+- Reels
+
+
++ Fourth Column:
+
+- Rods
+
+
++ Fifth Column:
+
+- Floats
+
+
+
++ Sixth Column:
+
+- Lines
+
+
+
++ Seventh Column:
+
+- Worm
+- Minnow
+- Cut Bait
+- Fly
+- Leech

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EncodableAsset" id="{0149f2a1-55b2-402f-a1b6-8127550af633}">
+		<property name="assetPath">
+			<value>Minifantasy_CraftingAndProfessions_SFX/Gathering_Professions/</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{6a941106-237d-4ec2-9001-26935f256730}</destination>
+		</relationship>
+	</object>
+</objects>

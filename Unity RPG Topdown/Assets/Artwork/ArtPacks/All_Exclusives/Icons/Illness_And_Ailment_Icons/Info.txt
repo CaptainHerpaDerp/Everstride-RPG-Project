@@ -1,0 +1,7 @@
+From left to right, top to bottom, the icons represent: 
+
+
+- Cough, Runny Nose, Vomiting, Drowsiness
+- Headache, Dizziness, Fever, Sore Throat
+- Injured Neck, Stomachache, Chest Pain, Injured Back
+- Injured Arm, Injured Leg

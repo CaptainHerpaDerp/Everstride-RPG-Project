@@ -1,0 +1,2 @@
+You can overlay the Tavern walls over any building interior tileset from the collection. 
+I overlayed it over the indoor tileset of "Minifantasy - Towns I" as a sample.

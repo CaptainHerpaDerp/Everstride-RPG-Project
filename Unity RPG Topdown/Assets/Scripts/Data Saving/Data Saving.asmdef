@@ -1,0 +1,16 @@
+{
+    "name": "DataSaving",
+    "rootNamespace": "",
+    "references": [
+        "GUID:377a8e281c4e64c498bcb8cd09473d0b"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

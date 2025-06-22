@@ -1,0 +1,10 @@
+5 backpack designs in 5 colours 
+(first frame of the idle animation in the 4 directions for each backpack).
+
+Each backpack has 2 layers. 
+One to be rendered/placed before the character (when the character is facing front), 
+and another one to be rendered/placed after the character (when the character is facing back).
+
+To use the backpacks in other animations, you will need to create an extra layer 
+with the backpacks in the correct offset for each frame of a given animation.
+

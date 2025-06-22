@@ -1,0 +1,161 @@
+Creature icons are organised in rows by their release order on itch.io. 
+The last two rows are for the Patreon exclusive creatures.
+
+- Minifantasy - Creatures:
+wolf
+bat
+cyclop
+minotaur
+blue mother slime
+green mother slime
+troll
+warg
+yeti
+dwarf
+yellow beard
+elf
+goblin
+halfling
+human
+amazon
+townsfolk
+orc
+wild orc
+trasgo
+centaur
+evil snowman
+pumpkin horror
+skeleton
+blue slime
+green slime
+wildfire
+zombie
+
+- Minifantasy - Towns:
+hen
+chick
+
+- Minifantasy - Farm:
+cow
+donkey
+ram
+pig
+rabbit
+sheep
+
+- Minifantasy - Icy Wilderness:
+penguin
+
+- Minifantasy - Silent Swamp:
+crocodile
+giant toad
+swamp ogre
+tentacle
+
+- Minifantasy - True Heroes I:
+barbarian
+druid
+thief
+
+- Minifantasy - Crafting And Professions II:
+wildboar
+turkey
+stag
+deer
+
+- Minifantasy - Wildlife:
+hyena
+lion
+lioness
+polar bear
+rhino
+snake
+tiger
+badger
+camel
+cat
+dog
+elephant
+frog
+giant snail
+goat
+hedgehog
+Hippo
+horse
+kangaroo
+moose
+red fox
+ostrich
+panda
+platypus
+polar fox
+skunk
+squirrel
+tortoise
+
+- Minifantasy - Mounts:
+unicorn
+stallion
+warhorse1
+warhose2
+
+- Minifantasy - True Heroes II:
+paladin
+cleric
+bard
+
+- Minifantasy - Lost Jungle:
+raptor
+stegosaurus
+triceratops
+
+- Patreon Old Archive:
+lumberjack
+miner
+ancient troll
+king skeleton
+farmer
+hunter
+grizzly bear
+giant spider
+armoured warrior
+beholder
+ape1
+ape2
+giant snake
+king
+merchant
+
+- Patreon New Archive:
+spider queen
+wraith
+vampire
+cultist1
+cultist2
+cultist3
+dragon
+werewolf
+gargoyle
+medusa
+inventor
+lizardman
+saurus
+skink
+mouse
+rat
+biblical beast
+golem
+diablo
+will-o-wisp
+demon spider
+mimic
+angel of death
+kraken
+giant
+goblin king
+shark
+deep one
+air elemental
+centaur king
+stone guardian
+fire elemental

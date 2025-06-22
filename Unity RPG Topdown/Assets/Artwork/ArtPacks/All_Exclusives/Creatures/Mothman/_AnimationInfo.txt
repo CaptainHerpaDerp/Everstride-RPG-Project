@@ -1,0 +1,12 @@
+*Frame size* 
+
+- 48x48px: For all the animations.
+
+
+*Frame Duration*
+
+- 100ms: Attack, Die, Dmg, Fly
+
+- 200ms: Close_Wings, Idle_Close, Idle_Open, Open_Wings, Walk_Close, Walk_Open
+
+

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EncodableAsset" id="{1d79d512-30ac-4448-bd49-842b429967cd}">
+		<property name="assetPath">
+			<value>Minifantasy_MagicAndSorcery_SFX/Spells/Wind/</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{6a941106-237d-4ec2-9001-26935f256730}</destination>
+		</relationship>
+	</object>
+</objects>

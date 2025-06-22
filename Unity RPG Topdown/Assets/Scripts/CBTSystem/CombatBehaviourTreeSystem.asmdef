@@ -1,0 +1,17 @@
+{
+    "name": "CombatBehaviourTreeSystem",
+    "rootNamespace": "",
+    "references": [
+        "GUID:c7822c062505704488a98dc9003498db",
+        "GUID:e9629ee42c1a6c046bcfc99215a0a1c1"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

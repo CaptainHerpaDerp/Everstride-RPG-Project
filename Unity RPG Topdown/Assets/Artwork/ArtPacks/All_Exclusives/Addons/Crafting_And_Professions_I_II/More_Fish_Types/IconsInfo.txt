@@ -1,0 +1,19 @@
+The 1st and the 3rd rows are for fish icons. 
+The 2nd and the 4th rows are for the meat icons of the fish right above.
+
++ 1st and 2nd rows
+
+- Anchovy
+- Bream
+- Walleye
+- Perch
+- Pike
+
+
++ 3rd and 4th rows
+
+- Carp
+- Eel
+- Octopus
+- Squid
+- Flounder

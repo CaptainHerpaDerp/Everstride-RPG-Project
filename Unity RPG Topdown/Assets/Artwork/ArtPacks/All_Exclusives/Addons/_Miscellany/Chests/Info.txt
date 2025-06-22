@@ -1,0 +1,7 @@
+8 different chest designs available in 8 colour schemes.
+
+Each chest includes:
+
+- Closed sprite
+- Open sprite
+- Unique key icon

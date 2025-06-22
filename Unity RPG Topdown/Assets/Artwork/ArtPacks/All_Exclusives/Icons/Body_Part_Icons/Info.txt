@@ -1,0 +1,37 @@
+From top to bottom, the first 4 rows are for:
+
+- Body part
+- Damaged body part
+- Dismembered body part
+- Skeleton body part
+
+From left to right, each of the previous rows contains:
+
+- Head
+- Chest
+- Back
+- Left hand
+- Right hand
+- Left leg
+- Right leg
+- Legs
+- Left foot
+- Right foot
+- Left foot sole
+- Right foot sole
+
+From left to right, the last row contains:
+
+- Tooth
+- Eyes
+- Eye
+- Brain
+- Heart
+- Lungs
+- Kidneys
+- Liver
+- Stomach
+- Small intestine
+- Large intestine
+
+

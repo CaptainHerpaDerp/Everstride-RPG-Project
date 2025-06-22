@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="DataFile" id="{be605136-d368-4268-8e23-a2f4a93d4d02}">
+		<property name="assetPath">
+			<value>Minifantasy_TrueHeroes_SFX/Acknowledgements.txt</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{6a941106-237d-4ec2-9001-26935f256730}</destination>
+		</relationship>
+	</object>
+</objects>

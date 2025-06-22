@@ -1,0 +1,36 @@
+Stat Icons
+
++ 1st Row: 
+
+- Strength
+- Intelligence 3
+- Dexterity 3
+- Vitality
+- Luck
+- Speed 2
+- Focus
+- Perception
+
+
++ 2nd Row: 
+
+- Health
+- Health Regeneration
+- Mana
+- Mana Regeneration
+- Initiative 2
+- Haste
+- Evasion
+- Parry 3
+- Hit Chance
+
+
++ 3rd Row:
+
+- Crit Chance
+- Damage
+- Protection 2
+- Rage
+- Spell Power
+- Mele Power
+- Range power

@@ -1,0 +1,2095 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8904445633402917994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Creatures/Humaniods/Dwarf/DwarfDeath
+  m_EditorClassIdentifier: 
+  Path: event:/Creatures/Humaniods/Dwarf/DwarfDeath
+  Guid:
+    Data1: 1212225192
+    Data2: 1201823218
+    Data3: 87747231
+    Data4: 677704219
+  Banks:
+  - {fileID: -6711903170048960199}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-8782251407219257407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Crafting/Blacksmith/Ignition
+  m_EditorClassIdentifier: 
+  Path: event:/Crafting/Blacksmith/Ignition
+  Guid:
+    Data1: -1292462110
+    Data2: 1177282267
+    Data3: 901642901
+    Data4: -577414517
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-8520622985355142492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/Hover
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Hover
+  Guid:
+    Data1: 429508389
+    Data2: 1227248201
+    Data3: -337623903
+    Data4: -1078036755
+  Banks:
+  - {fileID: 4695666784237573899}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 666
+--- !u!114 &-8372993984928507407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Creatures/Animals/Wolf/WolfBite
+  m_EditorClassIdentifier: 
+  Path: event:/Creatures/Animals/Wolf/WolfBite
+  Guid:
+    Data1: 575402126
+    Data2: 1305410835
+    Data3: 941589385
+    Data4: 1397825887
+  Banks:
+  - {fileID: -6711903170048960199}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-8270317211715886693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Magic/Wind/CastWindSpell
+  m_EditorClassIdentifier: 
+  Path: event:/Magic/Wind/CastWindSpell
+  Guid:
+    Data1: 1129748510
+    Data2: 1118529898
+    Data3: 38232485
+    Data4: -280899210
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-8173488127428988242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Crafting/Blacksmith/MetalPour
+  m_EditorClassIdentifier: 
+  Path: event:/Crafting/Blacksmith/MetalPour
+  Guid:
+    Data1: 187148666
+    Data2: 1210710150
+    Data3: 1602217136
+    Data4: -1011172178
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-8131590819930455715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapons/Slash/Medium Slash
+  m_EditorClassIdentifier: 
+  Path: event:/Weapons/Slash/Medium Slash
+  Guid:
+    Data1: -376652875
+    Data2: 1281227805
+    Data3: -2096810367
+    Data4: -5014010
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-8060393375982540929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Magic/Holy/HoldHolySpell
+  m_EditorClassIdentifier: 
+  Path: event:/Magic/Holy/HoldHolySpell
+  Guid:
+    Data1: -1051158579
+    Data2: 1275050958
+    Data3: 1513736591
+    Data4: -1621131336
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1919
+--- !u!114 &-8049135753640012396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Magic/Fire/FireSpellExplode
+  m_EditorClassIdentifier: 
+  Path: event:/Magic/Fire/FireSpellExplode
+  Guid:
+    Data1: 44027450
+    Data2: 1307700192
+    Data3: 997875590
+    Data4: 1446176860
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-7587407231809076487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Creatures/Humaniods/Human/HumanIntakeDamage
+  m_EditorClassIdentifier: 
+  Path: event:/Creatures/Humaniods/Human/HumanIntakeDamage
+  Guid:
+    Data1: -1285979043
+    Data2: 1175469134
+    Data3: -1357644355
+    Data4: -1774148003
+  Banks:
+  - {fileID: -6711903170048960199}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-7414184590898940359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Magic/Ice/HoldIceSpell
+  m_EditorClassIdentifier: 
+  Path: event:/Magic/Ice/HoldIceSpell
+  Guid:
+    Data1: 490445823
+    Data2: 1299791526
+    Data3: 305498274
+    Data4: 1193514812
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 4085
+--- !u!114 &-7158612169607975032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: RPG Topdown FMOD Project/Build/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 638822521616703450
+  FileSizes:
+  - Name: Desktop
+    Value: 4254
+  Exists: 1
+--- !u!114 &-6711903170048960199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Creatures.bank
+  m_EditorClassIdentifier: 
+  Path: RPG Topdown FMOD Project/Build/Desktop/Creatures.bank
+  Name: Creatures
+  StudioPath: bank:/Creatures
+  lastModified: 638822521613768556
+  FileSizes:
+  - Name: Desktop
+    Value: 308352
+  Exists: 1
+--- !u!114 &-6592804329230161358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Magic/Holy/CastHolySpell
+  m_EditorClassIdentifier: 
+  Path: event:/Magic/Holy/CastHolySpell
+  Guid:
+    Data1: -1830475886
+    Data2: 1296508016
+    Data3: 1249494938
+    Data4: 859735996
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-6568172419474770671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/BookOpen
+  m_EditorClassIdentifier: 
+  Path: event:/UI/BookOpen
+  Guid:
+    Data1: -1359026185
+    Data2: 1268716643
+    Data3: 647391119
+    Data4: 143397174
+  Banks:
+  - {fileID: 4695666784237573899}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-5404811265838996181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Magic/Holy/HolySpellShield
+  m_EditorClassIdentifier: 
+  Path: event:/Magic/Holy/HolySpellShield
+  Guid:
+    Data1: 938366757
+    Data2: 1261941796
+    Data3: 894814871
+    Data4: 1221608233
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-4503481652169308222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Magic/Ice/ThrowIceSpell
+  m_EditorClassIdentifier: 
+  Path: event:/Magic/Ice/ThrowIceSpell
+  Guid:
+    Data1: -655046231
+    Data2: 1192983913
+    Data3: 324357802
+    Data4: -186373780
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-4384173345361243022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Creatures/Animals/Bat/BatDeath
+  m_EditorClassIdentifier: 
+  Path: event:/Creatures/Animals/Bat/BatDeath
+  Guid:
+    Data1: 193901766
+    Data2: 1158135216
+    Data3: 1902028434
+    Data4: -787660390
+  Banks:
+  - {fileID: -6711903170048960199}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-4379539632331504139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Creatures/Animals/Wolf/WolfGrowlBite
+  m_EditorClassIdentifier: 
+  Path: event:/Creatures/Animals/Wolf/WolfGrowlBite
+  Guid:
+    Data1: -805578754
+    Data2: 1189245566
+    Data3: -933322588
+    Data4: -2134447207
+  Banks:
+  - {fileID: -6711903170048960199}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-3846070471188443778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Magic/Fire/FireSpellHit
+  m_EditorClassIdentifier: 
+  Path: event:/Magic/Fire/FireSpellHit
+  Guid:
+    Data1: 1875254707
+    Data2: 1273201826
+    Data3: 341447069
+    Data4: -92328870
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-3738935456912693460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Creatures/Animals/Bat/BatSlowWingFlap
+  m_EditorClassIdentifier: 
+  Path: event:/Creatures/Animals/Bat/BatSlowWingFlap
+  Guid:
+    Data1: 241962858
+    Data2: 1301605077
+    Data3: 1675630761
+    Data4: 1656793092
+  Banks:
+  - {fileID: -6711903170048960199}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-3727817301956948056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Buffs/BuffEnd
+  m_EditorClassIdentifier: 
+  Path: event:/Buffs/BuffEnd
+  Guid:
+    Data1: 964909077
+    Data2: 1196459744
+    Data3: 2052233387
+    Data4: 1238895795
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-3467790657850944075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Magic/Earth/EarthSpellExplode
+  m_EditorClassIdentifier: 
+  Path: event:/Magic/Earth/EarthSpellExplode
+  Guid:
+    Data1: -752115679
+    Data2: 1282808015
+    Data3: -1403328884
+    Data4: -736750442
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-3338378895206520232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Creatures/Humaniods/Human/HumanDeath
+  m_EditorClassIdentifier: 
+  Path: event:/Creatures/Humaniods/Human/HumanDeath
+  Guid:
+    Data1: -1835760526
+    Data2: 1128826423
+    Data3: 2123940736
+    Data4: -1774858208
+  Banks:
+  - {fileID: -6711903170048960199}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-3002038858374842051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Magic/Holy/HolyAuraSpellLoop
+  m_EditorClassIdentifier: 
+  Path: event:/Magic/Holy/HolyAuraSpellLoop
+  Guid:
+    Data1: 431895180
+    Data2: 1238877118
+    Data3: -1840384598
+    Data4: 1259619495
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2553
+--- !u!114 &-2804593639799133918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Creatures/Animals/Bat/BatAttack
+  m_EditorClassIdentifier: 
+  Path: event:/Creatures/Animals/Bat/BatAttack
+  Guid:
+    Data1: -998202013
+    Data2: 1206277204
+    Data3: -1745137510
+    Data4: -760826937
+  Banks:
+  - {fileID: -6711903170048960199}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-2545024416428066392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Magic/Wind/HoldWindSpell
+  m_EditorClassIdentifier: 
+  Path: event:/Magic/Wind/HoldWindSpell
+  Guid:
+    Data1: -2032643037
+    Data2: 1249174801
+    Data3: -1020356172
+    Data4: -1301912339
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 3462
+--- !u!114 &-2430893408722917251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Buffs/Loops/BuffLoop1
+  m_EditorClassIdentifier: 
+  Path: event:/Buffs/Loops/BuffLoop1
+  Guid:
+    Data1: 315361186
+    Data2: 1097211400
+    Data3: 2064020906
+    Data4: -208558794
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 5617
+--- !u!114 &-2206456659928454717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Magic/Earth/EarthSpellShield
+  m_EditorClassIdentifier: 
+  Path: event:/Magic/Earth/EarthSpellShield
+  Guid:
+    Data1: 2065260959
+    Data2: 1244650225
+    Data3: -1333446520
+    Data4: -570387049
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-1990786934977154717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Magic/Holy/HolyAuraSpell
+  m_EditorClassIdentifier: 
+  Path: event:/Magic/Holy/HolyAuraSpell
+  Guid:
+    Data1: -897591781
+    Data2: 1253482217
+    Data3: 1330857902
+    Data4: -898922061
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-1700381498202417482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Magic/Earth/CastEarthSpell
+  m_EditorClassIdentifier: 
+  Path: event:/Magic/Earth/CastEarthSpell
+  Guid:
+    Data1: -889789587
+    Data2: 1122371765
+    Data3: -670739049
+    Data4: 2017646391
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-1523808726158326035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Buffs/Loops/BuffLoop2
+  m_EditorClassIdentifier: 
+  Path: event:/Buffs/Loops/BuffLoop2
+  Guid:
+    Data1: 446232856
+    Data2: 1115936602
+    Data3: -1525321075
+    Data4: -1350107777
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 5617
+--- !u!114 &-1333809592947771612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Creatures/Animals/Bat/BatCryLong
+  m_EditorClassIdentifier: 
+  Path: event:/Creatures/Animals/Bat/BatCryLong
+  Guid:
+    Data1: -1020559005
+    Data2: 1254229108
+    Data3: -1834401654
+    Data4: 1415859972
+  Banks:
+  - {fileID: -6711903170048960199}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-1107461176331572821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/BookClose
+  m_EditorClassIdentifier: 
+  Path: event:/UI/BookClose
+  Guid:
+    Data1: -427767885
+    Data2: 1090103283
+    Data3: -920541010
+    Data4: 1650323807
+  Banks:
+  - {fileID: 4695666784237573899}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-1101336023575412150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Crafting/Blacksmith/FoundryLoop
+  m_EditorClassIdentifier: 
+  Path: event:/Crafting/Blacksmith/FoundryLoop
+  Guid:
+    Data1: -574444744
+    Data2: 1078482531
+    Data3: 825469615
+    Data4: 760796749
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 7148
+--- !u!114 &-793436924671824626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Creatures/Animals/Bat/BatWingFlap
+  m_EditorClassIdentifier: 
+  Path: event:/Creatures/Animals/Bat/BatWingFlap
+  Guid:
+    Data1: -635454946
+    Data2: 1289730789
+    Data3: -1770603619
+    Data4: -2129594057
+  Banks:
+  - {fileID: -6711903170048960199}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-509140187829619000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: RPG Topdown FMOD Project/Build/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 638822521616668292
+  FileSizes:
+  - Name: Desktop
+    Value: 1529664
+  Exists: 1
+--- !u!114 &-500263086410835411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/Unequip
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Unequip
+  Guid:
+    Data1: -633439728
+    Data2: 1268860625
+    Data3: 1294349964
+    Data4: 1896310843
+  Banks:
+  - {fileID: 4695666784237573899}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 666
+--- !u!114 &-374279755775776107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapons/Swing/Flail Swing
+  m_EditorClassIdentifier: 
+  Path: event:/Weapons/Swing/Flail Swing
+  Guid:
+    Data1: 588169628
+    Data2: 1110962478
+    Data3: -1485301090
+    Data4: 1281745639
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-119478348632160932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Magic/Wind/WindSpellExplode
+  m_EditorClassIdentifier: 
+  Path: event:/Magic/Wind/WindSpellExplode
+  Guid:
+    Data1: 1387589319
+    Data2: 1264678412
+    Data3: -714701689
+    Data4: -1358522048
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-23334191689249793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapons/Slash/Heavy Slash
+  m_EditorClassIdentifier: 
+  Path: event:/Weapons/Slash/Heavy Slash
+  Guid:
+    Data1: -1224602254
+    Data2: 1331423655
+    Data3: 2032364429
+    Data4: 595847911
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
+  m_Name: FMODStudioCache
+  m_EditorClassIdentifier: 
+  EditorBanks:
+  - {fileID: -7158612169607975032}
+  - {fileID: -6711903170048960199}
+  - {fileID: -509140187829619000}
+  - {fileID: 4695666784237573899}
+  EditorEvents:
+  - {fileID: 3265516545467240824}
+  - {fileID: -500263086410835411}
+  - {fileID: -8520622985355142492}
+  - {fileID: -1107461176331572821}
+  - {fileID: -6568172419474770671}
+  - {fileID: 4269329884567460231}
+  - {fileID: 3958108397622337558}
+  - {fileID: 6088412336097201194}
+  - {fileID: -23334191689249793}
+  - {fileID: -374279755775776107}
+  - {fileID: -8131590819930455715}
+  - {fileID: 3136565776004614876}
+  - {fileID: 8950245514547774844}
+  - {fileID: -8049135753640012396}
+  - {fileID: 4229012816546619614}
+  - {fileID: 5372365131711342678}
+  - {fileID: -3846070471188443778}
+  - {fileID: 7869075290286251198}
+  - {fileID: -793436924671824626}
+  - {fileID: 1026793605581922847}
+  - {fileID: 8296947608516902987}
+  - {fileID: -7587407231809076487}
+  - {fileID: -1333809592947771612}
+  - {fileID: -2804593639799133918}
+  - {fileID: -3738935456912693460}
+  - {fileID: -8372993984928507407}
+  - {fileID: 1748701897929197328}
+  - {fileID: 6966691326497292876}
+  - {fileID: 5417768637354860965}
+  - {fileID: -4384173345361243022}
+  - {fileID: 3189354749520979384}
+  - {fileID: -4379539632331504139}
+  - {fileID: 6960551029556573849}
+  - {fileID: 8025359389297057775}
+  - {fileID: 244291114432955574}
+  - {fileID: 3901422010514132499}
+  - {fileID: -3727817301956948056}
+  - {fileID: 345517673999472658}
+  - {fileID: -1523808726158326035}
+  - {fileID: -1990786934977154717}
+  - {fileID: -8270317211715886693}
+  - {fileID: -3467790657850944075}
+  - {fileID: -2545024416428066392}
+  - {fileID: -5404811265838996181}
+  - {fileID: -1101336023575412150}
+  - {fileID: 833376601967677222}
+  - {fileID: 2559198819254938083}
+  - {fileID: 5530199370952279354}
+  - {fileID: -1700381498202417482}
+  - {fileID: -8173488127428988242}
+  - {fileID: 4726541679089120056}
+  - {fileID: 6400524133179938913}
+  - {fileID: -3002038858374842051}
+  - {fileID: -6592804329230161358}
+  - {fileID: 7263021469656370812}
+  - {fileID: -2206456659928454717}
+  - {fileID: -2430893408722917251}
+  - {fileID: -4503481652169308222}
+  - {fileID: 6403982837669579549}
+  - {fileID: 4035768496039148935}
+  - {fileID: 993211413778449009}
+  - {fileID: 2293294571855249958}
+  - {fileID: -119478348632160932}
+  - {fileID: -8060393375982540929}
+  - {fileID: -8782251407219257407}
+  - {fileID: 3356318480060335547}
+  - {fileID: -7414184590898940359}
+  - {fileID: 1369837025536413016}
+  - {fileID: 7070230984223524397}
+  - {fileID: -3338378895206520232}
+  - {fileID: -8904445633402917994}
+  EditorParameters: []
+  MasterBanks:
+  - {fileID: -509140187829619000}
+  StringsBanks:
+  - {fileID: -7158612169607975032}
+  cacheTime: 638822521617256703
+  cacheVersion: 131621
+--- !u!114 &244291114432955574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Buffs/Loops/BuffLoop4
+  m_EditorClassIdentifier: 
+  Path: event:/Buffs/Loops/BuffLoop4
+  Guid:
+    Data1: -355673854
+    Data2: 1181593678
+    Data3: 526153096
+    Data4: -94670298
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 5361
+--- !u!114 &345517673999472658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Magic/Ice/CastIceSpell
+  m_EditorClassIdentifier: 
+  Path: event:/Magic/Ice/CastIceSpell
+  Guid:
+    Data1: -878569704
+    Data2: 1306016623
+    Data3: -1296049231
+    Data4: 776270250
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &833376601967677222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Magic/Earth/HoldEarthSpell
+  m_EditorClassIdentifier: 
+  Path: event:/Magic/Earth/HoldEarthSpell
+  Guid:
+    Data1: 110863429
+    Data2: 1284297411
+    Data3: -2019288904
+    Data4: 1518117193
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1752
+--- !u!114 &993211413778449009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Magic/Ice/IceSpellExplode
+  m_EditorClassIdentifier: 
+  Path: event:/Magic/Ice/IceSpellExplode
+  Guid:
+    Data1: -14330703
+    Data2: 1198509601
+    Data3: 1128921488
+    Data4: 1160439158
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &1026793605581922847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Creatures/Humaniods/Dwarf/DwarfIntakeDamage
+  m_EditorClassIdentifier: 
+  Path: event:/Creatures/Humaniods/Dwarf/DwarfIntakeDamage
+  Guid:
+    Data1: 726052135
+    Data2: 1173344099
+    Data3: 434969786
+    Data4: 1056598175
+  Banks:
+  - {fileID: -6711903170048960199}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &1369837025536413016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Creatures/Humaniods/Orc/OrcDeath
+  m_EditorClassIdentifier: 
+  Path: event:/Creatures/Humaniods/Orc/OrcDeath
+  Guid:
+    Data1: -1322239707
+    Data2: 1091288404
+    Data3: -807744630
+    Data4: -22446789
+  Banks:
+  - {fileID: -6711903170048960199}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &1748701897929197328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Creatures/Animals/Bat/BatFastWingFlap
+  m_EditorClassIdentifier: 
+  Path: event:/Creatures/Animals/Bat/BatFastWingFlap
+  Guid:
+    Data1: -764621925
+    Data2: 1089758553
+    Data3: 671322763
+    Data4: -1716154139
+  Banks:
+  - {fileID: -6711903170048960199}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &2293294571855249958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Magic/Earth/EarthSpellHit
+  m_EditorClassIdentifier: 
+  Path: event:/Magic/Earth/EarthSpellHit
+  Guid:
+    Data1: -1014749006
+    Data2: 1140352286
+    Data3: 1383001771
+    Data4: 98567521
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &2559198819254938083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Magic/Earth/ThrowEarthSpell
+  m_EditorClassIdentifier: 
+  Path: event:/Magic/Earth/ThrowEarthSpell
+  Guid:
+    Data1: 1586016584
+    Data2: 1223465255
+    Data3: 1600999070
+    Data4: -1393342750
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &3136565776004614876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapons/Bow/Bow Release
+  m_EditorClassIdentifier: 
+  Path: event:/Weapons/Bow/Bow Release
+  Guid:
+    Data1: -387253578
+    Data2: 1299644244
+    Data3: 935578021
+    Data4: -2146583567
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &3189354749520979384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Creatures/Animals/Wolf/WolfGrowl
+  m_EditorClassIdentifier: 
+  Path: event:/Creatures/Animals/Wolf/WolfGrowl
+  Guid:
+    Data1: 1423173082
+    Data2: 1274387094
+    Data3: 42122895
+    Data4: -566891077
+  Banks:
+  - {fileID: -6711903170048960199}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &3265516545467240824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/Equip
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Equip
+  Guid:
+    Data1: 1250715395
+    Data2: 1272456059
+    Data3: -953656921
+    Data4: 367413927
+  Banks:
+  - {fileID: 4695666784237573899}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 666
+--- !u!114 &3356318480060335547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Buffs/Loops/BuffLoop3
+  m_EditorClassIdentifier: 
+  Path: event:/Buffs/Loops/BuffLoop3
+  Guid:
+    Data1: -792788487
+    Data2: 1081215466
+    Data3: -1498492227
+    Data4: 307542106
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 5980
+--- !u!114 &3901422010514132499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Magic/Wind/WindSpellHit
+  m_EditorClassIdentifier: 
+  Path: event:/Magic/Wind/WindSpellHit
+  Guid:
+    Data1: 1656335629
+    Data2: 1200574461
+    Data3: 347414460
+    Data4: 1147291347
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &3958108397622337558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapons/Slash/Light Slash
+  m_EditorClassIdentifier: 
+  Path: event:/Weapons/Slash/Light Slash
+  Guid:
+    Data1: 1295783518
+    Data2: 1153522909
+    Data3: -160330563
+    Data4: -106197051
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &4035768496039148935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Magic/Ice/IceSpellHit
+  m_EditorClassIdentifier: 
+  Path: event:/Magic/Ice/IceSpellHit
+  Guid:
+    Data1: -1142569300
+    Data2: 1166844123
+    Data3: -1671231104
+    Data4: 940708656
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &4229012816546619614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Magic/Fire/CastFireSpell
+  m_EditorClassIdentifier: 
+  Path: event:/Magic/Fire/CastFireSpell
+  Guid:
+    Data1: -132323692
+    Data2: 1245670719
+    Data3: 735056821
+    Data4: 708662553
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &4269329884567460231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapons/Thrust/Thrust
+  m_EditorClassIdentifier: 
+  Path: event:/Weapons/Thrust/Thrust
+  Guid:
+    Data1: 898355037
+    Data2: 1123705404
+    Data3: 995203737
+    Data4: 2020154176
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &4695666784237573899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/UI.bank
+  m_EditorClassIdentifier: 
+  Path: RPG Topdown FMOD Project/Build/Desktop/UI.bank
+  Name: UI
+  StudioPath: bank:/UI
+  lastModified: 638822521617256703
+  FileSizes:
+  - Name: Desktop
+    Value: 53696
+  Exists: 1
+--- !u!114 &4726541679089120056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Buffs/Loops/BuffLoop5
+  m_EditorClassIdentifier: 
+  Path: event:/Buffs/Loops/BuffLoop5
+  Guid:
+    Data1: -64041083
+    Data2: 1144467896
+    Data3: -595125888
+    Data4: -656632988
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 5361
+--- !u!114 &5372365131711342678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Magic/Fire/FireSpellShield
+  m_EditorClassIdentifier: 
+  Path: event:/Magic/Fire/FireSpellShield
+  Guid:
+    Data1: -1951213927
+    Data2: 1158971948
+    Data3: 1202414470
+    Data4: -1981695686
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &5417768637354860965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Creatures/Animals/Bat/BatCry
+  m_EditorClassIdentifier: 
+  Path: event:/Creatures/Animals/Bat/BatCry
+  Guid:
+    Data1: -1495675737
+    Data2: 1250355417
+    Data3: -209068122
+    Data4: 1055211015
+  Banks:
+  - {fileID: -6711903170048960199}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &5530199370952279354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Crafting/Blacksmith/FurnaceLoop
+  m_EditorClassIdentifier: 
+  Path: event:/Crafting/Blacksmith/FurnaceLoop
+  Guid:
+    Data1: 1594193760
+    Data2: 1108609758
+    Data3: -979465304
+    Data4: 1767357554
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 13787
+--- !u!114 &6088412336097201194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapons/Bow/Bow Draw
+  m_EditorClassIdentifier: 
+  Path: event:/Weapons/Bow/Bow Draw
+  Guid:
+    Data1: -884123800
+    Data2: 1320277630
+    Data3: -1197695824
+    Data4: 2060281282
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &6400524133179938913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Magic/Wind/ThrowWindSpell
+  m_EditorClassIdentifier: 
+  Path: event:/Magic/Wind/ThrowWindSpell
+  Guid:
+    Data1: -441737081
+    Data2: 1199277361
+    Data3: 272631740
+    Data4: 690739253
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &6403982837669579549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Magic/Wind/WindSpellShield
+  m_EditorClassIdentifier: 
+  Path: event:/Magic/Wind/WindSpellShield
+  Guid:
+    Data1: 1031524521
+    Data2: 1254480254
+    Data3: -2143515233
+    Data4: 1349100647
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &6960551029556573849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Buffs/BuffStart
+  m_EditorClassIdentifier: 
+  Path: event:/Buffs/BuffStart
+  Guid:
+    Data1: -1252008192
+    Data2: 1178621946
+    Data3: -971848028
+    Data4: 746215434
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &6966691326497292876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Creatures/Animals/Wolf/WolfDeath
+  m_EditorClassIdentifier: 
+  Path: event:/Creatures/Animals/Wolf/WolfDeath
+  Guid:
+    Data1: 1343940258
+    Data2: 1121042355
+    Data3: 430569630
+    Data4: -2145343334
+  Banks:
+  - {fileID: -6711903170048960199}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &7070230984223524397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Creatures/Humaniods/Orc/OrcIntakeDamage
+  m_EditorClassIdentifier: 
+  Path: event:/Creatures/Humaniods/Orc/OrcIntakeDamage
+  Guid:
+    Data1: 1784230503
+    Data2: 1197519204
+    Data3: 1065066680
+    Data4: 546244765
+  Banks:
+  - {fileID: -6711903170048960199}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &7263021469656370812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Crafting/Blacksmith/HammerAnvilHit
+  m_EditorClassIdentifier: 
+  Path: event:/Crafting/Blacksmith/HammerAnvilHit
+  Guid:
+    Data1: -1209601644
+    Data2: 1136632196
+    Data3: -1518468935
+    Data4: 1798022779
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &7869075290286251198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Magic/Fire/HoldFireSpell
+  m_EditorClassIdentifier: 
+  Path: event:/Magic/Fire/HoldFireSpell
+  Guid:
+    Data1: 560728551
+    Data2: 1121592753
+    Data3: -413662555
+    Data4: 1850246668
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2553
+--- !u!114 &8025359389297057775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Magic/Ice/IceSpellShield
+  m_EditorClassIdentifier: 
+  Path: event:/Magic/Ice/IceSpellShield
+  Guid:
+    Data1: -1068463615
+    Data2: 1110123475
+    Data3: -2036055888
+    Data4: -1990642626
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &8296947608516902987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Creatures/Animals/Wolf/WolfDamage
+  m_EditorClassIdentifier: 
+  Path: event:/Creatures/Animals/Wolf/WolfDamage
+  Guid:
+    Data1: -1746060725
+    Data2: 1176153286
+    Data3: 241797505
+    Data4: 181657084
+  Banks:
+  - {fileID: -6711903170048960199}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &8950245514547774844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Magic/Fire/ThrowFireSpell
+  m_EditorClassIdentifier: 
+  Path: event:/Magic/Fire/ThrowFireSpell
+  Guid:
+    Data1: 220810537
+    Data2: 1307487450
+    Data3: 1026937264
+    Data4: -1510866766
+  Banks:
+  - {fileID: -509140187829619000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0

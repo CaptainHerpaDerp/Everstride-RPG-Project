@@ -1,0 +1,22 @@
+*Frame size* 
+
+- 64x64px: For Ferryman and Boat animations.
+- 16x16px: For Soul Animations
+
+
+*Frame Duration*
+
+- 100ms: Attack, Die and Dmg 
+
+- 200ms: Idle, Walk, Row, Soul Appear/Disappear and Soul Floating.
+
+
+IMPORTANT: When using the boat_only sprites, place/render the layers in this order:
+
+a-Light1 (lantern effect that goes over the character)
+b-Boat1 (this part of the boat covers part of the character)
+c-Character (Ferryman animations)
+d- Light2 (lantern effect that is behind the character)
+2-Boat 2 (main body of the boat)
+
+

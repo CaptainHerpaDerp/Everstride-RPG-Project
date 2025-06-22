@@ -1,0 +1,19 @@
+- 1st row: Gold, silver, copper coins. Big and small. Stack of coins.
+
+- 2nd row: Torches. New, lit, used. 3 lengths.
+
+- 3rd row: Pick up animated icon.
+
+- 4th row: Drink potion animated icon.
+
+- 5th row: Party/group.
+
+- 6th row: Barbarian, druid, rogue.
+
+- 7th row: Woodwork.
+
+- 8th row: Log out, log in, off, new character.
+
+- 9th row: Beer. Big and small. Full, half full, empty.
+
+- 10th row: Card-like Icon frames. 

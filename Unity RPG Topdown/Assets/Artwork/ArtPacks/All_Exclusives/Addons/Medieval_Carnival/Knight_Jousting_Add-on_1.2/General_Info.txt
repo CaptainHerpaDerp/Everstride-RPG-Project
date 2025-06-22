@@ -1,0 +1,21 @@
+This add-on has been specifically designed to help you create knight jousting gameplay.
+
+The add-on is composed of several layered animations including:
+
+- Two horses, one black and one brown
+- Two layered horse barding options, blue/silver and red/golden
+- Two armoured knights, blue/silver and red/golden
+- Three layered lance attack stances, providing the ability to aim at different parts of the target while galloping
+- Three layered shield defensive stances to protect the knights from different attacks during gallop
+- Horse and Knight gallop animations
+- Three damage animations for various attack types, including knight head, knight body, and horse dmg
+- A Knight fall animation for when a knight is dismounted
+- Horse die animation with accompanying knight fall animation for when a horse is killed
+- Lance breaking animation for when an attack and the defensive stance match
+- Five base animations for the knights on foot: idle, walk, attack, damage, and death.
+
+
+Tips: 
+
+- Full Horse animations available in Minifantasy - Mounts
+- Perfect to use in combination with Minifantasy - Medieval Carnival

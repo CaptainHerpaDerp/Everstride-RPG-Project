@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dcb56e8d0d88c44b9fc16084c7d154c, type: 3}
+  m_Name: Weapon Sound Library
+  m_EditorClassIdentifier: 
+  HeavySlash:
+  - {fileID: 8300000, guid: 6711013ec7833f74aac6017109319d7a, type: 3}
+  - {fileID: 8300000, guid: bd8f279070a42ac4691730023bb8762c, type: 3}
+  - {fileID: 8300000, guid: 7386edf965d5925498f2beaaaa58ce11, type: 3}
+  LightSlash:
+  - {fileID: 8300000, guid: 6af6f687c3f74bd499515c1de23fc64f, type: 3}
+  - {fileID: 8300000, guid: 9e3f8928ba960124b87c273d5583a9f4, type: 3}
+  - {fileID: 8300000, guid: e78eb4b3ee6d07f41b22f424690c2526, type: 3}
+  SwordSlash:
+  - {fileID: 8300000, guid: caab8cf162092e2429330b90366001fb, type: 3}
+  - {fileID: 8300000, guid: 4faf15e870a64f543a2266334b5d732d, type: 3}
+  - {fileID: 8300000, guid: adde02007c8581b428f304c8b0ae22e7, type: 3}
+  Flail:
+  - {fileID: 8300000, guid: e10ef630c86a93640bd4efa51105a7ca, type: 3}
+  - {fileID: 8300000, guid: 034fa14b478156e479695c5a74b65504, type: 3}
+  Whip:
+  - {fileID: 8300000, guid: b5be38278229a3e448cfce7029a8d3a1, type: 3}
+  - {fileID: 8300000, guid: 4c8317a7a1e08aa4f80a0522cd1a792d, type: 3}
+  Thrust:
+  - {fileID: 8300000, guid: 9e7e3184549ca3d4b87e56f6838c858b, type: 3}
+  - {fileID: 8300000, guid: 9280f6099cdd1164c8cb77e9c6d77f0f, type: 3}
+  BowDraw:
+  - {fileID: 8300000, guid: 668ae55287eda9d4484e1a857236513c, type: 3}
+  - {fileID: 8300000, guid: 68e308926d4018747881882f7815a1b4, type: 3}
+  MetalShieldBlocks:
+  - {fileID: 8300000, guid: 4051fad00f28be5468d39a5180662190, type: 3}
+  - {fileID: 8300000, guid: 6688ffead2ca48c4d8c5e08308615b84, type: 3}
+  - {fileID: 8300000, guid: 7fbb74d25c40302489ba9762321e6b87, type: 3}
+  BowRelease: {fileID: 8300000, guid: 70d051abc15efd546924dfede9fa3091, type: 3}
+  SlingShotDraw: {fileID: 8300000, guid: d750978585b9d794c851bb0f07a99d71, type: 3}
+  SlingShotRelease: {fileID: 8300000, guid: 478b974b7573ce64f87fb96b7018b97b, type: 3}

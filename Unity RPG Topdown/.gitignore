@@ -1,0 +1,41 @@
+# Unity-generated files and folders
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+MemoryCaptures/
+Recordings/
+
+# Visual Studio project files
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+
+# Build artifacts
+*.apk
+*.aab
+*.app
+*.unitypackage
+
+# Asset meta files
+*.meta
+
+# Text and temp files
+*.tmp
+*.temp
+*.bak
+
+# Addressables build data
+[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
+
+# StreamingAssets temporary files
+[Ss]treamingAssets/aa.meta
+[Ss]treamingAssets/aa/*

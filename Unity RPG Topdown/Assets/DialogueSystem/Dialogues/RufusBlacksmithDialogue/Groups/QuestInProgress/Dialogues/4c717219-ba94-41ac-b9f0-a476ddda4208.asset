@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4fefd1da2f4e654fa8e695a1649a3f1, type: 3}
+  m_Name: 4c717219-ba94-41ac-b9f0-a476ddda4208
+  m_EditorClassIdentifier: 
+  <DialogueID>k__BackingField: 4c717219-ba94-41ac-b9f0-a476ddda4208
+  <Text>k__BackingField: Oh. Back again. Found my hammer yet?
+  <Choices>k__BackingField:
+  - <Text>k__BackingField: "Not yet. I\u2019m still looking."
+    <NextDialogue>k__BackingField: {fileID: 11400000, guid: d71b29aea12d74644838e74e783d694d, type: 2}
+  - <Text>k__BackingField: "I haven\u2019t found it, but I need more information. "
+    <NextDialogue>k__BackingField: {fileID: 11400000, guid: 43dd852cef1e6874a90dd8d7a4f689a8, type: 2}
+  - <Text>k__BackingField: "I don\u2019t think I can help you anymore. "
+    <NextDialogue>k__BackingField: {fileID: 11400000, guid: b24251c315a5966449dc832e4c2a33ce, type: 2}
+  <DialogueType>k__BackingField: 1
+  <EventTriggers>k__BackingField: []
+  <IsStartingDialogue>k__BackingField: 1

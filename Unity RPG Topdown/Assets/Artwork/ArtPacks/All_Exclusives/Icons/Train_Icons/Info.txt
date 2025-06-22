@@ -1,0 +1,20 @@
+From left to right, Train car Icons:
+
+- Caboose
+- Passenger Car 1
+- Passenger Car 2
+- Passenger Car 3
+- Freight Car 1
+- Freight Car 2
+- Coal Car 1
+- Coal Car 2
+- Locomotive
+
+
+Other:
+
+- Railway icons/tileset
+- Railway Sign
+- Train Icon
+- Locomotive Icon
+- Tunnel Icon

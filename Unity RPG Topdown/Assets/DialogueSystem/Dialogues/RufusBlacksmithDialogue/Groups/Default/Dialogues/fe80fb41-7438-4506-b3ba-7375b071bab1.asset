@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4fefd1da2f4e654fa8e695a1649a3f1, type: 3}
+  m_Name: fe80fb41-7438-4506-b3ba-7375b071bab1
+  m_EditorClassIdentifier: 
+  <DialogueID>k__BackingField: fe80fb41-7438-4506-b3ba-7375b071bab1
+  <Text>k__BackingField: "Lost my hammer. Can\u2019t forge much without it."
+  <Choices>k__BackingField:
+  - <Text>k__BackingField: How did you lose it?
+    <NextDialogue>k__BackingField: {fileID: 11400000, guid: 24aa1fd2cbdfc03479f482ff3d2b3cbd, type: 2}
+  - <Text>k__BackingField: "I\u2019ll help you find it."
+    <NextDialogue>k__BackingField: {fileID: 11400000, guid: 0333736ca952f6744979e7c9330bee53, type: 2}
+  - <Text>k__BackingField: 'That sounds like your problem, not mine. '
+    <NextDialogue>k__BackingField: {fileID: 11400000, guid: 892c4252e0b007547aa70ada0b6a6cee, type: 2}
+  <DialogueType>k__BackingField: 1
+  <EventTriggers>k__BackingField: []
+  <IsStartingDialogue>k__BackingField: 0

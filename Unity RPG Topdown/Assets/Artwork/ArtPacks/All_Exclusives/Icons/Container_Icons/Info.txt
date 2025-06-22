@@ -1,0 +1,19 @@
++ 1st column:
+
+Backpack
+Shoulder Strap
+Small Purse
+Big Purse
+Small Pouch
+Big Pouch
+Waterskin
+
+
++ 2nd column:
+
+Baskets, Panniers, Wickerwork Boxes, etc.
+
+
++ 3rd column:
+
+Flasks and Bottles

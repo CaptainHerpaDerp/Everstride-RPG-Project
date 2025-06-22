@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6760324b6b4eee340934502568d55a63, type: 3}
+  m_Name: Human Sound Library
+  m_EditorClassIdentifier: 
+  hitSounds:
+  - {fileID: 8300000, guid: fc834d893b0e84240a3243ae92eb9cb7, type: 3}
+  - {fileID: 8300000, guid: 32b800d19aaa7ea43946a0c5e3f170a8, type: 3}
+  - {fileID: 8300000, guid: e9e3c7b5e0383ef438b78aaf37a102da, type: 3}
+  attackSounds: []
+  spinDeath: {fileID: 8300000, guid: 822e7519eae452d4e8ebe45c8916e2f9, type: 3}
+  soulDeath: {fileID: 0}
+  drinkPotionSounds:
+  - {fileID: 8300000, guid: dbac74125df068848bb222349e466d54, type: 3}
+  - {fileID: 8300000, guid: 24062651f95e8224dac396ca3aaa2cc3, type: 3}
+  - {fileID: 8300000, guid: 03340b57045c917478afa2751dfb5f91, type: 3}
+  eatFruitSounds:
+  - {fileID: 8300000, guid: 27e50dcfedbca964890bfabd5d45143d, type: 3}
+  - {fileID: 8300000, guid: 6ee00990bfa1b0549a4215b724888366, type: 3}
+  - {fileID: 8300000, guid: 3cf637f0c0a7ce742b233e36962c4160, type: 3}
+  - {fileID: 8300000, guid: f2f671db55fd0364d8f48664ddeaba53, type: 3}

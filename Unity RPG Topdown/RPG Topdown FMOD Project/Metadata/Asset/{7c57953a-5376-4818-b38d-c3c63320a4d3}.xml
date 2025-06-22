@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EncodableAsset" id="{7c57953a-5376-4818-b38d-c3c63320a4d3}">
+		<property name="assetPath">
+			<value>Minifantasy_MagicAndSorcery_SFX/Spells/Holy/</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{6a941106-237d-4ec2-9001-26935f256730}</destination>
+		</relationship>
+	</object>
+</objects>

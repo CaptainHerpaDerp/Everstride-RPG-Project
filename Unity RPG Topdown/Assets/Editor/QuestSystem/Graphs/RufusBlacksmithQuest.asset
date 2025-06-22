@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 186ea215bc0b4c54e8cd4f71caa819b4, type: 3}
+  m_Name: RufusBlacksmithQuest
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: RufusBlacksmithQuest
+  <Groups>k__BackingField:
+  - <ID>k__BackingField: c0a9d627-c6c9-45ec-b546-dc167069a7b9
+    <Name>k__BackingField: Main
+    <Position>k__BackingField: {x: 84, y: 291}
+  <Nodes>k__BackingField: []
+  <OldGroupNames>k__BackingField:
+  - Main
+  <OldUngroupedNodeNames>k__BackingField: []
+  <OldGroupNodeNames>k__BackingField:
+    list:
+    - Key: Main
+      Value:
+      - bc04cb0c-38e5-4499-9e0a-d51555dc25eb
+      - 9f1a923e-589a-449a-878c-b37a580edff2
+  <SerializedNodes>k__BackingField: "{\r\n  \"$type\": \"System.Collections.Generic.List`1[[GraphSystem.Base.Data.Save.BaseNodeSaveData,
+    Assembly-CSharp-Editor]], mscorlib\",\r\n  \"$values\": [\r\n    {\r\n      \"$type\":
+    \"QuestSystem.Data.Save.QuestSystemNodeSaveData, Assembly-CSharp-Editor\",\r\n     
+    \"NextNodeID\": \"9f1a923e-589a-449a-878c-b37a580edff2\",\r\n      \"Description\":
+    \"Find rufus' hammer\",\r\n      \"Conditions\": {\r\n        \"$type\": \"System.Collections.Generic.List`1[[QuestSystem.Data.Save.QuestSystemConditionSaveData,
+    Assembly-CSharp-Editor]], mscorlib\",\r\n        \"$values\": [\r\n         
+    {\r\n            \"$type\": \"QuestSystem.Data.Save.QuestSystemConditionSaveData,
+    Assembly-CSharp-Editor\",\r\n            \"Condition\": 1,\r\n            \"ConditionValue\":
+    \"b81a162f-b541-470f-995e-1eab00228aa7\"\r\n          }\r\n        ]\r\n     
+    },\r\n      \"Triggers\": {\r\n        \"$type\": \"System.Collections.Generic.List`1[[QuestSystem.Data.Save.QuestSystemTriggerSaveData,
+    Assembly-CSharp-Editor]], mscorlib\",\r\n        \"$values\": []\r\n      },\r\n     
+    \"NodeType\": 1,\r\n      \"NextGroupName\": null,\r\n      \"ID\": \"bc04cb0c-38e5-4499-9e0a-d51555dc25eb\",\r\n     
+    \"GroupID\": \"c0a9d627-c6c9-45ec-b546-dc167069a7b9\",\r\n      \"Position\":
+    {\r\n        \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n       
+    \"x\": 109.0,\r\n        \"y\": 350.0,\r\n        \"normalized\": {\r\n         
+    \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n          \"x\":
+    0.2973429,\r\n          \"y\": 0.954770744,\r\n          \"magnitude\": 1.0,\r\n         
+    \"sqrMagnitude\": 1.0\r\n        },\r\n        \"magnitude\": 366.580139,\r\n       
+    \"sqrMagnitude\": 134381.0\r\n      }\r\n    },\r\n    {\r\n      \"$type\":
+    \"QuestSystem.Data.Save.QuestSystemNodeSaveData, Assembly-CSharp-Editor\",\r\n     
+    \"NextNodeID\": null,\r\n      \"Description\": \"Give the hammer to Rufus\",\r\n     
+    \"Conditions\": {\r\n        \"$type\": \"System.Collections.Generic.List`1[[QuestSystem.Data.Save.QuestSystemConditionSaveData,
+    Assembly-CSharp-Editor]], mscorlib\",\r\n        \"$values\": [\r\n         
+    {\r\n            \"$type\": \"QuestSystem.Data.Save.QuestSystemConditionSaveData,
+    Assembly-CSharp-Editor\",\r\n            \"Condition\": 3,\r\n            \"ConditionValue\":
+    \"6b95d31c-df2d-4f3e-bd7c-512a3b11327f\"\r\n          }\r\n        ]\r\n     
+    },\r\n      \"Triggers\": {\r\n        \"$type\": \"System.Collections.Generic.List`1[[QuestSystem.Data.Save.QuestSystemTriggerSaveData,
+    Assembly-CSharp-Editor]], mscorlib\",\r\n        \"$values\": []\r\n      },\r\n     
+    \"NodeType\": 1,\r\n      \"NextGroupName\": null,\r\n      \"ID\": \"9f1a923e-589a-449a-878c-b37a580edff2\",\r\n     
+    \"GroupID\": \"c0a9d627-c6c9-45ec-b546-dc167069a7b9\",\r\n      \"Position\":
+    {\r\n        \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n       
+    \"x\": 548.0,\r\n        \"y\": 350.0,\r\n        \"normalized\": {\r\n         
+    \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n          \"x\":
+    0.842773736,\r\n          \"y\": 0.5382679,\r\n          \"normalized\": {\r\n           
+    \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n            \"x\":
+    0.8427738,\r\n            \"y\": 0.53826797,\r\n            \"magnitude\": 1.0,\r\n           
+    \"sqrMagnitude\": 1.00000012\r\n          },\r\n          \"magnitude\": 0.99999994,\r\n         
+    \"sqrMagnitude\": 0.99999994\r\n        },\r\n        \"magnitude\": 650.2338,\r\n       
+    \"sqrMagnitude\": 422804.0\r\n      }\r\n    }\r\n  ]\r\n}"
+  NodeLinks:
+  - BaseNodeID: bc04cb0c-38e5-4499-9e0a-d51555dc25eb
+    TargetNodeID: 9f1a923e-589a-449a-878c-b37a580edff2
+    OutputPortName: Output
+    InputPortName: Input

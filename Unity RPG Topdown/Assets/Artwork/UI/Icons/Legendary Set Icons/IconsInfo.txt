@@ -1,0 +1,23 @@
+Legendary Set Icons
+
++ Armour row
+
+- Helmet
+- Chest
+- Boots
+- Shield
+
+
++ Weapon row:
+
+- Dagger
+- Sword
+- Axe
+- Flail
+- Spear
+- Broadsword
+- Battle Axe
+- Pick Axe
+- Bow
+
+

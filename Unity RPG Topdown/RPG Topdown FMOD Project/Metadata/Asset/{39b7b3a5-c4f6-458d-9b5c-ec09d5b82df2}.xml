@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EncodableAsset" id="{39b7b3a5-c4f6-458d-9b5c-ec09d5b82df2}">
+		<property name="assetPath">
+			<value>Minifantasy_Magic_Weapons_SFX/Effects/Petrification/</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{6a941106-237d-4ec2-9001-26935f256730}</destination>
+		</relationship>
+	</object>
+</objects>

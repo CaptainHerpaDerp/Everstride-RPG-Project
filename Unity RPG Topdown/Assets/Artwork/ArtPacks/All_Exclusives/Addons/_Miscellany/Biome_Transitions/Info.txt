@@ -1,0 +1,17 @@
+This addon includes 31 biome transition panels that can be overlayed over any other tile to create different transitions not included by default in the asset packs.
+
+From top to bottom, the transition panels correspond to the following Minifantasy asset packs:
+
+- Forgotten Plains (2 grass and 2 dirt biome transitions)
+- Towns I (1 gravel biome transition)
+- Desolate Desert (2 oasis, 2 dry soil and 1 sand biome transitions)
+- Caves (2 cave ground biome transitions)
+- Icy Wilderness (1 ice biome transition)
+- Silent Swamp (2 mossy ground and 2 mud biome transitions)
+- Dwarven Kingdom (1 cave ground biome transition)
+- Lost Jungle (1 dirt and 1 grass biome transitions)
+- Necropolis (1 corrupted land biome transition)
+- Hellscape (1 scorched ground biome transition)
+- Orc Kingdom (1 grass and 3 dirt biome transitions)
+- Ancient Forest (3 forest floor and 3 dirt biome transitions)
+

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e977cc7b0ba606b44ba122d9f187907d, type: 3}
+  m_Name: Steel Plate Armour
+  m_EditorClassIdentifier: 
+  itemName: Steel Plate Armour
+  icon: {fileID: 367505573, guid: e1a15a9ee0450ad43a1b078a98792d7e, type: 3}
+  weight: 0
+  value: 0
+  stackableItem: 0
+  itemLibraryAsset: {fileID: 7108339969198208228, guid: 1015dd836d65cbe41817bf384075bb75, type: 3}
+  isColoured: 1
+  itemColor:
+    serializedVersion: 2
+    rgba: 4290559164
+  armourType: 1
+  armourDefense: 5

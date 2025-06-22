@@ -1,0 +1,13 @@
+*Frame size* 
+
+- 48x48px: For all the Summon Animations. 
+- 32x32px: For the lesser elementals 
+
+
+*Frame Duration*
+
+200ms
+
+---
+
+Note: The Fully animated lesser elementals are available to download in the Patreon Archive.

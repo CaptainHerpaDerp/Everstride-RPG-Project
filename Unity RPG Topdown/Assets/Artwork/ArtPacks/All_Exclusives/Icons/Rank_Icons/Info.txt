@@ -1,0 +1,6 @@
+A selection of upgradeable (3 levels) rank Icons with different designs:
+
+1st row: platinum
+2nd row: gold
+3rd row: silver
+4th row: bronze

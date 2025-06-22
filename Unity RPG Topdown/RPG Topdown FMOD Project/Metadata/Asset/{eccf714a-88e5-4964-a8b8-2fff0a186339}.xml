@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EncodableAsset" id="{eccf714a-88e5-4964-a8b8-2fff0a186339}">
+		<property name="assetPath">
+			<value>Minifantasy_Magic_Weapons_SFX/Attacks/Pierce/</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{6a941106-237d-4ec2-9001-26935f256730}</destination>
+		</relationship>
+	</object>
+</objects>

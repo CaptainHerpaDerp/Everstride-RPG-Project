@@ -1,0 +1,18 @@
+*Frame size* 
+
+- 32x32px: For all the animations.
+
+
+*Frame Duration*
+
+- 100ms: Attack, Die and Dmg.
+
+- 200ms: Idle and Walk.
+
+
+There are 3 fully animated premade Gnomes ready to use.The addon
+also includes separate layers (.png and .aseprite) in different shapes and/or colours to create many more variations. The included parts are:
+
+- Bodies (3 colours)
+- Heads (6, 2 saphes X 3 colours)
+- Hats (9, 3 shapes X 3 Colours)

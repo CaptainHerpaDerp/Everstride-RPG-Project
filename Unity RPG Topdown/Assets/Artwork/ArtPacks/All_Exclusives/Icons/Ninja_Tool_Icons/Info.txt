@@ -1,0 +1,22 @@
+Icons for adventurer's gear. 
+
+
+From left to right, top to bottom, the items are:
+
+1st Row:
+
+- Shuriken (ninja star)
+- Ninja Sword
+- Kunai (multi-porpuse ninja knife)
+- Tekko-Kagi (iron nails like bear claws)
+- Kakute (spiky finger ring for grappling)
+- Shinobi-Kumade (several short wooden pipes penetrated by a thick rope)
+
+
+2nd Row:
+
+- Kusarigama (sickle and a weight connected with a chain)
+- Manriki-gusari (two weights connected with a chain)
+- Tekken (knuckle dusters)
+- Blowgun
+- Hand Bomb

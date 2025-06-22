@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 498172ee291e50d4eaaac16c342c4153, type: 3}
+  m_Name: 9f1a923e-589a-449a-878c-b37a580edff2
+  m_EditorClassIdentifier: 
+  <NodeID>k__BackingField: 9f1a923e-589a-449a-878c-b37a580edff2
+  <Description>k__BackingField: Give the hammer to Rufus
+  <NextNodeID>k__BackingField: 
+  <Conditions>k__BackingField:
+  - <ConditionType>k__BackingField: 3
+    <ConditionValue>k__BackingField: 6b95d31c-df2d-4f3e-bd7c-512a3b11327f
+    <IsConditionMet>k__BackingField: 0
+  <Triggers>k__BackingField: []
+  <IsRootNode>k__BackingField: 0
+  <NodeType>k__BackingField: 1
+  <NextGroupName>k__BackingField: 

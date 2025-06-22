@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4fefd1da2f4e654fa8e695a1649a3f1, type: 3}
+  m_Name: 6b95d31c-df2d-4f3e-bd7c-512a3b11327f
+  m_EditorClassIdentifier: 
+  <DialogueID>k__BackingField: 6b95d31c-df2d-4f3e-bd7c-512a3b11327f
+  <Text>k__BackingField: "You found it! I didn\u2019t think you\u2019d actually bother.
+    This means more to me than I can say. Here."
+  <Choices>k__BackingField:
+  - <Text>k__BackingField: Glad I could help.
+    <NextDialogue>k__BackingField: {fileID: 11400000, guid: 766d86090872de547a2e1f02193db784, type: 2}
+  - <Text>k__BackingField: "It wasn\u2019t easy. You owe me. "
+    <NextDialogue>k__BackingField: {fileID: 11400000, guid: bbe49ff6eecfc304eb4a9a47db1ffa2b, type: 2}
+  <DialogueType>k__BackingField: 1
+  <EventTriggers>k__BackingField:
+  - <TriggerType>k__BackingField: 4
+    <ScriptableObjectGUID>k__BackingField: 
+  <IsStartingDialogue>k__BackingField: 0

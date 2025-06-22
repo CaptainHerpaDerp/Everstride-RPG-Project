@@ -1,0 +1,18 @@
+*Frame size* 
+
+- 64x64px
+
+
+*Frame Duration*
+
+- 100ms
+
+
+
+Notes:
+- The sprite sheets are divided in 3 rows: 1. Preparing, 2. Holding, 3. Casting
+- You can ignore the Holding row for a shorter casting time
+- You can loop the Holding row for a longer casting time
+- The frames number 7, 8, 9 and 10 of the 3rd row (casting row) are composed of just a flat white color (or an trasnparent white). This color should be extended to the rest of the screen to achieve the effect you see in the mockups
+- 'Super_Tier_Magic_Effect' layer should be rendered over the character casting the spell
+- 'Super_Tier_Magic_Ground_Effect' layer should be rendered under the character casting the spell

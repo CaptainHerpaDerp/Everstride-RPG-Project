@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65eb8564d3c91594190813c4d0d7de0c, type: 3}
+  m_Name: Iron Flail
+  m_EditorClassIdentifier: 
+  itemName: Iron Flail
+  icon: {fileID: -242691922, guid: 73f5fbbf3eba2a24faeb8f7831d0042b, type: 3}
+  weight: 9
+  value: 25
+  stackableItem: 0
+  itemLibraryAsset: {fileID: 7108339969198208228, guid: fb0999c9db483844b8961defbb3ef790, type: 3}
+  weaponMode: 1
+  weaponType: 5
+  weaponRange: 0.8
+  weaponAngle: 45
+  weaponDamage: 7
+  canBlock: 0

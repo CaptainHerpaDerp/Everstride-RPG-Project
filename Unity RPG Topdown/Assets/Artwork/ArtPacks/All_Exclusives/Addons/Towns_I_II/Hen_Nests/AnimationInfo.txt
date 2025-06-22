@@ -1,0 +1,12 @@
+*Frame size* 
+
+- 8x8px: For Small_Nest animations
+- 16x8px: For Large_Nest animations
+
+
+
+*Frame Duration*
+
+- 100ms: Hatching
+
+- 200ms: Idle, Incubate

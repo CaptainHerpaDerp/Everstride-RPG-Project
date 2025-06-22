@@ -1,0 +1,10 @@
+*Frame size* 
+
+- 32x32px: For all the animations.
+
+
+*Frame Duration*
+
+- 100ms: Ranged_Attack, Bite, Die, Dmg and Stone_Impact.
+
+- 200ms: Idle, Swimm and Walk.

@@ -1,0 +1,6 @@
+You can overlay the Shop walls over any building interior tileset from the collection. 
+I overlayed it over the indoor tileset of "Minifantasy - Towns I" as a sample.
+
+You can place different shop items (the small props) on different counters to make different compositions.
+
+You can mix and match props from different assets packs in the collection to create other kinds of shops.

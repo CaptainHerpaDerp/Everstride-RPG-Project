@@ -1,0 +1,10 @@
+*Frame size* 
+
+- Candle Stand: 8x16px
+
+- Candle Table: 24x24px
+
+
+*Frame Duration*
+
+- 200ms

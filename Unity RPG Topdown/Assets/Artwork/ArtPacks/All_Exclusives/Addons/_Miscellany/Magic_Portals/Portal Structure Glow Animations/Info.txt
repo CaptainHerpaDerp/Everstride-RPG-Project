@@ -1,0 +1,4 @@
+Frame size: 48x48
+- 1st row, Portal opening glow
+- 2nd row, Portal open and stable glow
+- 3rd row, Portal closing glow

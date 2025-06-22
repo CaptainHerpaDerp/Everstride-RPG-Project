@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EncodableAsset" id="{a47414c7-5c35-47a6-8a3a-cb6ceb01ca86}">
+		<property name="assetPath">
+			<value>Minifantasy_CraftingAndProfessions_SFX/Crafting_Professions/Tailor/</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{6a941106-237d-4ec2-9001-26935f256730}</destination>
+		</relationship>
+	</object>
+</objects>

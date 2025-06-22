@@ -1,0 +1,9 @@
+*Frame size* 
+
+- 24x24px: For 01 to 11.
+- 24x32px: For 12
+
+
+*Frame Duration*
+
+- 200ms

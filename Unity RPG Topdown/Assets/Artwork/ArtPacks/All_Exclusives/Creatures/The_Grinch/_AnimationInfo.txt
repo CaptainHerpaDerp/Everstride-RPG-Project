@@ -1,0 +1,13 @@
+*Frame size* 
+
+- 32x32px: For all the animations.
+
+
+*Frame Duration*
+
+- 100ms: Attack, Dmg, Die
+
+- 200ms: Idle and Walk.
+
+Note: The Attack Effect should overlayed over he Grinch sprite 
+while Attack Stomp should be overlayed under The Grinch.

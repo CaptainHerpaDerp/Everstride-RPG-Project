@@ -1,0 +1,4 @@
+Name: Darwin
+Race: Human
+Voice Type: Speaks with a deep, commanding voice that is both authoritative and intimidating.
+Role: Will do anything to sing happy birthay to anyone who approaches him.

@@ -1,0 +1,5 @@
+16 helmet designs in 4 colours 
+(first frame of the idle animation in the 4 directions for each helmet)
+
+To use the helmets in other animations, you will need to create an extra layer 
+with the helmet in the correct offset for each frame of a given animation.

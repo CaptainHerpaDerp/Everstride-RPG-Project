@@ -1,0 +1,24 @@
+*Frame size* 
+
+- 64x64px: For all the animations.
+
+
+*Frame Duration*
+
+- 100ms: Jump, Die, Dmg, Emerge, Submerge
+
+- 200ms: Idle
+
+
+
+Notes:
+The Sandworm animations comes splited in 4 layers:
+
+- Sand_Splash
+- Shadow
+- Worm
+- Sand_Hole
+
+Render the layers in the order presented above.
+
+Dmg and Idle animations does not have Sand_Splash layers

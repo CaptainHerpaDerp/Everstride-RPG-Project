@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EncodableAsset" id="{5479f023-19bd-4187-93fd-877864d15397}">
+		<property name="assetPath">
+			<value>Minifantasy_TrueHeroes_SFX/Druid/Special_Sounds/Shape_Shifting/</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{6a941106-237d-4ec2-9001-26935f256730}</destination>
+		</relationship>
+	</object>
+</objects>

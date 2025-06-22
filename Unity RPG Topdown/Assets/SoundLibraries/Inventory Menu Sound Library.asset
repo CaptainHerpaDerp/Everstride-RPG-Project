@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1deae9e6767c9646bd103c8c2978b99, type: 3}
+  m_Name: Inventory Menu Sound Library
+  m_EditorClassIdentifier: 
+  openSounds:
+  - {fileID: 8300000, guid: 3f41c5a1e0fce2d40a5d5fdc93f07b88, type: 3}
+  - {fileID: 8300000, guid: 9a56ca8294e3a2244b9bd9446e30e7f6, type: 3}
+  closeSounds:
+  - {fileID: 8300000, guid: c8f79de0d46376d4f8b4ca3f81827ecd, type: 3}
+  - {fileID: 8300000, guid: c773a57e1560b0544993a32db6cc05e8, type: 3}
+  tabSounds:
+  - {fileID: 8300000, guid: f6a619b1fa3291b42a635ab608ad9827, type: 3}
+  - {fileID: 8300000, guid: c22961e6a967d9042b3910a91cfc8353, type: 3}
+  hoverSounds:
+  - {fileID: 8300000, guid: a02e6cf9c8ecb2c4991fbd59937d5182, type: 3}
+  selectSounds:
+  - {fileID: 8300000, guid: 139cde52e9d2cad44a45370ef266b736, type: 3}
+  - {fileID: 8300000, guid: 4a268da29ecdb12498ac966f02aa7ed1, type: 3}

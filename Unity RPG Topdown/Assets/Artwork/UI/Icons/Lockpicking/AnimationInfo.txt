@@ -1,0 +1,11 @@
+*Frame size* 
+
+- 8x8px: For the three animations.
+
+
+
+*Frame Duration*
+
+- 200ms: Lockpicking 2
+
+- 500ms: Lockpicking 1 and 3

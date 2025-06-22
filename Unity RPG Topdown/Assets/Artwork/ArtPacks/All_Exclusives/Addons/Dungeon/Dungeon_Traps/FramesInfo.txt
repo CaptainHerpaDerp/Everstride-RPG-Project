@@ -1,0 +1,4 @@
+- Stone Bloc Trap: 24x24px
+- Blade Trap: 24x24px
+- Spears Trap: 16x16px
+- Pit Trap: 8x8px

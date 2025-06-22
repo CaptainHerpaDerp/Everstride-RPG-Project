@@ -1,0 +1,1 @@
+By design, the Air Elemental only has a shadow layer. This is for the armour pieces in the Die animation.

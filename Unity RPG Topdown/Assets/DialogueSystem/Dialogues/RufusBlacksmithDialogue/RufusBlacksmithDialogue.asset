@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d51690d38d96a7f4e8946453c3ee088d, type: 3}
+  m_Name: RufusBlacksmithDialogue
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: RufusBlacksmithDialogue
+  <DialogueGroups>k__BackingField:
+    list:
+    - Key: {fileID: 11400000, guid: 6d5a9cc4113a10f42b457b599ef230ff, type: 2}
+      Value:
+      - {fileID: 11400000, guid: 24333dfe673e6444bb87d3d9c6e17d3a, type: 2}
+      - {fileID: 11400000, guid: 23abe92f8c3b9d347a808ab35315dd97, type: 2}
+      - {fileID: 11400000, guid: 0c0cc4111177b3241975d5d2ee7edb92, type: 2}
+      - {fileID: 11400000, guid: 15942fd8fb3fbd447bbfed34ef587a53, type: 2}
+    - Key: {fileID: 11400000, guid: a97d543fce4f6df4cb612fb56b1a007c, type: 2}
+      Value:
+      - {fileID: 11400000, guid: e14ef5c3cae9920499f8099dc038d2a8, type: 2}
+      - {fileID: 11400000, guid: 062911466fc174b4684a1a1fdb98e3b1, type: 2}
+      - {fileID: 11400000, guid: 6440ce3a59c6eeb4e8d5654fded79e94, type: 2}
+      - {fileID: 11400000, guid: 19d1bd46f559ce84bafd247e96f8928c, type: 2}
+      - {fileID: 11400000, guid: 24aa1fd2cbdfc03479f482ff3d2b3cbd, type: 2}
+      - {fileID: 11400000, guid: 892c4252e0b007547aa70ada0b6a6cee, type: 2}
+      - {fileID: 11400000, guid: 0333736ca952f6744979e7c9330bee53, type: 2}
+    - Key: {fileID: 11400000, guid: d2e54f563235ae44e8005940f943c691, type: 2}
+      Value:
+      - {fileID: 11400000, guid: 6782d036e3d72844cacc313ae4cf5e37, type: 2}
+      - {fileID: 11400000, guid: d71b29aea12d74644838e74e783d694d, type: 2}
+      - {fileID: 11400000, guid: 43dd852cef1e6874a90dd8d7a4f689a8, type: 2}
+      - {fileID: 11400000, guid: 4f67cb74c083a954fbb532ddb5788d2b, type: 2}
+      - {fileID: 11400000, guid: 74e60106c192b3c4f8860be8e3914b97, type: 2}
+      - {fileID: 11400000, guid: b24251c315a5966449dc832e4c2a33ce, type: 2}
+    - Key: {fileID: 11400000, guid: 8f03c9c0e04a0904892348f10c91e746, type: 2}
+      Value:
+      - {fileID: 11400000, guid: 766d86090872de547a2e1f02193db784, type: 2}
+      - {fileID: 11400000, guid: bbe49ff6eecfc304eb4a9a47db1ffa2b, type: 2}
+      - {fileID: 11400000, guid: 417f11967c8307e4d8363c4b5e803639, type: 2}
+  <UngroupedDialogues>k__BackingField:
+  - {fileID: 11400000, guid: aa9cb90e7785dcb43b919bebe4e460ca, type: 2}

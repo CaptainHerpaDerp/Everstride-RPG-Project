@@ -1,0 +1,23 @@
+Icons for hero class Armours based on the 12 DnD classes. 
+
+
+From left to right the classes are:
+
+1st Row:
+
+- Barbarian
+- Bard
+- Cleric
+- Druid
+- Figther
+- Monk
+
+
+2nd Row:
+
+- Paladin
+- Ranger
+- Rogue
+- Sorcerer
+- Warlock
+- Wizard

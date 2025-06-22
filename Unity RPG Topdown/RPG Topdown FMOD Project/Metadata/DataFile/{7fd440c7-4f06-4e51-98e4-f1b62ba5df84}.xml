@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="DataFile" id="{7fd440c7-4f06-4e51-98e4-f1b62ba5df84}">
+		<property name="assetPath">
+			<value>Minifantasy_TrueHeroes_SFX/Patreon_Leohpaz.url</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{6a941106-237d-4ec2-9001-26935f256730}</destination>
+		</relationship>
+	</object>
+</objects>

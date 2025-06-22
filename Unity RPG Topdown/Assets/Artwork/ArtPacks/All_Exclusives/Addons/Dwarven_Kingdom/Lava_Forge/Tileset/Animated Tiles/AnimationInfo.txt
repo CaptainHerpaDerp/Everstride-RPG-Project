@@ -1,0 +1,10 @@
+*Frame size* 
+
+- 8x8px: Lava
+- 24x8px: Platform Into Lava (8x8 for individual tiles)
+- 88x88px: Platform Lava Channel (8x8 for individual tiles)
+
+
+*Frame Duration*
+
+- 300ms

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EncodableAsset" id="{a2481b21-b7f3-44ac-a13b-83254c4b6a36}">
+		<property name="assetPath">
+			<value>Minifantasy_TrueHeroes_SFX/Druid/General_Sounds/</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{6a941106-237d-4ec2-9001-26935f256730}</destination>
+		</relationship>
+	</object>
+</objects>

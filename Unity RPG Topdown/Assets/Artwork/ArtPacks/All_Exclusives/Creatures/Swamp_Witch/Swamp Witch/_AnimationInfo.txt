@@ -1,0 +1,12 @@
+*Frame size* 
+
+- 32x32px: For all the animations.
+
+
+*Frame Duration*
+
+- 100ms: Attack, Dmg, Frog Transformation and Ride
+
+- 200ms: Die, Fly, Frog Curse, Idle and Walk.
+
+

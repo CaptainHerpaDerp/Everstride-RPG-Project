@@ -1,0 +1,12 @@
+Junk Loot Icons. 
+
+
+From left to right, top to bottom, the items in the rows are:
+
+- Bone fragments (4 variants)
+- Rotten meat (2 variants), half eaten apple, guts, bloody flesh
+- Broken sword, broken dagger, broken spear, broken arrow, broken bow
+- Broken shield, damaged helmet, damaged armour, damaged boots, metal scraps
+- Broken shield, damaged hat, damaged, robe, damaged shoes, cloth scraps
+- Broken hammer, broken pickaxe, broken axe, broken shovel, broken fishing rod
+- Broken bottle (2 variants), broken flask (2 variants), broken key

@@ -1,0 +1,40 @@
+Loot Icons
+
++ 1st column: 
+
+- Orc, ear and finger
+- Goblin, ear and finger
+- Elf, ear and finger
+- Human, ear and finger
+- Dwarf, ear and finger
+- Halfling, ear and finger
+
+
++ 2nd column: 
+
+- Troll, ear and finger
+- Cyclop, ear and finger
+- Minotaur, ear, finger, tail, fur, horn and hoof
+- Yeti, ear, finger, tail, fur and horn
+- Wargo, tail, fur and fang
+- Slimes
+
+
+3rd column: 
+
+- Giant spider, legs, fangs, eyes and poison
+- Bear, fang, paw, skin, skull and meat
+- Snake, eye, fang and tongue
+- Wraith, soul, eye and cloth
+- Vampire, fang, cape and dust
+- Beholder, big eye, small eye and fang
+
+
+4th column Miscellany: 
+
+- Scales
+- Eye
+- Skull
+- Toad tonge
+- Tentacle
+- Ectoplasm

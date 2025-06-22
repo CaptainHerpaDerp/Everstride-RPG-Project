@@ -1,0 +1,10 @@
+*Frame size* 
+
+- 32x32px: For all the animations.
+
+
+*Frame Duration*
+
+- 100ms: Attack, Attack2Diagonal, Attack2Orthogonal, Die, Dmg and FireBallExplosion.
+
+- 200ms: Idle and Walk.

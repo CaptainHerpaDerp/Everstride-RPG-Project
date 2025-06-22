@@ -1,0 +1,11 @@
+*Frame size* 
+
+- 32x32px: Dwarven Furnace L and R
+- 48x48px: Dwarven Furnace Double
+- 80x88px: Lava Cascade
+
+
+*Frame Duration*
+
+- 200ms: Dwarven Furnaces
+- 300ms: Lava Cascade

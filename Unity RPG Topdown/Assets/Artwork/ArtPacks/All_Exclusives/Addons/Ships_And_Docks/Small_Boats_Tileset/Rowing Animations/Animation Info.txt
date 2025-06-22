@@ -1,0 +1,15 @@
+*Frame size* 
+
+Horizontal rowing: 40x40px
+
+Vertical Rowing: 48x48px
+
+
+*Frame Duration*
+
+200ms
+
+
+Note: Each row in the sprite sheet matches one of the 3 different sizes of the boat bodies.
+
+

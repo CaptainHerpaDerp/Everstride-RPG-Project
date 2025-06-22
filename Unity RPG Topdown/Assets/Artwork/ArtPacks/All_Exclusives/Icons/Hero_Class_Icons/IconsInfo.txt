@@ -1,0 +1,19 @@
+Icons for hero classes based on the 12 DnD classes. 
+
+Each column has the icons for a class. Every class has 2 different icon designs available, plus monocromatic and policromatic variations.
+
+From left to right the classes are:
+
+
+- Barbarian
+- Bard
+- Cleric
+- Druid
+- Figther
+- Monk
+- Paladin
+- Ranger
+- Rogue
+- Sorcerer
+- Warlock
+- Wizard

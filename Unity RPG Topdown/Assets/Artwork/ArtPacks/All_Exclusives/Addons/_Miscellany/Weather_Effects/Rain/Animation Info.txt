@@ -1,0 +1,13 @@
+*Frame size* 
+
+- 16x16px: For Rain_Splash
+
+- 32x32px: For all the other animations
+
+
+*Frame Duration*
+
+100ms: For all the animations
+
+
+

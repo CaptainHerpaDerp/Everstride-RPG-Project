@@ -1,0 +1,23 @@
+Profession Icons
+
+
++ 1st column:
+
+- Harvesting/herbalism 
+- Logging 
+- Mining
+- Bug Catching 
+- Fishing 
+- Hunting
+
+
++ 2nd column:
+
+- Alchemy
+- Blacksmith
+- Jewelry
+- Tailor
+- Woodworking
+- Cooking
+- Dyeing
+- Leatherwork

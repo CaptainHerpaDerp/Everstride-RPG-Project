@@ -1,0 +1,13 @@
+Tileset compatible with Minifantasy - Forgotten Plains.
+
+
+
+Tip 1: You can use Minifantasy - Tiny Overworld to make backgrounds to create the effect of the islands floating high in the sky.
+
+
+Tip 2: To create casting shadows for islands floating close to the ground, 
+make a shadow with the shape of the complete silhouette of the island and then apply the desired offset to it.
+
+
+Tip 3: To create a slight floating movement for the islands,
+apply an offset of 1 or 2 pixels to the island itself and all the elements on it.

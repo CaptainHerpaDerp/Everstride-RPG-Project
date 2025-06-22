@@ -1,0 +1,31 @@
+Icons for the skills of the hero characters included in Minifantasy - True Heroes II asset pack.
+
+
++ 1st Row: Bard
+
+Bard Icon
+Base Attack
+Apotheosis
+Dissonant Chord
+Ballad Song
+Enhancement Song (4 icons)
+Vicious Mockery Song
+
++ 2nd Row: Cleric
+
+Cleric Icon
+Base Attack
+Divine Fire
+Healing Words
+Spirit Guardians
+Word Of Pain
+
+
++ 3rd Column:
+
+Paladin Icon
+Base Attack
+Blades Of Justice
+Dome Of Rightfulness
+Holy Hammer
+Shield Bash

@@ -1,0 +1,5 @@
+The mockup also uses:
+
+- Ground tiles from the "More Grass Variations" Patreon exclusive addon (https://www.patreon.com/posts/exclusive-more-82281873)
+
+- Pandas from Minifantasy - Wildlife asset pack (https://krishna-palacio.itch.io/minifantasy-wildlife)

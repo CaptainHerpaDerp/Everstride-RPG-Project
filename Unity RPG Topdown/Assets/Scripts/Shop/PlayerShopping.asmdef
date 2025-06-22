@@ -1,0 +1,20 @@
+{
+    "name": "PlayerShopping",
+    "rootNamespace": "",
+    "references": [
+        "GUID:c7822c062505704488a98dc9003498db",
+        "GUID:377a8e281c4e64c498bcb8cd09473d0b",
+        "GUID:a0e9750b5a6dc894f8724bdd6597b6ed",
+        "GUID:cfa4ecc52579fb84ab1d2ed01ab5391d",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

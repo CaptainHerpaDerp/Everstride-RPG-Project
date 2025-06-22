@@ -1,0 +1,12 @@
+For Both Turn_Page and Turn_Page_Reversed animations.
+
+*Frame size* 
+
+320x180px
+
+
+*Frame Duration*
+
+100ms
+
+

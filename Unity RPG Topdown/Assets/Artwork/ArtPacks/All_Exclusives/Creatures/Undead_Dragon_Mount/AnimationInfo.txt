@@ -1,0 +1,13 @@
+This add-on includes rider layers of the 6 humanoid races for the Undead Dragon.
+
+
+*Frame size* 
+
+- 80x80px: For all the animations.
+
+
+*Frame Duration*
+
+- 100ms: Attack, Dmg, Ride_Up_Down_And_Die.
+
+- 200ms: Idle and Walk.

@@ -1,0 +1,22 @@
+{
+    "name": "QuestSystem",
+    "rootNamespace": "",
+    "references": [
+        "GUID:a0e9750b5a6dc894f8724bdd6597b6ed",
+        "GUID:c7822c062505704488a98dc9003498db",
+        "GUID:c94ed53608f94c449adb7c89b4686604",
+        "GUID:377a8e281c4e64c498bcb8cd09473d0b",
+        "GUID:66487512297a89e4cb2c8e9e5728d24a",
+        "GUID:cfa4ecc52579fb84ab1d2ed01ab5391d",
+        "GUID:e9629ee42c1a6c046bcfc99215a0a1c1"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

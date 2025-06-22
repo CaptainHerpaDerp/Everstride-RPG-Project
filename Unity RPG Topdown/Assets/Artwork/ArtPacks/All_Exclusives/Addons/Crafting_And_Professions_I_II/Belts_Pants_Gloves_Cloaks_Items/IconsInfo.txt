@@ -1,0 +1,11 @@
++ columns: Materials
+1st cloth
+2nd Wooden
+3rd Metal
+4th Leather 
+
++ Rows: Items
+1st Belt
+2nd pants
+3rd Gloves/wristbands
+4th Cloaks

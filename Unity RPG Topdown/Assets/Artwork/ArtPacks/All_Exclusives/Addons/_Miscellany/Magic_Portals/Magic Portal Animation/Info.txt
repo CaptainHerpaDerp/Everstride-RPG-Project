@@ -1,0 +1,4 @@
+Frame size: 48x48
+- 1st row, Portal opening
+- 2nd row, Portal open and stable
+- 3rd row, Portal closing

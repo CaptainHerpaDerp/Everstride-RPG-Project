@@ -1,0 +1,26 @@
+Animation Information
+
+*Frame size* 
+
+24x24px
+
+
+
+*Frame Duration*
+
+200ms
+
+---
+
+Notes:
+
+a- The "Ossuary_Skeleton_Spawning.png" rows display spawning animations that match all Ossuary tiles available on Minifantasy – Crypt Of The Forgotten.
+
+b- After a skeleton has spawned, you can replace that ossuary tile with the matching tile from "Ossuary_Tiles_After_Spawn.png" to leave a bone gap in the Ossuary. Alternatively, you can leave the Ossuary without a gap if you want to keep spawning skeletons continuously from the same Ossuary tile.
+
+c- I have included a guideline image to help you quickly visualize which tiles from this add-on correspond with the original Ossuary tiles from Minifantasy - Crypt Of The Forgotten.
+
+
+
+
+

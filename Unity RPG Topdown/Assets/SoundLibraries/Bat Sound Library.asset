@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6760324b6b4eee340934502568d55a63, type: 3}
+  m_Name: Bat Sound Library
+  m_EditorClassIdentifier: 
+  hitSounds:
+  - {fileID: 8300000, guid: c055ca32725e8ee4db7f404945fc7927, type: 3}
+  - {fileID: 8300000, guid: 70e509e556b37c14e848e19128e4157d, type: 3}
+  attackSounds:
+  - {fileID: 8300000, guid: 4b05bcc244f44f44fb43bd64b8a41a58, type: 3}
+  - {fileID: 8300000, guid: 11ecc962ae4e75d4aa90ea464fac45a0, type: 3}
+  spinDeath: {fileID: 8300000, guid: 921779615d1e7b942a50d060574db399, type: 3}
+  soulDeath: {fileID: 0}
+  drinkPotionSounds: []
+  eatFruitSounds: []

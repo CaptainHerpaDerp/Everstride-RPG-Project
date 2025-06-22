@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4fefd1da2f4e654fa8e695a1649a3f1, type: 3}
+  m_Name: 4f1a626f-ac76-4a84-84a0-108597de2ebc
+  m_EditorClassIdentifier: 
+  <DialogueID>k__BackingField: 4f1a626f-ac76-4a84-84a0-108597de2ebc
+  <Text>k__BackingField: What do you need?
+  <Choices>k__BackingField:
+  - <Text>k__BackingField: 'Where exactly did you lose it? '
+    <NextDialogue>k__BackingField: {fileID: 11400000, guid: 4f67cb74c083a954fbb532ddb5788d2b, type: 2}
+  - <Text>k__BackingField: 'What does it look like? '
+    <NextDialogue>k__BackingField: {fileID: 11400000, guid: 74e60106c192b3c4f8860be8e3914b97, type: 2}
+  <DialogueType>k__BackingField: 1
+  <EventTriggers>k__BackingField: []
+  <IsStartingDialogue>k__BackingField: 0

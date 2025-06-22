@@ -1,0 +1,17 @@
+*Frame size* 
+
+- 64x64px: For all the animations.
+
+
+*Frame Duration*
+
+- 100ms: Attack, Dmg, Die
+
+- 200ms:  Idle and Walk
+
+Notes:
+- You can build the Balrog animation with or without the wings.
+- Wing layers are named with “_f” or “_b” at the end.
+- “_f” stands for “front view” of the character, while “_b” stands for back view of the character.
+- The “_f” layer should be placed under/rendered before the character (as the character body partially covers the wings layer).
+- The “_b” layer should be placed above/rendered after the character (as the wings partially cover the character layer).

@@ -1,0 +1,12 @@
+*Frame size* 
+
+- 8x8px for Small Mushrooms
+- 16x16px for Medium Mushrooms
+- 24x24px for Big Mushrooms
+
+*Frame Duration*
+
+- 300ms for all of them
+
+
+Tip: You can mix and match Mushroom colours with Glow colours to get more variations

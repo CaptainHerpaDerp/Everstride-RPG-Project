@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6760324b6b4eee340934502568d55a63, type: 3}
+  m_Name: Orc Sound Library
+  m_EditorClassIdentifier: 
+  hitSounds:
+  - {fileID: 8300000, guid: ec11f247cc68223489deb4f132c00f6f, type: 3}
+  - {fileID: 8300000, guid: f5f4b2d3bbdd20a429d3acb8cfe2f459, type: 3}
+  - {fileID: 8300000, guid: 77ea4d1d7c39e8544b876a7341648d4e, type: 3}
+  attackSounds: []
+  spinDeath: {fileID: 8300000, guid: 0640cc7506ce3f9419c0068143197ea3, type: 3}
+  soulDeath: {fileID: 0}

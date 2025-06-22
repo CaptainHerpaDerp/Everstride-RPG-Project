@@ -1,0 +1,15 @@
+*Frame size* 
+
+- 16x16px: For the Spell_Ice_Claws animation
+
+- 32x32px: For all the other animations
+
+
+*Frame Duration*
+
+- 100ms: Die and Dmg.
+
+- 200ms: Idle, Spellcast, Fly, Ice Claws and Zombie/Skeleton Reanimation.
+
+
+Note: You can find the full animations for zombies and skeletons in Minifantasy - Creatures

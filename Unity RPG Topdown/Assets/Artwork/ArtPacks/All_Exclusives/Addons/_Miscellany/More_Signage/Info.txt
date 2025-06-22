@@ -1,0 +1,3 @@
+This add-on includes 4 sign styles with several variations each, for a total of 39 models x 6 colour palettes.
+
+The writing effect on the signs is layered, so you can remove it to have cleaner versions of the signs.

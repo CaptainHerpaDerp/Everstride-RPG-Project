@@ -1,0 +1,5 @@
++ Right set: 
+Tallgrass base tiles.
+
++ Left set: 
+Trampled grass tiles to make trails or to animate the grass when your characters walk through tall tall grass areas.

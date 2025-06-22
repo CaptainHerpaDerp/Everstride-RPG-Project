@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4fefd1da2f4e654fa8e695a1649a3f1, type: 3}
+  m_Name: 35c6d31c-2f88-4e1a-b83d-7a2055c6199a
+  m_EditorClassIdentifier: 
+  <DialogueID>k__BackingField: 35c6d31c-2f88-4e1a-b83d-7a2055c6199a
+  <Text>k__BackingField: "Hmm? You need something? I\u2019m busy with work."
+  <Choices>k__BackingField:
+  - <Text>k__BackingField: I just wanted to say hello.
+    <NextDialogue>k__BackingField: {fileID: 11400000, guid: 24333dfe673e6444bb87d3d9c6e17d3a, type: 2}
+  - <Text>k__BackingField: Do you have anything for sale?
+    <NextDialogue>k__BackingField: {fileID: 11400000, guid: 23abe92f8c3b9d347a808ab35315dd97, type: 2}
+  - <Text>k__BackingField: What are you working on?
+    <NextDialogue>k__BackingField: {fileID: 11400000, guid: 15942fd8fb3fbd447bbfed34ef587a53, type: 2}
+  <DialogueType>k__BackingField: 1
+  <EventTriggers>k__BackingField:
+  - <TriggerType>k__BackingField: 3
+    <ScriptableObjectGUID>k__BackingField: 
+  <IsStartingDialogue>k__BackingField: 1

@@ -1,0 +1,15 @@
+IMPORTANT:
+
+* When building animations to create different Gladiators, use/render layers in the order specified below.
+** Only for the Attack animation, the Helmet and Weapon layers should Swap their positions in the hierarchy.
+
+
+0- Dots Or effect_F (only for Dmg and Net_Throw animations)
+1- Shield_F
+2- Helmet **
+3- Weapon **
+4- Clothes
+5- Character
+6- Shield_B
+7- Effect_B (Net_Throw animation)
+8- Shadow

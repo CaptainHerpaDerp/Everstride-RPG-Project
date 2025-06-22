@@ -1,0 +1,13 @@
+*Frame size* 
+
+- 32x32px: For all the animations
+
+
+*Frame Duration*
+
+200ms: For Snowfall
+
+100ms: For Snowfall_Left and Snowfall_Right
+
+
+

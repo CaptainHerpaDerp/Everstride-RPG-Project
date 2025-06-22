@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65eb8564d3c91594190813c4d0d7de0c, type: 3}
+  m_Name: WindSpellBook
+  m_EditorClassIdentifier: 
+  itemName: Wind Blast
+  icon: {fileID: 419941175, guid: 8411e19c193ed3a4ab2b2e73ef3e461a, type: 3}
+  weight: 0.2
+  value: 200
+  stackableItem: 0
+  itemLibraryAsset: {fileID: 7108339969198208228, guid: f09b781e3fba7e24b969c4fdfd12cc0e, type: 3}
+  isColoured: 0
+  itemColor:
+    serializedVersion: 2
+    rgba: 0
+  weaponMode: 5
+  weaponType: 15
+  weaponRange: 0
+  weaponAngle: 0
+  weaponDamage: 0
+  canBlock: 0
+  _spellType: 2
+  _castCost: 20

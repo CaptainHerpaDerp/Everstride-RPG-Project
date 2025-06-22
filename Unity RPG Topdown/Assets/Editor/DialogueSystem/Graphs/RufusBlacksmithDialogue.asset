@@ -1,0 +1,559 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e1ad28ad587b74499eb2136b595a22d, type: 3}
+  m_Name: RufusBlacksmithDialogue
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: RufusBlacksmithDialogue
+  <Groups>k__BackingField:
+  - <ID>k__BackingField: dbf8fe28-9f88-40c4-8a75-af32df77bed5
+    <Name>k__BackingField: Introduction
+    <Position>k__BackingField: {x: 182, y: -277.00003}
+  - <ID>k__BackingField: bef058cb-1995-4122-94f5-e550cf1d88be
+    <Name>k__BackingField: Default
+    <Position>k__BackingField: {x: 1002.99994, y: -277.00003}
+  - <ID>k__BackingField: 1b918361-3612-49ef-be92-04dacf18691c
+    <Name>k__BackingField: QuestInProgress
+    <Position>k__BackingField: {x: 1002.0001, y: 664}
+  - <ID>k__BackingField: eb0da0ef-261a-4cb8-b440-5934e497ddd9
+    <Name>k__BackingField: New Group
+    <Position>k__BackingField: {x: 2760.0002, y: 674}
+  <Nodes>k__BackingField: []
+  <OldGroupNames>k__BackingField:
+  - Introduction
+  - Default
+  - QuestInProgress
+  - New Group
+  <OldUngroupedNodeNames>k__BackingField:
+  - 2ebdc70c-a122-4455-a60b-5e1e83c2eb51
+  <OldGroupNodeNames>k__BackingField:
+    list:
+    - Key: Introduction
+      Value:
+      - 26dc7b8b-2cf3-44a3-b975-1b062b8cdd65
+      - 0e69652e-d4a6-4911-8310-9413525c2367
+      - 35c6d31c-2f88-4e1a-b83d-7a2055c6199a
+      - b4900127-bff5-4838-a450-1a06a578c442
+    - Key: Default
+      Value:
+      - be1ceedf-8e1c-4d6d-9166-13ce9a79412f
+      - 96571f34-86cf-46bf-b3a9-54c7c1466437
+      - b34d77d5-6a02-406d-9274-b57043c42fcd
+      - fe80fb41-7438-4506-b3ba-7375b071bab1
+      - c78e450b-355d-4110-a3f5-968c7a8c36c7
+      - d67d0290-91a5-4dde-92c3-84b4de46b66e
+      - 2421ab5d-da7f-4267-a214-26f80b1cdd17
+    - Key: QuestInProgress
+      Value:
+      - 4c717219-ba94-41ac-b9f0-a476ddda4208
+      - a581fc87-c11e-4727-9bb5-c624f2956595
+      - 4f1a626f-ac76-4a84-84a0-108597de2ebc
+      - a809773d-d010-48d6-976e-4b4b2ab51651
+      - 0b043a7d-ded6-49c3-88e0-0ae345d16512
+      - 26642a90-eb5b-4b56-aa8b-12ac38c8f97c
+    - Key: New Group
+      Value:
+      - 78a7caca-e601-4b8f-81d5-1e0d83940d7a
+      - d1f13d3c-3fe2-44fa-931b-2bc5b0e7de1a
+      - 6b95d31c-df2d-4f3e-bd7c-512a3b11327f
+  <SerializedNodes>k__BackingField: "{\r\n  \"$type\": \"System.Collections.Generic.List`1[[GraphSystem.Base.Data.Save.BaseNodeSaveData,
+    Assembly-CSharp-Editor]], mscorlib\",\r\n  \"$values\": [\r\n    {\r\n      \"$type\":
+    \"DialogueSystem.Data.Save.DialogueSystemNodeSaveData, Assembly-CSharp-Editor\",\r\n     
+    \"Text\": \"Alright. You\u2019ve said it. \",\r\n      \"Choices\": {\r\n       
+    \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor]], mscorlib\",\r\n        \"$values\": [\r\n         
+    {\r\n            \"$type\": \"DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor\",\r\n            \"Text\": \"Next Dialogue\",\r\n           
+    \"NodeID\": null\r\n          }\r\n        ]\r\n      },\r\n      \"DialogueType\":
+    0,\r\n      \"EventTriggers\": {\r\n        \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemEventTriggerSaveData,
+    DialogueSystem]], mscorlib\",\r\n        \"$values\": []\r\n      },\r\n     
+    \"ID\": \"26dc7b8b-2cf3-44a3-b975-1b062b8cdd65\",\r\n      \"GroupID\": \"dbf8fe28-9f88-40c4-8a75-af32df77bed5\",\r\n     
+    \"Position\": {\r\n        \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n       
+    \"x\": 681.0,\r\n        \"y\": -218.0,\r\n        \"normalized\": {\r\n         
+    \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n          \"x\":
+    0.9523917,\r\n          \"y\": -0.304877222,\r\n          \"magnitude\": 1.0,\r\n         
+    \"sqrMagnitude\": 1.0\r\n        },\r\n        \"magnitude\": 715.041931,\r\n       
+    \"sqrMagnitude\": 511285.0\r\n      }\r\n    },\r\n    {\r\n      \"$type\":
+    \"DialogueSystem.Data.Save.DialogueSystemNodeSaveData, Assembly-CSharp-Editor\",\r\n     
+    \"Text\": \"If you\u2019ve got coin, I\u2019ve got tools. Take a look.\",\r\n     
+    \"Choices\": {\r\n        \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor]], mscorlib\",\r\n        \"$values\": [\r\n         
+    {\r\n            \"$type\": \"DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor\",\r\n            \"Text\": \"Next Dialogue\",\r\n           
+    \"NodeID\": null\r\n          }\r\n        ]\r\n      },\r\n      \"DialogueType\":
+    0,\r\n      \"EventTriggers\": {\r\n        \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemEventTriggerSaveData,
+    DialogueSystem]], mscorlib\",\r\n        \"$values\": []\r\n      },\r\n     
+    \"ID\": \"0e69652e-d4a6-4911-8310-9413525c2367\",\r\n      \"GroupID\": \"dbf8fe28-9f88-40c4-8a75-af32df77bed5\",\r\n     
+    \"Position\": {\r\n        \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n       
+    \"x\": 681.0,\r\n        \"y\": 20.0,\r\n        \"normalized\": {\r\n         
+    \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n          \"x\":
+    0.999569,\r\n          \"y\": 0.0293559171,\r\n          \"magnitude\": 1.0,\r\n         
+    \"sqrMagnitude\": 0.99999994\r\n        },\r\n        \"magnitude\": 681.29364,\r\n       
+    \"sqrMagnitude\": 464161.0\r\n      }\r\n    },\r\n    {\r\n      \"$type\":
+    \"DialogueSystem.Data.Save.DialogueSystemNodeSaveData, Assembly-CSharp-Editor\",\r\n     
+    \"Text\": \"Hmm? You need something? I\u2019m busy with work.\",\r\n      \"Choices\":
+    {\r\n        \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor]], mscorlib\",\r\n        \"$values\": [\r\n         
+    {\r\n            \"$type\": \"DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor\",\r\n            \"Text\": \"I just wanted to say hello.\",\r\n           
+    \"NodeID\": \"26dc7b8b-2cf3-44a3-b975-1b062b8cdd65\"\r\n          },\r\n         
+    {\r\n            \"$type\": \"DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor\",\r\n            \"Text\": \"Do you have anything for
+    sale?\",\r\n            \"NodeID\": \"0e69652e-d4a6-4911-8310-9413525c2367\"\r\n         
+    },\r\n          {\r\n            \"$type\": \"DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor\",\r\n            \"Text\": \"What are you working on?\",\r\n           
+    \"NodeID\": \"b4900127-bff5-4838-a450-1a06a578c442\"\r\n          }\r\n       
+    ]\r\n      },\r\n      \"DialogueType\": 1,\r\n      \"EventTriggers\": {\r\n       
+    \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemEventTriggerSaveData,
+    DialogueSystem]], mscorlib\",\r\n        \"$values\": [\r\n          {\r\n           
+    \"$type\": \"DialogueSystem.Data.Save.DialogueSystemEventTriggerSaveData, DialogueSystem\",\r\n           
+    \"TriggerType\": 3,\r\n            \"TriggerValue\": \"Default\",\r\n           
+    \"ScriptableObjectGUID\": \"\"\r\n          }\r\n        ]\r\n      },\r\n     
+    \"ID\": \"35c6d31c-2f88-4e1a-b83d-7a2055c6199a\",\r\n      \"GroupID\": \"dbf8fe28-9f88-40c4-8a75-af32df77bed5\",\r\n     
+    \"Position\": {\r\n        \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n       
+    \"x\": 207.0,\r\n        \"y\": -113.0,\r\n        \"normalized\": {\r\n         
+    \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n          \"x\":
+    0.877733469,\r\n          \"y\": -0.4791492,\r\n          \"magnitude\": 1.0,\r\n         
+    \"sqrMagnitude\": 1.0\r\n        },\r\n        \"magnitude\": 235.834686,\r\n       
+    \"sqrMagnitude\": 55618.0\r\n      }\r\n    },\r\n    {\r\n      \"$type\": \"DialogueSystem.Data.Save.DialogueSystemNodeSaveData,
+    Assembly-CSharp-Editor\",\r\n      \"Text\": \"Just another horseshoe. Nothing
+    exciting. But it keeps the town running.\",\r\n      \"Choices\": {\r\n       
+    \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor]], mscorlib\",\r\n        \"$values\": [\r\n         
+    {\r\n            \"$type\": \"DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor\",\r\n            \"Text\": \"Next Dialogue\",\r\n           
+    \"NodeID\": null\r\n          }\r\n        ]\r\n      },\r\n      \"DialogueType\":
+    0,\r\n      \"EventTriggers\": {\r\n        \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemEventTriggerSaveData,
+    DialogueSystem]], mscorlib\",\r\n        \"$values\": []\r\n      },\r\n     
+    \"ID\": \"b4900127-bff5-4838-a450-1a06a578c442\",\r\n      \"GroupID\": \"dbf8fe28-9f88-40c4-8a75-af32df77bed5\",\r\n     
+    \"Position\": {\r\n        \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n       
+    \"x\": 681.0,\r\n        \"y\": 296.0,\r\n        \"normalized\": {\r\n         
+    \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n          \"x\":
+    0.9171128,\r\n          \"y\": 0.3986276,\r\n          \"normalized\": {\r\n           
+    \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n            \"x\":
+    0.9171129,\r\n            \"y\": 0.398627639,\r\n            \"magnitude\": 1.0,\r\n           
+    \"sqrMagnitude\": 1.0\r\n          },\r\n          \"magnitude\": 0.99999994,\r\n         
+    \"sqrMagnitude\": 0.9999999\r\n        },\r\n        \"magnitude\": 742.547668,\r\n       
+    \"sqrMagnitude\": 551377.0\r\n      }\r\n    },\r\n    {\r\n      \"$type\":
+    \"DialogueSystem.Data.Save.DialogueSystemNodeSaveData, Assembly-CSharp-Editor\",\r\n     
+    \"Text\": \"You again? Make it quick.\",\r\n      \"Choices\": {\r\n        \"$type\":
+    \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor]], mscorlib\",\r\n        \"$values\": [\r\n         
+    {\r\n            \"$type\": \"DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor\",\r\n            \"Text\": \"How\u2019s business?\",\r\n           
+    \"NodeID\": \"96571f34-86cf-46bf-b3a9-54c7c1466437\"\r\n          },\r\n         
+    {\r\n            \"$type\": \"DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor\",\r\n            \"Text\": \"Can we trade?\",\r\n           
+    \"NodeID\": \"b34d77d5-6a02-406d-9274-b57043c42fcd\"\r\n          },\r\n         
+    {\r\n            \"$type\": \"DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor\",\r\n            \"Text\": \"Do you need help with anything?\",\r\n           
+    \"NodeID\": \"fe80fb41-7438-4506-b3ba-7375b071bab1\"\r\n          }\r\n       
+    ]\r\n      },\r\n      \"DialogueType\": 1,\r\n      \"EventTriggers\": {\r\n       
+    \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemEventTriggerSaveData,
+    DialogueSystem]], mscorlib\",\r\n        \"$values\": []\r\n      },\r\n     
+    \"ID\": \"be1ceedf-8e1c-4d6d-9166-13ce9a79412f\",\r\n      \"GroupID\": \"bef058cb-1995-4122-94f5-e550cf1d88be\",\r\n     
+    \"Position\": {\r\n        \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n       
+    \"x\": 1028.0,\r\n        \"y\": 61.0,\r\n        \"normalized\": {\r\n         
+    \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n          \"x\":
+    0.9982441,\r\n          \"y\": 0.05923433,\r\n          \"magnitude\": 1.0,\r\n         
+    \"sqrMagnitude\": 1.0\r\n        },\r\n        \"magnitude\": 1029.80823,\r\n       
+    \"sqrMagnitude\": 1060505.0\r\n      }\r\n    },\r\n    {\r\n      \"$type\":
+    \"DialogueSystem.Data.Save.DialogueSystemNodeSaveData, Assembly-CSharp-Editor\",\r\n     
+    \"Text\": \"Busy enough. Always something needing fixing.\",\r\n      \"Choices\":
+    {\r\n        \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor]], mscorlib\",\r\n        \"$values\": [\r\n         
+    {\r\n            \"$type\": \"DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor\",\r\n            \"Text\": \"Can we trade?\",\r\n           
+    \"NodeID\": \"b34d77d5-6a02-406d-9274-b57043c42fcd\"\r\n          },\r\n         
+    {\r\n            \"$type\": \"DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor\",\r\n            \"Text\": \"Do you need help with anything?\",\r\n           
+    \"NodeID\": \"fe80fb41-7438-4506-b3ba-7375b071bab1\"\r\n          }\r\n       
+    ]\r\n      },\r\n      \"DialogueType\": 1,\r\n      \"EventTriggers\": {\r\n       
+    \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemEventTriggerSaveData,
+    DialogueSystem]], mscorlib\",\r\n        \"$values\": []\r\n      },\r\n     
+    \"ID\": \"96571f34-86cf-46bf-b3a9-54c7c1466437\",\r\n      \"GroupID\": \"bef058cb-1995-4122-94f5-e550cf1d88be\",\r\n     
+    \"Position\": {\r\n        \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n       
+    \"x\": 1463.0,\r\n        \"y\": -218.0,\r\n        \"normalized\": {\r\n         
+    \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n          \"x\":
+    0.989079654,\r\n          \"y\": -0.147381663,\r\n          \"normalized\": {\r\n           
+    \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n            \"x\":
+    0.9890797,\r\n            \"y\": -0.147381678,\r\n            \"magnitude\":
+    1.0,\r\n            \"sqrMagnitude\": 1.0\r\n          },\r\n          \"magnitude\":
+    0.99999994,\r\n          \"sqrMagnitude\": 0.99999994\r\n        },\r\n       
+    \"magnitude\": 1479.15283,\r\n        \"sqrMagnitude\": 2187893.0\r\n      }\r\n   
+    },\r\n    {\r\n      \"$type\": \"DialogueSystem.Data.Save.DialogueSystemNodeSaveData,
+    Assembly-CSharp-Editor\",\r\n      \"Text\": \"Rufus: Sure. Let\u2019s see what
+    you\u2019ve got.\",\r\n      \"Choices\": {\r\n        \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor]], mscorlib\",\r\n        \"$values\": [\r\n         
+    {\r\n            \"$type\": \"DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor\",\r\n            \"Text\": \"Next Dialogue\",\r\n           
+    \"NodeID\": null\r\n          }\r\n        ]\r\n      },\r\n      \"DialogueType\":
+    0,\r\n      \"EventTriggers\": {\r\n        \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemEventTriggerSaveData,
+    DialogueSystem]], mscorlib\",\r\n        \"$values\": []\r\n      },\r\n     
+    \"ID\": \"b34d77d5-6a02-406d-9274-b57043c42fcd\",\r\n      \"GroupID\": \"bef058cb-1995-4122-94f5-e550cf1d88be\",\r\n     
+    \"Position\": {\r\n        \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n       
+    \"x\": 2041.0,\r\n        \"y\": -1.0,\r\n        \"normalized\": {\r\n         
+    \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n          \"x\":
+    0.9999999,\r\n          \"y\": -0.0004899558,\r\n          \"magnitude\": 1.0,\r\n         
+    \"sqrMagnitude\": 1.0\r\n        },\r\n        \"magnitude\": 2041.00024,\r\n       
+    \"sqrMagnitude\": 4165682.0\r\n      }\r\n    },\r\n    {\r\n      \"$type\":
+    \"DialogueSystem.Data.Save.DialogueSystemNodeSaveData, Assembly-CSharp-Editor\",\r\n     
+    \"Text\": \"Lost my hammer. Can\u2019t forge much without it.\",\r\n      \"Choices\":
+    {\r\n        \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor]], mscorlib\",\r\n        \"$values\": [\r\n         
+    {\r\n            \"$type\": \"DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor\",\r\n            \"Text\": \"How did you lose it?\",\r\n           
+    \"NodeID\": \"c78e450b-355d-4110-a3f5-968c7a8c36c7\"\r\n          },\r\n         
+    {\r\n            \"$type\": \"DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor\",\r\n            \"Text\": \"I\u2019ll help you find
+    it.\",\r\n            \"NodeID\": \"2421ab5d-da7f-4267-a214-26f80b1cdd17\"\r\n         
+    },\r\n          {\r\n            \"$type\": \"DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor\",\r\n            \"Text\": \"That sounds like your problem,
+    not mine. \",\r\n            \"NodeID\": \"d67d0290-91a5-4dde-92c3-84b4de46b66e\"\r\n         
+    }\r\n        ]\r\n      },\r\n      \"DialogueType\": 1,\r\n      \"EventTriggers\":
+    {\r\n        \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemEventTriggerSaveData,
+    DialogueSystem]], mscorlib\",\r\n        \"$values\": []\r\n      },\r\n     
+    \"ID\": \"fe80fb41-7438-4506-b3ba-7375b071bab1\",\r\n      \"GroupID\": \"bef058cb-1995-4122-94f5-e550cf1d88be\",\r\n     
+    \"Position\": {\r\n        \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n       
+    \"x\": 1878.0,\r\n        \"y\": 258.0,\r\n        \"normalized\": {\r\n         
+    \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n          \"x\":
+    0.9906949,\r\n          \"y\": 0.136101857,\r\n          \"magnitude\": 1.0,\r\n         
+    \"sqrMagnitude\": 1.00000012\r\n        },\r\n        \"magnitude\": 1895.63916,\r\n       
+    \"sqrMagnitude\": 3593448.0\r\n      }\r\n    },\r\n    {\r\n      \"$type\":
+    \"DialogueSystem.Data.Save.DialogueSystemNodeSaveData, Assembly-CSharp-Editor\",\r\n     
+    \"Text\": \"Lost it near the old mill, just outside town. Probably some thief
+    thought it was worth something.\",\r\n      \"Choices\": {\r\n        \"$type\":
+    \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor]], mscorlib\",\r\n        \"$values\": [\r\n         
+    {\r\n            \"$type\": \"DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor\",\r\n            \"Text\": \"I\u2019ll help you find
+    it.\",\r\n            \"NodeID\": \"2421ab5d-da7f-4267-a214-26f80b1cdd17\"\r\n         
+    },\r\n          {\r\n            \"$type\": \"DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor\",\r\n            \"Text\": \"That sounds like your problem,
+    not mine. \",\r\n            \"NodeID\": \"d67d0290-91a5-4dde-92c3-84b4de46b66e\"\r\n         
+    }\r\n        ]\r\n      },\r\n      \"DialogueType\": 1,\r\n      \"EventTriggers\":
+    {\r\n        \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemEventTriggerSaveData,
+    DialogueSystem]], mscorlib\",\r\n        \"$values\": []\r\n      },\r\n     
+    \"ID\": \"c78e450b-355d-4110-a3f5-968c7a8c36c7\",\r\n      \"GroupID\": \"bef058cb-1995-4122-94f5-e550cf1d88be\",\r\n     
+    \"Position\": {\r\n        \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n       
+    \"x\": 2385.0,\r\n        \"y\": -191.0,\r\n        \"normalized\": {\r\n         
+    \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n          \"x\":
+    0.996808648,\r\n          \"y\": -0.0798282847,\r\n          \"magnitude\": 1.0,\r\n         
+    \"sqrMagnitude\": 1.0\r\n        },\r\n        \"magnitude\": 2392.63574,\r\n       
+    \"sqrMagnitude\": 5724706.0\r\n      }\r\n    },\r\n    {\r\n      \"$type\":
+    \"DialogueSystem.Data.Save.DialogueSystemNodeSaveData, Assembly-CSharp-Editor\",\r\n     
+    \"Text\": \"Fair enough. Don\u2019t expect me to fix anything for you, then.\\n\",\r\n     
+    \"Choices\": {\r\n        \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor]], mscorlib\",\r\n        \"$values\": [\r\n         
+    {\r\n            \"$type\": \"DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor\",\r\n            \"Text\": \"Next Dialogue\",\r\n           
+    \"NodeID\": null\r\n          }\r\n        ]\r\n      },\r\n      \"DialogueType\":
+    0,\r\n      \"EventTriggers\": {\r\n        \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemEventTriggerSaveData,
+    DialogueSystem]], mscorlib\",\r\n        \"$values\": []\r\n      },\r\n     
+    \"ID\": \"d67d0290-91a5-4dde-92c3-84b4de46b66e\",\r\n      \"GroupID\": \"bef058cb-1995-4122-94f5-e550cf1d88be\",\r\n     
+    \"Position\": {\r\n        \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n       
+    \"x\": 2850.0,\r\n        \"y\": 384.0,\r\n        \"normalized\": {\r\n         
+    \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n          \"x\":
+    0.9910447,\r\n          \"y\": 0.133530229,\r\n          \"normalized\": {\r\n           
+    \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n            \"x\":
+    0.99104476,\r\n            \"y\": 0.133530244,\r\n            \"magnitude\":
+    1.0,\r\n            \"sqrMagnitude\": 1.0\r\n          },\r\n          \"magnitude\":
+    0.99999994,\r\n          \"sqrMagnitude\": 0.99999994\r\n        },\r\n       
+    \"magnitude\": 2875.75317,\r\n        \"sqrMagnitude\": 8269956.0\r\n      }\r\n   
+    },\r\n    {\r\n      \"$type\": \"DialogueSystem.Data.Save.DialogueSystemNodeSaveData,
+    Assembly-CSharp-Editor\",\r\n      \"Text\": \"You\u2019d do that? Well... thanks.
+    Don\u2019t make me regret trusting you.\\n\",\r\n      \"Choices\": {\r\n       
+    \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor]], mscorlib\",\r\n        \"$values\": [\r\n         
+    {\r\n            \"$type\": \"DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor\",\r\n            \"Text\": \"Next Dialogue\",\r\n           
+    \"NodeID\": null\r\n          }\r\n        ]\r\n      },\r\n      \"DialogueType\":
+    0,\r\n      \"EventTriggers\": {\r\n        \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemEventTriggerSaveData,
+    DialogueSystem]], mscorlib\",\r\n        \"$values\": [\r\n          {\r\n           
+    \"$type\": \"DialogueSystem.Data.Save.DialogueSystemEventTriggerSaveData, DialogueSystem\",\r\n           
+    \"TriggerType\": 3,\r\n            \"TriggerValue\": \"QuestInProgress\",\r\n           
+    \"ScriptableObjectGUID\": \"\"\r\n          },\r\n          {\r\n           
+    \"$type\": \"DialogueSystem.Data.Save.DialogueSystemEventTriggerSaveData, DialogueSystem\",\r\n           
+    \"TriggerType\": 2,\r\n            \"TriggerValue\": null,\r\n            \"ScriptableObjectGUID\":
+    \"72d42c7d3dc60494e86cdc6cb83f0092\"\r\n          }\r\n        ]\r\n      },\r\n     
+    \"ID\": \"2421ab5d-da7f-4267-a214-26f80b1cdd17\",\r\n      \"GroupID\": \"bef058cb-1995-4122-94f5-e550cf1d88be\",\r\n     
+    \"Position\": {\r\n        \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n       
+    \"x\": 2850.0,\r\n        \"y\": 91.0,\r\n        \"normalized\": {\r\n         
+    \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n          \"x\":
+    0.9994906,\r\n          \"y\": 0.03191356,\r\n          \"magnitude\": 1.0,\r\n         
+    \"sqrMagnitude\": 1.0\r\n        },\r\n        \"magnitude\": 2851.45239,\r\n       
+    \"sqrMagnitude\": 8130781.0\r\n      }\r\n    },\r\n    {\r\n      \"$type\":
+    \"DialogueSystem.Data.Save.DialogueSystemNodeSaveData, Assembly-CSharp-Editor\",\r\n     
+    \"Text\": \"Oh. Back again. Found my hammer yet?\",\r\n      \"Choices\": {\r\n       
+    \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor]], mscorlib\",\r\n        \"$values\": [\r\n         
+    {\r\n            \"$type\": \"DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor\",\r\n            \"Text\": \"Not yet. I\u2019m still
+    looking.\",\r\n            \"NodeID\": \"a581fc87-c11e-4727-9bb5-c624f2956595\"\r\n         
+    },\r\n          {\r\n            \"$type\": \"DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor\",\r\n            \"Text\": \"I haven\u2019t found it,
+    but I need more information. \",\r\n            \"NodeID\": \"4f1a626f-ac76-4a84-84a0-108597de2ebc\"\r\n         
+    },\r\n          {\r\n            \"$type\": \"DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor\",\r\n            \"Text\": \"I don\u2019t think I can
+    help you anymore. \",\r\n            \"NodeID\": \"26642a90-eb5b-4b56-aa8b-12ac38c8f97c\"\r\n         
+    }\r\n        ]\r\n      },\r\n      \"DialogueType\": 1,\r\n      \"EventTriggers\":
+    {\r\n        \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemEventTriggerSaveData,
+    DialogueSystem]], mscorlib\",\r\n        \"$values\": []\r\n      },\r\n     
+    \"ID\": \"4c717219-ba94-41ac-b9f0-a476ddda4208\",\r\n      \"GroupID\": \"1b918361-3612-49ef-be92-04dacf18691c\",\r\n     
+    \"Position\": {\r\n        \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n       
+    \"x\": 1027.0,\r\n        \"y\": 723.0,\r\n        \"normalized\": {\r\n         
+    \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n          \"x\":
+    0.8176953,\r\n          \"y\": 0.575651169,\r\n          \"normalized\": {\r\n           
+    \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n            \"x\":
+    0.8176954,\r\n            \"y\": 0.5756512,\r\n            \"magnitude\": 1.0,\r\n           
+    \"sqrMagnitude\": 1.00000012\r\n          },\r\n          \"magnitude\": 0.99999994,\r\n         
+    \"sqrMagnitude\": 0.9999999\r\n        },\r\n        \"magnitude\": 1255.969,\r\n       
+    \"sqrMagnitude\": 1577458.0\r\n      }\r\n    },\r\n    {\r\n      \"$type\":
+    \"DialogueSystem.Data.Save.DialogueSystemNodeSaveData, Assembly-CSharp-Editor\",\r\n     
+    \"Text\": \"Hmm. Alright. Let me know when you do.\",\r\n      \"Choices\": {\r\n       
+    \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor]], mscorlib\",\r\n        \"$values\": [\r\n         
+    {\r\n            \"$type\": \"DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor\",\r\n            \"Text\": \"Next Dialogue\",\r\n           
+    \"NodeID\": null\r\n          }\r\n        ]\r\n      },\r\n      \"DialogueType\":
+    0,\r\n      \"EventTriggers\": {\r\n        \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemEventTriggerSaveData,
+    DialogueSystem]], mscorlib\",\r\n        \"$values\": []\r\n      },\r\n     
+    \"ID\": \"a581fc87-c11e-4727-9bb5-c624f2956595\",\r\n      \"GroupID\": \"1b918361-3612-49ef-be92-04dacf18691c\",\r\n     
+    \"Position\": {\r\n        \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n       
+    \"x\": 1525.0,\r\n        \"y\": 723.0,\r\n        \"normalized\": {\r\n         
+    \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n          \"x\":
+    0.903593,\r\n          \"y\": 0.428391963,\r\n          \"magnitude\": 1.0,\r\n         
+    \"sqrMagnitude\": 1.0\r\n        },\r\n        \"magnitude\": 1687.70679,\r\n       
+    \"sqrMagnitude\": 2848354.0\r\n      }\r\n    },\r\n    {\r\n      \"$type\":
+    \"DialogueSystem.Data.Save.DialogueSystemNodeSaveData, Assembly-CSharp-Editor\",\r\n     
+    \"Text\": \"What do you need?\",\r\n      \"Choices\": {\r\n        \"$type\":
+    \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor]], mscorlib\",\r\n        \"$values\": [\r\n         
+    {\r\n            \"$type\": \"DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor\",\r\n            \"Text\": \"Where exactly did you lose
+    it? \",\r\n            \"NodeID\": \"a809773d-d010-48d6-976e-4b4b2ab51651\"\r\n         
+    },\r\n          {\r\n            \"$type\": \"DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor\",\r\n            \"Text\": \"What does it look like?
+    \",\r\n            \"NodeID\": \"0b043a7d-ded6-49c3-88e0-0ae345d16512\"\r\n         
+    }\r\n        ]\r\n      },\r\n      \"DialogueType\": 1,\r\n      \"EventTriggers\":
+    {\r\n        \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemEventTriggerSaveData,
+    DialogueSystem]], mscorlib\",\r\n        \"$values\": []\r\n      },\r\n     
+    \"ID\": \"4f1a626f-ac76-4a84-84a0-108597de2ebc\",\r\n      \"GroupID\": \"1b918361-3612-49ef-be92-04dacf18691c\",\r\n     
+    \"Position\": {\r\n        \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n       
+    \"x\": 1529.0,\r\n        \"y\": 948.0,\r\n        \"normalized\": {\r\n         
+    \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n          \"x\":
+    0.8498977,\r\n          \"y\": 0.5269477,\r\n          \"normalized\": {\r\n           
+    \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n            \"x\":
+    0.849897742,\r\n            \"y\": 0.526947737,\r\n            \"magnitude\":
+    1.0,\r\n            \"sqrMagnitude\": 1.00000012\r\n          },\r\n         
+    \"magnitude\": 0.99999994,\r\n          \"sqrMagnitude\": 0.99999994\r\n       
+    },\r\n        \"magnitude\": 1799.04,\r\n        \"sqrMagnitude\": 3236545.0\r\n     
+    }\r\n    },\r\n    {\r\n      \"$type\": \"DialogueSystem.Data.Save.DialogueSystemNodeSaveData,
+    Assembly-CSharp-Editor\",\r\n      \"Text\": \"Last I had it was near the old
+    mill. I heard something... like rustling in the woods. Might\u2019ve been thieves.\",\r\n     
+    \"Choices\": {\r\n        \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor]], mscorlib\",\r\n        \"$values\": [\r\n         
+    {\r\n            \"$type\": \"DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor\",\r\n            \"Text\": \"Next Dialogue\",\r\n           
+    \"NodeID\": null\r\n          }\r\n        ]\r\n      },\r\n      \"DialogueType\":
+    0,\r\n      \"EventTriggers\": {\r\n        \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemEventTriggerSaveData,
+    DialogueSystem]], mscorlib\",\r\n        \"$values\": []\r\n      },\r\n     
+    \"ID\": \"a809773d-d010-48d6-976e-4b4b2ab51651\",\r\n      \"GroupID\": \"1b918361-3612-49ef-be92-04dacf18691c\",\r\n     
+    \"Position\": {\r\n        \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n       
+    \"x\": 1939.0,\r\n        \"y\": 948.0,\r\n        \"normalized\": {\r\n         
+    \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n          \"x\":
+    0.8983763,\r\n          \"y\": 0.439226776,\r\n          \"magnitude\": 1.0,\r\n         
+    \"sqrMagnitude\": 1.00000012\r\n        },\r\n        \"magnitude\": 2158.33838,\r\n       
+    \"sqrMagnitude\": 4658425.0\r\n      }\r\n    },\r\n    {\r\n      \"$type\":
+    \"DialogueSystem.Data.Save.DialogueSystemNodeSaveData, Assembly-CSharp-Editor\",\r\n     
+    \"Text\": \"Big. Heavy. My name\u2019s carved on the head. Hard to miss.\",\r\n     
+    \"Choices\": {\r\n        \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor]], mscorlib\",\r\n        \"$values\": [\r\n         
+    {\r\n            \"$type\": \"DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor\",\r\n            \"Text\": \"Next Dialogue\",\r\n           
+    \"NodeID\": null\r\n          }\r\n        ]\r\n      },\r\n      \"DialogueType\":
+    0,\r\n      \"EventTriggers\": {\r\n        \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemEventTriggerSaveData,
+    DialogueSystem]], mscorlib\",\r\n        \"$values\": []\r\n      },\r\n     
+    \"ID\": \"0b043a7d-ded6-49c3-88e0-0ae345d16512\",\r\n      \"GroupID\": \"1b918361-3612-49ef-be92-04dacf18691c\",\r\n     
+    \"Position\": {\r\n        \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n       
+    \"x\": 1939.0,\r\n        \"y\": 1204.0,\r\n        \"normalized\": {\r\n         
+    \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n          \"x\":
+    0.84954536,\r\n          \"y\": 0.527515531,\r\n          \"magnitude\": 1.0,\r\n         
+    \"sqrMagnitude\": 0.99999994\r\n        },\r\n        \"magnitude\": 2282.39722,\r\n       
+    \"sqrMagnitude\": 5209337.0\r\n      }\r\n    },\r\n    {\r\n      \"$type\":
+    \"DialogueSystem.Data.Save.DialogueSystemNodeSaveData, Assembly-CSharp-Editor\",\r\n     
+    \"Text\": \"Hm. Fine. Guess I\u2019ll make do.\",\r\n      \"Choices\": {\r\n       
+    \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor]], mscorlib\",\r\n        \"$values\": [\r\n         
+    {\r\n            \"$type\": \"DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor\",\r\n            \"Text\": \"Next Dialogue\",\r\n           
+    \"NodeID\": null\r\n          }\r\n        ]\r\n      },\r\n      \"DialogueType\":
+    0,\r\n      \"EventTriggers\": {\r\n        \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemEventTriggerSaveData,
+    DialogueSystem]], mscorlib\",\r\n        \"$values\": []\r\n      },\r\n     
+    \"ID\": \"26642a90-eb5b-4b56-aa8b-12ac38c8f97c\",\r\n      \"GroupID\": \"1b918361-3612-49ef-be92-04dacf18691c\",\r\n     
+    \"Position\": {\r\n        \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n       
+    \"x\": 1525.0,\r\n        \"y\": 1233.0,\r\n        \"normalized\": {\r\n         
+    \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n          \"x\":
+    0.7776247,\r\n          \"y\": 0.6287287,\r\n          \"magnitude\": 1.0,\r\n         
+    \"sqrMagnitude\": 1.0\r\n        },\r\n        \"magnitude\": 1961.10022,\r\n       
+    \"sqrMagnitude\": 3845914.0\r\n      }\r\n    },\r\n    {\r\n      \"$type\":
+    \"DialogueSystem.Data.Save.DialogueSystemNodeSaveData, Assembly-CSharp-Editor\",\r\n     
+    \"Text\": \"Appreciate it. If you need anything forged, you know where to find
+    me.\",\r\n      \"Choices\": {\r\n        \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor]], mscorlib\",\r\n        \"$values\": [\r\n         
+    {\r\n            \"$type\": \"DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor\",\r\n            \"Text\": \"Next Dialogue\",\r\n           
+    \"NodeID\": null\r\n          }\r\n        ]\r\n      },\r\n      \"DialogueType\":
+    0,\r\n      \"EventTriggers\": {\r\n        \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemEventTriggerSaveData,
+    DialogueSystem]], mscorlib\",\r\n        \"$values\": []\r\n      },\r\n     
+    \"ID\": \"78a7caca-e601-4b8f-81d5-1e0d83940d7a\",\r\n      \"GroupID\": \"eb0da0ef-261a-4cb8-b440-5934e497ddd9\",\r\n     
+    \"Position\": {\r\n        \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n       
+    \"x\": 3292.0,\r\n        \"y\": 733.0,\r\n        \"normalized\": {\r\n         
+    \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n          \"x\":
+    0.9760963,\r\n          \"y\": 0.217338562,\r\n          \"magnitude\": 1.0,\r\n         
+    \"sqrMagnitude\": 1.0\r\n        },\r\n        \"magnitude\": 3372.61816,\r\n       
+    \"sqrMagnitude\": 11374553.0\r\n      }\r\n    },\r\n    {\r\n      \"$type\":
+    \"DialogueSystem.Data.Save.DialogueSystemNodeSaveData, Assembly-CSharp-Editor\",\r\n     
+    \"Text\": \"Fair enough. I\u2019ll add a little extra to your reward. But don\u2019t
+    push your luck.\",\r\n      \"Choices\": {\r\n        \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor]], mscorlib\",\r\n        \"$values\": [\r\n         
+    {\r\n            \"$type\": \"DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor\",\r\n            \"Text\": \"Next Dialogue\",\r\n           
+    \"NodeID\": null\r\n          }\r\n        ]\r\n      },\r\n      \"DialogueType\":
+    0,\r\n      \"EventTriggers\": {\r\n        \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemEventTriggerSaveData,
+    DialogueSystem]], mscorlib\",\r\n        \"$values\": []\r\n      },\r\n     
+    \"ID\": \"d1f13d3c-3fe2-44fa-931b-2bc5b0e7de1a\",\r\n      \"GroupID\": \"eb0da0ef-261a-4cb8-b440-5934e497ddd9\",\r\n     
+    \"Position\": {\r\n        \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n       
+    \"x\": 3292.0,\r\n        \"y\": 969.0,\r\n        \"normalized\": {\r\n         
+    \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n          \"x\":
+    0.959305167,\r\n          \"y\": 0.282371432,\r\n          \"magnitude\": 1.0,\r\n         
+    \"sqrMagnitude\": 1.0\r\n        },\r\n        \"magnitude\": 3431.65039,\r\n       
+    \"sqrMagnitude\": 11776225.0\r\n      }\r\n    },\r\n    {\r\n      \"$type\":
+    \"DialogueSystem.Data.Save.DialogueSystemNodeSaveData, Assembly-CSharp-Editor\",\r\n     
+    \"Text\": \"You found it! I didn\u2019t think you\u2019d actually bother. This
+    means more to me than I can say. Here.\",\r\n      \"Choices\": {\r\n       
+    \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor]], mscorlib\",\r\n        \"$values\": [\r\n         
+    {\r\n            \"$type\": \"DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor\",\r\n            \"Text\": \"Glad I could help.\",\r\n           
+    \"NodeID\": \"78a7caca-e601-4b8f-81d5-1e0d83940d7a\"\r\n          },\r\n         
+    {\r\n            \"$type\": \"DialogueSystem.Data.Save.DialogueSystemChoiceSaveData,
+    Assembly-CSharp-Editor\",\r\n            \"Text\": \"It wasn\u2019t easy. You
+    owe me. \",\r\n            \"NodeID\": \"d1f13d3c-3fe2-44fa-931b-2bc5b0e7de1a\"\r\n         
+    }\r\n        ]\r\n      },\r\n      \"DialogueType\": 1,\r\n      \"EventTriggers\":
+    {\r\n        \"$type\": \"System.Collections.Generic.List`1[[DialogueSystem.Data.Save.DialogueSystemEventTriggerSaveData,
+    DialogueSystem]], mscorlib\",\r\n        \"$values\": [\r\n          {\r\n           
+    \"$type\": \"DialogueSystem.Data.Save.DialogueSystemEventTriggerSaveData, DialogueSystem\",\r\n           
+    \"TriggerType\": 4,\r\n            \"TriggerValue\": \"b81a162f-b541-470f-995e-1eab00228aa7\",\r\n           
+    \"ScriptableObjectGUID\": \"\"\r\n          }\r\n        ]\r\n      },\r\n     
+    \"ID\": \"6b95d31c-df2d-4f3e-bd7c-512a3b11327f\",\r\n      \"GroupID\": \"eb0da0ef-261a-4cb8-b440-5934e497ddd9\",\r\n     
+    \"Position\": {\r\n        \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n       
+    \"x\": 2785.0,\r\n        \"y\": 733.0,\r\n        \"normalized\": {\r\n         
+    \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n          \"x\":
+    0.9670655,\r\n          \"y\": 0.254527479,\r\n          \"magnitude\": 1.0,\r\n         
+    \"sqrMagnitude\": 0.99999994\r\n        },\r\n        \"magnitude\": 2879.84619,\r\n       
+    \"sqrMagnitude\": 8293514.0\r\n      }\r\n    },\r\n    {\r\n      \"$type\":
+    \"DialogueSystem.Data.Save.DialogueSystemConditionCheckNodeSaveData, Assembly-CSharp-Editor\",\r\n     
+    \"ConditionKey\": null,\r\n      \"ExpectedValue\": false,\r\n      \"ItemIDField\":
+    \"b81a162f-b541-470f-995e-1eab00228aa7\",\r\n      \"ConditionCheckType\": 1,\r\n     
+    \"ConnectedNodeID\": \"6b95d31c-df2d-4f3e-bd7c-512a3b11327f\",\r\n      \"ID\":
+    \"2ebdc70c-a122-4455-a60b-5e1e83c2eb51\",\r\n      \"GroupID\": null,\r\n     
+    \"Position\": {\r\n        \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n       
+    \"x\": 2308.0,\r\n        \"y\": 751.0,\r\n        \"normalized\": {\r\n         
+    \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n          \"x\":
+    0.950925052,\r\n          \"y\": 0.30942145,\r\n          \"magnitude\": 1.0,\r\n         
+    \"sqrMagnitude\": 1.00000012\r\n        },\r\n        \"magnitude\": 2427.11035,\r\n       
+    \"sqrMagnitude\": 5890865.0\r\n      }\r\n    }\r\n  ]\r\n}"
+  NodeLinks:
+  - BaseNodeID: 35c6d31c-2f88-4e1a-b83d-7a2055c6199a
+    TargetNodeID: 26dc7b8b-2cf3-44a3-b975-1b062b8cdd65
+    OutputPortName: Choice_0
+    InputPortName: Dialogue Connection
+  - BaseNodeID: 35c6d31c-2f88-4e1a-b83d-7a2055c6199a
+    TargetNodeID: 0e69652e-d4a6-4911-8310-9413525c2367
+    OutputPortName: Choice_1
+    InputPortName: Dialogue Connection
+  - BaseNodeID: 35c6d31c-2f88-4e1a-b83d-7a2055c6199a
+    TargetNodeID: b4900127-bff5-4838-a450-1a06a578c442
+    OutputPortName: Choice_2
+    InputPortName: Dialogue Connection
+  - BaseNodeID: be1ceedf-8e1c-4d6d-9166-13ce9a79412f
+    TargetNodeID: 96571f34-86cf-46bf-b3a9-54c7c1466437
+    OutputPortName: Choice_0
+    InputPortName: Dialogue Connection
+  - BaseNodeID: be1ceedf-8e1c-4d6d-9166-13ce9a79412f
+    TargetNodeID: b34d77d5-6a02-406d-9274-b57043c42fcd
+    OutputPortName: Choice_1
+    InputPortName: Dialogue Connection
+  - BaseNodeID: 96571f34-86cf-46bf-b3a9-54c7c1466437
+    TargetNodeID: b34d77d5-6a02-406d-9274-b57043c42fcd
+    OutputPortName: Choice_0
+    InputPortName: Dialogue Connection
+  - BaseNodeID: be1ceedf-8e1c-4d6d-9166-13ce9a79412f
+    TargetNodeID: fe80fb41-7438-4506-b3ba-7375b071bab1
+    OutputPortName: Choice_2
+    InputPortName: Dialogue Connection
+  - BaseNodeID: 96571f34-86cf-46bf-b3a9-54c7c1466437
+    TargetNodeID: fe80fb41-7438-4506-b3ba-7375b071bab1
+    OutputPortName: Choice_1
+    InputPortName: Dialogue Connection
+  - BaseNodeID: fe80fb41-7438-4506-b3ba-7375b071bab1
+    TargetNodeID: c78e450b-355d-4110-a3f5-968c7a8c36c7
+    OutputPortName: Choice_0
+    InputPortName: Dialogue Connection
+  - BaseNodeID: c78e450b-355d-4110-a3f5-968c7a8c36c7
+    TargetNodeID: 2421ab5d-da7f-4267-a214-26f80b1cdd17
+    OutputPortName: Choice_0
+    InputPortName: Dialogue Connection
+  - BaseNodeID: fe80fb41-7438-4506-b3ba-7375b071bab1
+    TargetNodeID: 2421ab5d-da7f-4267-a214-26f80b1cdd17
+    OutputPortName: Choice_1
+    InputPortName: Dialogue Connection
+  - BaseNodeID: c78e450b-355d-4110-a3f5-968c7a8c36c7
+    TargetNodeID: d67d0290-91a5-4dde-92c3-84b4de46b66e
+    OutputPortName: Choice_1
+    InputPortName: Dialogue Connection
+  - BaseNodeID: fe80fb41-7438-4506-b3ba-7375b071bab1
+    TargetNodeID: d67d0290-91a5-4dde-92c3-84b4de46b66e
+    OutputPortName: Choice_2
+    InputPortName: Dialogue Connection
+  - BaseNodeID: 4c717219-ba94-41ac-b9f0-a476ddda4208
+    TargetNodeID: a581fc87-c11e-4727-9bb5-c624f2956595
+    OutputPortName: Choice_0
+    InputPortName: Dialogue Connection
+  - BaseNodeID: 4f1a626f-ac76-4a84-84a0-108597de2ebc
+    TargetNodeID: a809773d-d010-48d6-976e-4b4b2ab51651
+    OutputPortName: Choice_0
+    InputPortName: Dialogue Connection
+  - BaseNodeID: 4f1a626f-ac76-4a84-84a0-108597de2ebc
+    TargetNodeID: 0b043a7d-ded6-49c3-88e0-0ae345d16512
+    OutputPortName: Choice_1
+    InputPortName: Dialogue Connection
+  - BaseNodeID: 4c717219-ba94-41ac-b9f0-a476ddda4208
+    TargetNodeID: 26642a90-eb5b-4b56-aa8b-12ac38c8f97c
+    OutputPortName: Choice_2
+    InputPortName: Dialogue Connection
+  - BaseNodeID: 4c717219-ba94-41ac-b9f0-a476ddda4208
+    TargetNodeID: 4f1a626f-ac76-4a84-84a0-108597de2ebc
+    OutputPortName: Choice_1
+    InputPortName: Dialogue Connection
+  - BaseNodeID: 2ebdc70c-a122-4455-a60b-5e1e83c2eb51
+    TargetNodeID: 6b95d31c-df2d-4f3e-bd7c-512a3b11327f
+    OutputPortName: Next Node
+    InputPortName: Dialogue Connection
+  - BaseNodeID: 6b95d31c-df2d-4f3e-bd7c-512a3b11327f
+    TargetNodeID: 78a7caca-e601-4b8f-81d5-1e0d83940d7a
+    OutputPortName: Choice_0
+    InputPortName: Dialogue Connection
+  - BaseNodeID: 6b95d31c-df2d-4f3e-bd7c-512a3b11327f
+    TargetNodeID: d1f13d3c-3fe2-44fa-931b-2bc5b0e7de1a
+    OutputPortName: Choice_1
+    InputPortName: Dialogue Connection

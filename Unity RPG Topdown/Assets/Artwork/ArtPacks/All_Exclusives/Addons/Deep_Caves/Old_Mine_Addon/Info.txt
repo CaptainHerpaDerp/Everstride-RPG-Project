@@ -1,0 +1,13 @@
+This addon has been created to use in combination with Minifantasy - Deep Caves. 
+
+It includes:
+
+- Mine railway tileset
+- Mine carts
+- Rock load for the cars
+- Coal load for the carts
+- Mine pit props
+- Abandoned pickaxes
+- A sign
+- Piles of rock debris
+- Piles of coal debris

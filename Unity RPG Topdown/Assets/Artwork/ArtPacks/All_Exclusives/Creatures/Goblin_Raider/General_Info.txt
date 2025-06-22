@@ -1,0 +1,8 @@
+The Goblin Raider includes two versions, with and without a torch.
+
+The original idea for the creature is as follows:
+- Goblin Raiders show up carrying torches
+- They get just one ranged attack (throwing the torch)
+- After they have thrown the torch they just use regular melee attacks
+
+Of course, it is just a suggestion, you can use the assets in the way that best fit your needs!

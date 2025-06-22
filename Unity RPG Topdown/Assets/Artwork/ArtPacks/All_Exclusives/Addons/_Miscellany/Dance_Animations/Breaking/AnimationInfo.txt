@@ -1,0 +1,5 @@
+Breakdance Animation Info:
+
+- 1st row, headspin start
+- 2nd row, countinious headspin
+- 3rd row, headspin end

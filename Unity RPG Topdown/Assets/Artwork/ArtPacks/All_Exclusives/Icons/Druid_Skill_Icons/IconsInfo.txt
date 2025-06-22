@@ -1,0 +1,22 @@
+Icons for the skills of the druid character included in Minifantasy - True Heroes asset pack.
+
+
++ 1st Column:
+
+- Root Attack
+
+
++ 2nd Column:
+
+- Forest Owl Shape Shift
+- Forest Beast Shape Shift
+- Forest Hound Shape Shift
+- Human Shape Shift
+
+
++ 3rd Column:
+
+- Forest Owl Attack
+- Forest Beast Attack
+- Forest Hound Attack
+- Druid Staff attack

@@ -1,0 +1,23 @@
+Icons for adventurer's gear. 
+
+
+From left to right, top to bottom, the items are:
+
+1st Row:
+
+- Bedroll, Blanket,Tent
+- Tinderbox
+- Rope, Grappling Hook
+- Crowbar
+- Ball Bearings
+- Caltrops
+
+
+2nd Row:
+
+- Pen, Ink
+- Oil flask, Poisson Flask, Solvent Flask
+- San, Sand Bag
+- Magnifying Glass
+- Wetstone
+- 10ft Pole

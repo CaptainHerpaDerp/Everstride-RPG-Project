@@ -1,0 +1,14 @@
+*Frame size* 
+
+- 48x48px: For The Void
+- 32x32px: For the Vortex animations
+
+
+*Frame Duration*
+
+- 100ms: Attack*, Die, Dmg and Vortex*.
+
+- 200ms: Idle and Walk.
+
+
+* The Vortex_Start should be triggered on the 7th frame of the Attack animation

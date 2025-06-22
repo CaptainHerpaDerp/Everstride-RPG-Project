@@ -1,0 +1,1 @@
+1. Phalanx, able to attack with spear while blocking. (Less damage, more incoming damage while attacking). (Shield visual while attacking)

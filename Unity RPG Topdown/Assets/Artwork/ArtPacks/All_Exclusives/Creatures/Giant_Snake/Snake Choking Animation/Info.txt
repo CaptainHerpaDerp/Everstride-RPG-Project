@@ -1,0 +1,2 @@
+Place the character to be choked layer between 
+GiantSnakeChokingFRONTLayer and GiantSnakeChokingBACKLayer

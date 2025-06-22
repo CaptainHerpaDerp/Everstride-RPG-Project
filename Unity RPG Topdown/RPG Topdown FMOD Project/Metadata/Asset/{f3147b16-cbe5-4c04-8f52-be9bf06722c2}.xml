@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EncodableAsset" id="{f3147b16-cbe5-4c04-8f52-be9bf06722c2}">
+		<property name="assetPath">
+			<value>Minifantasy_Magic_Weapons_SFX/Attacks/Whip/</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{6a941106-237d-4ec2-9001-26935f256730}</destination>
+		</relationship>
+	</object>
+</objects>

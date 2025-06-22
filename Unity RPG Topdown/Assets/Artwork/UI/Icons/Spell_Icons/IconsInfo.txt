@@ -1,0 +1,17 @@
+Spell Icons
+
+
++ 1st row: Boulder, Rock Explosion, Rock Shield
+
++ 2nd row: Fireball, Fire Explosion, Fire Shield
+
++ 3rd row: Ice Shard, Ice Explosion, Ice Shield
+
++ 4th row: Twister, Wind Explosion, Wind Shield
+
++ 5th row: Divine Touch, Holy Aura, Holy Shield
+
++ 6th and 7th rows: Buffs 
+
+
+

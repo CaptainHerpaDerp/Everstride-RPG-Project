@@ -1,0 +1,15 @@
+As guide of reference:
+
+- Autum, Dark and Green sets use Minifantasy - Ancient Forests compatible colour palettes.
+
+- Bright set uses Minifantasy - Forgotten Plains compatible colour palettes.
+
+------
+
+Water pond animated tiles:
+
+*Frame size* 
+8x8px
+
+*Frame Duration*
+200ms

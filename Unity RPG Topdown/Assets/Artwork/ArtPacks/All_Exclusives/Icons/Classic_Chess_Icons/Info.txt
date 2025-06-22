@@ -1,0 +1,11 @@
+Icons for Classic Chess Figures. 
+
+
+From left to right, top to bottom, the items are:
+
+- Pawn
+- Tower
+- Knight
+- Bishop
+- Queen
+- King

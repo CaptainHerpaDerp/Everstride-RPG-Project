@@ -1,0 +1,15 @@
+This sprite sheet is sliced in a 32x32px grid.
+
+Each frutal tree type includes 3 different layers to overlay over the 4 tree sprites. From left to right these layer are:
+- Flowering
+- Fruit hanging from the tree
+- Mature fruit on the ground
+
+The fruit types included in the add-on are:
+- Apple
+- Apricot
+- Orange
+- Pear
+- Lemon
+- Pomegranate
+- Cherry

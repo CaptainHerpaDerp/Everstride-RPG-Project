@@ -1,0 +1,17 @@
+{
+    "name": "ActionOverlay",
+    "rootNamespace": "",
+    "references": [
+        "GUID:6730260301d61bb40882f05752557731",
+        "GUID:c7822c062505704488a98dc9003498db"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,24 @@
+*Frame size* 
+
+- 32x32px: For all the animations.
+
+
+*Frame Duration*
+
+- 100ms: Die, Dmg, Sappling
+
+- 200ms: Heal, Idle, PlatSeed, WakeUp and Walk.
+
+
+
+NOTES:
+
+- Shadows: 
+The shadows are identical for the 5 different characters included, 
+Except for the Sappling animation, which includes separate shadow layers for each character.
+
+- Effects:
+The green magical effects are provided as separate layers. You can decide to use them or not depending on the animation style you are looking for.
+The Healing animation has 2 separate effect layers. Effect_F is to be placed/rendered over the character, and Effect_B is to be placed/rendered under the character.
+The .gif samples display all the effects available.
+

@@ -1,0 +1,81 @@
+This List makes reference to the items in the sprite sheet. From left to right, top to bottom.
+
+Recipes:
+
+- Grilled Anchovy
+- Grilled Bream
+- Grilled Walleye
+- Grilled Perch
+- Grilled Pike
+
+- Grilled Carp
+- Grilled Eel
+- Grilled Octopus
+- Grilled Squid
+- Grilled Flounder
+
+
+- Braised Anchovy
+- Braised Bream
+- Braised Walleye
+- Braised Perch
+- Braised Pike
+
+- Braised Carp
+- Braised Eel
+- Braised Octopus
+- Braised Squid
+- Braised Flounder
+
+
+- Anchovy Sushi
+- Bream Sushi
+- Walleye Sushi
+- Perch Sushi
+- Pike Sushi
+
+- Carp Sushi
+- Eel Sushi
+- Octopus Sushi
+- Squid Sushi
+- Flounder Sushi
+
+
+- Tomato Souce
+- Fries
+- Hotdog
+- Taco
+- Baked Potato
+
+- Burger
+- Coffee
+- Satay
+- Bruschetta
+- Pepperoni
+
+
+- Raw pasta
+- Miso Soup
+- Grilled Cheese
+- Fondue
+- Fish'n'chips
+
+- Spring Roll
+- Fajitas
+- Bibimpap
+- Naan
+- Quesadilla
+
+
+- Spaghetti Bolognesa
+- Guacamole
+- Tonkatsu
+- Hummus
+- Dumplings
+
+- Chocolate Bread
+- Chocolate Cake
+- Strawberry Frosted Cake
+- Tart
+- Ice Cream
+

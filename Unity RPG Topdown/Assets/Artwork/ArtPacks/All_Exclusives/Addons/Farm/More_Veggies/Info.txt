@@ -1,0 +1,28 @@
+For each crop, from left to right:
+
+- Seeds pack icon
+- One seed on the ground
+- Multiple seeds on the ground
+- Growing state 1
+- Growing state 2
+- Growing state 3
+- Grown crop icon
+
+
+
+Crops types from top to bottom, left to right:
+
+- Carrot
+- Spinach
+- Cucumber
+- Artichoke
+
+- Cabbage
+- Zucchini
+- Onion
+- Green beans
+
+- Broccoli
+- Celery
+- Asparagus
+- Ginger
