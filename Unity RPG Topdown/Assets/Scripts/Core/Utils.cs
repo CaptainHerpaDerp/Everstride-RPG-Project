@@ -20,6 +20,26 @@ namespace Core
             action.Invoke();
         }
 
+        /// <summary>
+        /// Waits for either the given duration to pass, or a condition to be met, then excecutes an action
+        /// </summary>
+        /// <param name="duration"></param>
+        /// <param name="condition"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public static IEnumerator WaitDurationOrConditionAndExcecute(float duration, bool condition, Action action)
+        {
+            float timer = 0f;
+
+            while (timer < duration && !condition)
+            {
+                timer += Time.deltaTime;
+                yield return null;
+            }
+
+            action?.Invoke();
+        }
+
         public static float EaseInOut(float t)
         {
             return t < 0.5f ? 4 * t * t * t : 1 - Mathf.Pow(-2 * t + 2, 3) / 2;

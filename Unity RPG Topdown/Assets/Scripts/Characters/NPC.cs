@@ -1,11 +1,12 @@
+using Core;
+using Core.Enums;
+using Core.Interfaces;
+using Sirenix.OdinInspector;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-using Core.Enums;
-using System;
-using Core.Interfaces;
-using Core;
-using Sirenix.OdinInspector;
+using UnityEngine.UIElements;
 
 namespace Characters
 {
@@ -30,6 +31,7 @@ namespace Characters
         [SerializeField] protected float attackCooldown;
         public float AttackCooldown => attackCooldown;
 
+
         [Header("Distance Between This NPC And Its Target Before It Will Lose Sight of The Target (always higher than view range) 1.25x by default")]
         [SerializeField] protected float targetLossRange;
         [SerializeField] private float DeathTime;
@@ -37,6 +39,9 @@ namespace Characters
         // Temporary 
         [SerializeField] int archerAttackRange;
         [SerializeField] private Vector3 lootSpawnOffset;
+        private bool onAttackCooldown = false;
+        private float _chargeHoldAngle;
+
 
         [SerializeField] private float blockingTime = 0.5f; // How long the NPC will block for
         private bool inBlockingTime;
@@ -143,8 +148,6 @@ namespace Characters
         {
             base.Update();
 
-            RechargeStamina();
-
             HandleMovement();
             UpdateAnimationState();
 
@@ -195,24 +198,8 @@ namespace Characters
 
         #endregion
 
-        #region Combat and Health
-
-        protected override void UpdateHealthBar()
-        {
-            OnUpdateHealthBar?.Invoke(hitPointsCurrent);
-        }
-
-        protected float DistanceToTarget()
-        {
-            if (combatTarget != null)
-            {
-                return Vector3.Distance(transform.position, combatTarget.transform.position);
-            }
-
-            return Mathf.Infinity;
-        }
-
-        protected override void EnterHitState(float damage, Transform attackSource)
+        #region Health
+        protected override void EnterHitState(DamagePacket damagePacket)
         {
             // Returns if the character is already dead
             if (state == CharacterState.Death)
@@ -220,9 +207,8 @@ namespace Characters
                 return;
             }
 
-            if (TryBlockIncomingDamage(damage, attackSource))
+            if (TryBlockIncomingDamage(damagePacket))
             {
-                Debug.Log("NPC " + NPCName + " blocked the incoming damage from " + attackSource.name);
                 return;
             }
 
@@ -247,7 +233,7 @@ namespace Characters
 
             OnHit?.Invoke();
 
-            HitPoints -= damage;
+            HitPoints -= damagePacket.damageAmount;
 
             // If the NPC has no more hit points, enter the death state.
             if (HitPoints <= 0)
@@ -259,7 +245,7 @@ namespace Characters
             // Otherwise, enter the hit state.
             else
             {
-                knockbackController.ApplyKnockback(attackSource.transform.position);
+                knockbackController.ApplyKnockback(damagePacket.source.transform.position);
                 SetState(CharacterState.Hit);
 
                 animationController.FlashHideWeaponTrail(hitTime);
@@ -308,17 +294,31 @@ namespace Characters
             //  LootSpawner.Instance.SpawnLootPoint(inventory.GetItems(), transform.position + lootSpawnOffset, hitColliderCircle.radius);
 
             // yield return new WaitForSeconds(DeathTime);
-            Die();
             yield break;
         }
 
-        public void Die()
+
+        protected override void UpdateHealthBar()
         {
-            OnDeath?.Invoke();
-            // gameObject.SetActive(false);
+            OnUpdateHealthBar?.Invoke(_hitPointsCurrent);
         }
 
-        private void EnterCooldown()
+        #endregion
+
+        #region Combat
+
+        protected float DistanceToTarget()
+        {
+            if (combatTarget != null)
+            {
+                return Vector3.Distance(transform.position, combatTarget.transform.position);
+            }
+
+            return Mathf.Infinity;
+        }
+
+
+        private void EnterAttackCooldown()
         {
             onAttackCooldown = true;
 
@@ -328,31 +328,93 @@ namespace Characters
             }));
         }
 
-        private void ReduceStamina(float amount)
-        {
-            staminaCurrent -= amount;
-            if (staminaCurrent < 0)
-                staminaCurrent = 0;
-        }
-
-        public void Attack(Transform targetTransform)
+        public void LightAttack(Transform targetTransform)
         {
             if (onAttackCooldown)
             {
-                Debug.LogWarning("Cant attack on attack cooldown");
                 return;
             }
 
-            attackCR = StartAttack(targetTransform);
+            attackCR = StartAttack(GetAngleToTarget(targetTransform));
 
-            ReduceStamina(25);
+            ReduceStamina(equippedWeapon.lightAttackStaminaCost);
 
             StartCoroutine(attackCR);
 
-            EnterCooldown();
+            EnterAttackCooldown();
         }
 
-        private bool onAttackCooldown = false;
+        /// <summary>
+        /// This method is used to start a heavy attack on the target transform, but doesn't actually perform the attack.
+        /// </summary>
+        /// <param name="targetTransform"></param>
+        public void StartHeavyAttack(Transform targetTransform)
+        {
+            if (onAttackCooldown)
+            {
+                return;
+            }
+
+            // Disables movement
+            mover.Stop();
+
+            animationController.DoWeaponChargeAttackAnimation(viewDirection);
+
+            SetState(CharacterState.Attacking);
+
+            // Increase the heavy attack hold time
+            if (_chargeHoldTime < chargeAttackMaxTime)
+            {
+                _chargeHoldTime += Time.deltaTime;
+            }
+
+            // Change holding charge to true, and set the charge hold angle to the angle to the target transform (capture once in this updated loop method)
+            if (!_holdingCharge)
+            {
+                _holdingCharge = true;
+                _chargeHoldAngle = GetAngleToTarget(targetTransform);
+            }
+        }
+
+        public void EndHeavyAttack()
+        {
+            if (_chargeHoldTime <= 0f)
+            {
+                Debug.LogWarning("NPC " + NPCName + " tried to end heavy attack when not charging!");
+                return;
+            }
+
+            if (state != CharacterState.Attacking)
+            {
+                Debug.LogWarning("NPC " + NPCName + " tried to end heavy attack when not attacking!");
+                return;
+            }
+
+            if (!_holdingCharge)
+            {
+                return;
+            }
+
+            _holdingCharge = false;
+
+            ReduceStamina(GetHeavyAttackStaminaCost());
+            _damageChargeMultiplier = GetHeavyAttackDamageMultiplier();
+
+            attackCR = StartAttack(_chargeHoldAngle);
+            StartCoroutine(attackCR);
+            EnterAttackCooldown();
+        }
+
+        /// <summary>
+        /// Returns a percent value from 0 to 100 of how long the heavy attack has been held for, compared to the maximum hold time of the equpped weapon.
+        /// </summary>
+        /// <returns></returns>
+        public float GetHeavyAttackHoldPercentage()
+        {
+            // Returns the percentage of the heavy attack hold time
+            return Mathf.Clamp01(_chargeHoldTime / chargeAttackMaxTime) * 100;
+        }
+
 
         protected virtual void MoveToTarget(Transform target)
         {
@@ -364,7 +426,7 @@ namespace Characters
 
         public void EnterBlockState(Transform source)
         {
-            if (state == CharacterState.Blocking)
+            if (state == CharacterState.Blocking || state == CharacterState.Hit)
             {
                 return;
             }
@@ -419,7 +481,7 @@ namespace Characters
 
             return false;
         }
-        
+
 
         #endregion
 
@@ -518,7 +580,7 @@ namespace Characters
                         {
                             if (attackCR == null && state == CharacterState.Normal)
                             {
-                                attackCR = StartAttack(combatTarget.transform);
+                                attackCR = StartAttack(GetAngleToTarget(combatTarget.transform));
                                 StartCoroutine(attackCR);
 
                                 yield return new WaitForSeconds(attackCooldown);
@@ -532,21 +594,16 @@ namespace Characters
         }
 
 
-        protected virtual IEnumerator StartAttack(Transform targetTransform)
+        protected virtual IEnumerator StartAttack(float attackAngle)
         {
             // Disables movement
             mover.Stop();
 
             // Changes to attack state
             SetState(CharacterState.Attacking);
-
-            Vector3 direction = (targetTransform.position - transform.position).normalized;
-
-            float angle = Vector2.SignedAngle(Vector2.right, direction);
-
             // Determine the attack direction based on the angle
 
-            AttackWithAngle(angle);
+            AttackWithAngle(attackAngle);
 
             yield return new WaitForSeconds(attackAnimationDuration);
 
@@ -569,6 +626,12 @@ namespace Characters
 
             attackCR = null;
 
+            // Reset any charged attack hold time
+            _chargeHoldTime = 0f;
+
+            // Reset the charge multiplier
+            _damageChargeMultiplier = 1;
+
             // Resets the attack target if it is dead
             if (combatTarget != null && combatTarget.IsDead())
             {
@@ -576,6 +639,13 @@ namespace Characters
             }
 
             yield break;
+        }
+
+        private float GetAngleToTarget(Transform targetTransform)
+        {
+            Vector3 direction = (targetTransform.position - transform.position).normalized;
+            float angle = Vector2.SignedAngle(Vector2.right, direction);
+            return angle;
         }
 
         private IEnumerator StartRangedAttack(Transform targetTransform)
@@ -598,8 +668,7 @@ namespace Characters
                 yield break;
             }
 
-            Vector3 direction = (targetTransform.position - transform.position).normalized;
-            float angle = Vector2.SignedAngle(Vector2.right, direction);
+            float angle = GetAngleToTarget(targetTransform);
 
             AttackWithAngle(angle);
 

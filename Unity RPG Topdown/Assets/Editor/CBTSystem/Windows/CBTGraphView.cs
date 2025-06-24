@@ -41,9 +41,6 @@ namespace CBTSystem.Base
                         node.IsRootNode = true;
 
                         // Optionally unset others, update visuals, etc.
-
-                       
-
                     });
                 }
             }));
@@ -194,12 +191,12 @@ namespace CBTSystem.Base
                 {
                     foreach (Edge edge in changes.edgesToCreate)
                     {
-                        var sourceNode = edge.output.node as CBTSystemNode;
-                        var targetNode = edge.input.node as CBTSystemNode;
+                        CBTSystemNode sourceNode = edge.output.node as CBTSystemNode;
+                        CBTSystemNode targetNode = edge.input.node as CBTSystemNode;
                         if (sourceNode != null && targetNode != null)
                         {
                             if (!sourceNode.NextNodeIDs.Contains(targetNode.ID))
-                                sourceNode.NextNodeIDs.Add(targetNode.ID);
+                                sourceNode.AddNextNodeID(targetNode.ID);
                         }
                     }
                 }
@@ -211,11 +208,11 @@ namespace CBTSystem.Base
                     {
                         if (element is Edge edge)
                         {
-                            var sourceNode = edge.output.node as CBTSystemNode;
-                            var targetNode = edge.input.node as CBTSystemNode;
+                            CBTSystemNode sourceNode = edge.output.node as CBTSystemNode;
+                            CBTSystemNode targetNode = edge.input.node as CBTSystemNode;
                             if (sourceNode != null && targetNode != null)
                             {
-                                sourceNode.NextNodeIDs.Remove(targetNode.ID);
+                                sourceNode.RemoveNextNodeID(targetNode.ID);
                             }
                         }
                         // Optionally: handle node deletion cleanup here

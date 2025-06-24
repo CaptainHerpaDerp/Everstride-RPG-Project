@@ -11,8 +11,13 @@ namespace CBTSystem.Elements.Nodes
 
     public abstract class CBTSystemNode : BaseNode
     {
-        // The list of identifiers for the next nodes
-        public List<string> NextNodeIDs { get; set; } = new();
+        protected List<string> _nextNodeIDs { get; set; } = new();
+
+        public List<string> NextNodeIDs
+        {
+            get => _nextNodeIDs;
+        }
+
         public BaseNodeSO ConnectedNode { get; set; }
 
         protected CBTGraphView graphView;
@@ -42,6 +47,27 @@ namespace CBTSystem.Elements.Nodes
                 }
             }
         }
+
+        public virtual void SetNextNodeIDs(List<string> nextNodeIDs)
+        {
+            _nextNodeIDs = nextNodeIDs;
+        }
+
+        public virtual void AddNextNodeID(string nextNodeID)
+        {
+            if (!NextNodeIDs.Contains(nextNodeID))
+            {
+                NextNodeIDs.Add(nextNodeID);
+            }
+        }
+
+        public virtual void RemoveNextNodeID(string nextNodeID)
+        {
+            if (NextNodeIDs.Contains(nextNodeID))
+            {
+                NextNodeIDs.Remove(nextNodeID);
+            }
+        }    
 
         public override void Initialize(BaseGraphView graphView, Vector2 position)
         {
@@ -106,6 +132,11 @@ namespace CBTSystem.Elements.Nodes
         public void SetNodeChecking()
         {
             mainContainer.style.backgroundColor = new StyleColor(new Color(255, 187, 0, 255));
+        }
+
+        public void SetNodeHovered()
+        {
+            mainContainer.style.backgroundColor = new StyleColor(new Color(64, 46, 52, 255));
         }
 
         #endregion

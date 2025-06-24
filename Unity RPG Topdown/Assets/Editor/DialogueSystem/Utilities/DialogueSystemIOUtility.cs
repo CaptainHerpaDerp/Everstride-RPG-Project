@@ -886,7 +886,7 @@ namespace DialogueSystem.Utilities
                     newTriggerData.TriggerValue = trigger.TriggerValue;
                 }
 
-                Debug.Log($"Loaded trigger of type {newTriggerData.TriggerType}");
+           //     Debug.Log($"Loaded trigger of type {newTriggerData.TriggerType}");
 
                 triggers.Add(newTriggerData);
             }

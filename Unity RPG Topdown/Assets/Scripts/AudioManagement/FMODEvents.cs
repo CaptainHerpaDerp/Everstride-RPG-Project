@@ -13,25 +13,24 @@ namespace AudioManagement
 
         [field: SerializeField, FoldoutGroup("Character Sounds/Orc")] public EventReference orcHitSound { get; private set; }
 
-        #region Weapon Attack Sounds
+        #region Weapon Sounds
 
-        [FoldoutGroup("Weapon Attack Sounds")]
-        [field: SerializeField, FoldoutGroup("Weapon Attack Sounds/Slash")] public EventReference lightSlashSound { get; private set; }
+        [FoldoutGroup("Weapon Sounds")]
+        [field: SerializeField, FoldoutGroup("Weapon Sounds/Slash")] public EventReference lightSlashSound { get; private set; }
 
-        [field: SerializeField, FoldoutGroup("Weapon Attack Sounds/Slash")] public EventReference mediumSlashSound { get; private set; }
+        [field: SerializeField, FoldoutGroup("Weapon Sounds/Slash")] public EventReference mediumSlashSound { get; private set; }
 
-        [field: SerializeField, FoldoutGroup("Weapon Attack Sounds/Slash")] public EventReference heavySlashSound { get; private set; }
+        [field: SerializeField, FoldoutGroup("Weapon Sounds/Slash")] public EventReference heavySlashSound { get; private set; }
 
-        [field: SerializeField, FoldoutGroup("Weapon Attack Sounds")] public EventReference flailSound { get; private set; }
+        [field: SerializeField, FoldoutGroup("Weapon Sounds")] public EventReference flailSound { get; private set; }
 
-        [field: SerializeField, FoldoutGroup("Weapon Attack Sounds")] public EventReference thrustSound { get; private set; }
+        [field: SerializeField, FoldoutGroup("Weapon Sounds")] public EventReference thrustSound { get; private set; }
  
-        [field: SerializeField, FoldoutGroup("Weapon Attack Sounds/Bow")] public EventReference bowDrawSound { get; private set; }
-        [field: SerializeField, FoldoutGroup("Weapon Attack Sounds/Bow")] public EventReference bowReleaseSound { get; private set; }
+        [field: SerializeField, FoldoutGroup("Weapon Sounds/Bow")] public EventReference bowDrawSound { get; private set; }
+        [field: SerializeField, FoldoutGroup("Weapon Sounds/Bow")] public EventReference bowReleaseSound { get; private set; }
 
+        [field: SerializeField, FoldoutGroup("Weapon Sounds")] public EventReference metalShieldBlockSound { get; private set; }
 
-        [field: SerializeField, FoldoutGroup("Weapon Attack Sounds")]
-        public EventReference metalShieldBlockSound { get; private set; }
 
         #endregion
 

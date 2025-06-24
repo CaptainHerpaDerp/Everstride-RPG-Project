@@ -21,6 +21,8 @@ namespace GraphSystem.Base.Windows
         {
             activeWindow = this;
 
+            // When the window gains focus, we can set the filename text field to the default name
+
             //Debug.Log($"Active window: {activeWindow}");
         }
 
@@ -29,6 +31,9 @@ namespace GraphSystem.Base.Windows
             if (activeWindow == this)
             {
                 // De-select the filename text field when the window loses focus
+                if (fileNameTextField != null)
+                    fileNameTextField.value = defaultFileName; // Reset to default name
+
                 fileNameTextField.Blur();
 
                 activeWindow = null; // Clear active

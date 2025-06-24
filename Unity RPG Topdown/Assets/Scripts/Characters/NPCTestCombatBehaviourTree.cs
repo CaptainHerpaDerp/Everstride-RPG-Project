@@ -1,12 +1,14 @@
-using UnityEngine;
-using Sirenix.OdinInspector;
-using CBTSystem.ScriptableObjects.Nodes;
+using CBTSystem.Elements;
 using CBTSystem.Enumerations;
+using CBTSystem.ScriptableObjects.Nodes;
+using Items;
+using Sirenix.OdinInspector;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System;
-using CBTSystem.Elements;
-using Items;
+using System.Linq;
+using UnityEngine;
+using Core.Enums;
 
 namespace Characters
 {
@@ -20,7 +22,9 @@ namespace Characters
         [SerializeField] private CBTSystemContainerSO CBTConfig;
 
         // A list of the current condition nodes that are connected to the current node
-        private HashSet<CBTSystemConditionNodeSO> currentConditionNodes = new();
+        private List<CBTSystemConditionNodeSO> currentConditionNodes = new();
+
+        private List<CBTSystemActionNodeSO> actionNodes = new();
 
         // The current action node that is being executed
         private CBTSystemActionNodeSO _currentActionNode;
@@ -46,9 +50,12 @@ namespace Characters
 
                 OnNodeChanged?.Invoke(_currentActionNode.NodeID);
 
+                // Assigns the condition node list, and sorts the nodes by their priority
                 currentConditionNodes = GetConnectedConditionNodes(_currentActionNode);
 
-               // Debug.Log($"Current Action Node: {_currentActionNode.NodeID} - {currentConditionNodes.Count} connected condition nodes found.");
+                actionNodes = GetConnectedActionNodes(_currentActionNode);
+
+                // Debug.Log($"Current Action Node: {_currentActionNode.NodeID} - {currentConditionNodes.Count} connected condition nodes found.");
             }
         }
 
@@ -60,7 +67,7 @@ namespace Characters
 
                 if (rootNode != null)
                 {
-                   // Debug.Log($"Root Node Type: {rootNode.GetType()}");
+                    // Debug.Log($"Root Node Type: {rootNode.GetType()}");
 
                     StartCoroutine(CheckForCondition(rootNode as CBTSystemActionNodeSO));
                 }
@@ -82,7 +89,16 @@ namespace Characters
                     ExecuteActionNode(actionNode);
                 }
 
-                CheckConditionNodes();
+                // Try to check if any condition nodes are met, and change the current action node if so
+                TryCheckConditionNodes();
+
+                if (currentConditionNodes.Count == 0)
+                {
+
+                    // If there are no condition nodes connected, set the current action node to the first action node in the list
+                    TryEnterActionNodes();
+
+                }
 
                 yield return new WaitForEndOfFrame();
             }
@@ -90,6 +106,9 @@ namespace Characters
 
         private void ExecuteActionNode(CBTSystemActionNodeSO actionNode)
         {
+            if (npc.State == CharacterState.Death)
+                return;
+
             switch (actionNode.ActionType)
             {
                 case CBTActionType.MoveToTarget:
@@ -97,15 +116,6 @@ namespace Characters
                     npc.OnUpdateCombatState?.Invoke(NPCState.Moving);
                     mover.Resume();
                     mover.SetTarget(combatTarget);
-
-                    break;
-
-                case CBTActionType.LightAttack:
-
-                   // Debug.Log("Performing Light Attack");
-
-                    npc.OnUpdateCombatState?.Invoke(NPCState.Attacking);
-                    npc.Attack(combatTarget);
 
                     break;
 
@@ -132,33 +142,55 @@ namespace Characters
                     // Stop the mover
                     mover.Stop();
                     break;
+
+                case CBTActionType.LightAttack:
+
+                    // Debug.Log("Performing Light Attack");
+
+                    npc.OnUpdateCombatState?.Invoke(NPCState.Attacking);
+                    npc.LightAttack(combatTarget);
+
+                    break;
+
+                case CBTActionType.StartHeavyAttack:
+                    // Start the heavy attack
+                    npc.OnUpdateCombatState?.Invoke(NPCState.Attacking);
+                    npc.StartHeavyAttack(combatTarget);
+                    break;
+
+                case CBTActionType.ReleaseHeavyAttack:
+                    // End the heavy attack
+                    npc.EndHeavyAttack();
+                    break;
+
             }
         }
 
-        private void CheckConditionNodes()
+        /// <summary>
+        /// If there are existing condition nodes connected to the current action node, this method will check if any of the conditions are met
+        /// </summary>
+        /// <returns>Returns true if a condition node was successfully found and connected, and false if there were no successfull connections with condition nodes</returns>
+        private bool TryCheckConditionNodes()
         {
-            if (currentConditionNodes == null)
+            // Simply retrieve the current condition nodes from the current action node
+            if (currentConditionNodes == null || currentConditionNodes.Count == 0)
             {
-                Debug.LogError("Error: Condition nodes list is null!");
+                return false;
             }
 
-            if (currentConditionNodes.Count == 0)
-            {
-                //Debug.LogError("Error: No condition nodes connected to the current action node!");
-            }
+            // Since all of our condition nodes are sorted by priority, we can simply iterate through them and check if any of the conditions are met
 
             foreach (var conditionNode in currentConditionNodes)
             {
                 if (CheckConditionNode(conditionNode))
                 {
-
                     // Get the next action node from the condition node
                     CBTSystemNodeSO cbtSystemNode = GetNodeByID(conditionNode.GetConnectedNode()) as CBTSystemActionNodeSO;
 
                     if (cbtSystemNode == null)
                     {
                         Debug.LogWarning($"No connected node found for condition node {conditionNode.NodeID}");
-                        return;
+                        return false;
                     }
 
                     if (cbtSystemNode.GetType() == typeof(CBTSystemActionNodeSO))
@@ -166,11 +198,13 @@ namespace Characters
                         // Exit out of the current action node if it is currently executing
                         if (!TryExitActionNode())
                         {
-                            return;
+                            return false;
                         }
 
                         // Set the new action node
                         currentActionNode = cbtSystemNode as CBTSystemActionNodeSO;
+
+                        return true;
 
                         // Break out of the loop, as we only want to execute one action node at a time
                         break;
@@ -181,6 +215,48 @@ namespace Characters
                     }
                 }
             }
+
+            return false;
+        }
+
+        /// <summary>
+        /// If there is an existing action node connected to the current action node, this method will set it as the current action node and return true
+        /// </summary>
+        /// <returns></returns>
+        private bool TryEnterActionNodes()
+        {
+            if (actionNodes == null || actionNodes.Count == 0)
+            {
+                return false;
+            }
+
+            if (actionNodes.Count > 1)
+            {
+                // If there are multiple action nodes, we can only execute the first one (this should never happen)
+                Debug.LogWarning("Multiple action nodes found, executing the first one.");
+            }
+
+            CBTSystemActionNodeSO newActionNode = actionNodes[0];
+
+            if (newActionNode.GetType() == typeof(CBTSystemActionNodeSO))
+            {
+                // Exit out of the current action node if it is currently executing
+                if (!TryExitActionNode())
+                {
+                    return false;
+                }
+
+                // Set the new action node
+                currentActionNode = newActionNode;
+
+                return true;
+            }
+            else
+            {
+                Debug.LogError("Error: Next node is not an action node!");
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -217,6 +293,31 @@ namespace Characters
 
                     return true;
 
+                case CBTActionType.LightAttack:
+
+                    // Do not exit the state if the character is still attacking
+                    if (npc.State == CharacterState.Attacking)
+                    {
+                        return false;
+                    }
+
+                    return true;
+
+                case CBTActionType.ReleaseHeavyAttack:
+
+                    // Do not exit the state if the character is still attacking
+                    if (npc.State == CharacterState.Attacking)
+                    {
+                        return false;
+                    }
+
+                    return true;
+
+                // The npc can only release the heavy attack if the charge threshold has been reached
+                case CBTActionType.StartHeavyAttack:
+
+                    return npc.MinChargeTimeMet();
+
                 default:
                     return true; // For all other action types, we can exit without any special handling
             }
@@ -248,12 +349,12 @@ namespace Characters
             }
             else
             {
-               return false;
+                return false;
             }
         }
 
         private bool EvaluateAllConditions(CBTSystemConditionNodeSO conditionNode)
-        {    
+        {
             int cacheIndex = 0;
             List<List<bool>> conditionEntries = new();
 
@@ -388,9 +489,9 @@ namespace Characters
                     return Vector3.Distance(transform.position, combatTarget.position);
 
                 case CBTConditionType.CheckHealth:
-                    return npc.CurrentHealthPercentage; 
+                    return npc.CurrentHealthPercentage;
 
-                case CBTConditionType.CheckStamina: 
+                case CBTConditionType.CheckStamina:
                     float perc = npc.CurrentStaminaPercentage;
                     return perc;
 
@@ -405,6 +506,23 @@ namespace Characters
 
                     // The return type for this is technically a bool, so we return either a 1 or a 0
                     return targetDist <= npc.equippedWeapon.weaponRange ? 1 : 0;
+
+                case CBTConditionType.TargetRangeCoverage:
+                    targetDist = Vector3.Distance(transform.position, combatTarget.position);
+
+                    // if the NPC does not have a weapon equipped, we cannot check the attack range
+                    if (npc.equippedWeapon == null)
+                    {
+                        return 0;
+                    }
+
+                    float maxDistance = npc.equippedWeapon.weaponRange;
+
+                    float remainingAttackDist = Mathf.Clamp01((maxDistance - targetDist) / maxDistance);
+
+                    Debug.Log($"Remainding: {remainingAttackDist}");
+
+                    return remainingAttackDist * 100; // Return as a percentage (0-100)
 
                 case CBTConditionType.CombatTargetAttacking:
 
@@ -435,6 +553,18 @@ namespace Characters
                     }
 
                     return targetDist <= enemyWeapon.weaponRange ? 1 : 0;
+
+                case CBTConditionType.HeavySwingChargeProgress:
+
+                    if (npc.State != Core.Enums.CharacterState.Attacking)
+                    {
+                        Debug.LogWarning("NPC is not in attacking state, cannot check heavy swing charge progress.");
+                        return 0;
+                    }
+
+                  //  Debug.Log($"Heavy attack hold percentage: {npc.GetHeavyAttackHoldPercentage()}");
+
+                    return npc.GetHeavyAttackHoldPercentage();
 
 
                 default:
@@ -531,28 +661,30 @@ namespace Characters
         /// Grab all connected nodes from the given node
         /// </summary>
         /// <param name="node"></param>
-        private HashSet<CBTSystemConditionNodeSO> GetConnectedConditionNodes(CBTSystemNodeSO node)
+        private List<CBTSystemConditionNodeSO> GetConnectedConditionNodes(CBTSystemNodeSO node)
         {
-            // Get the list of connected nodes
+            // 1) Gather all connected condition nodes as before
             List<CBTSystemNodeSO> connectedNodes = GetConnectedNodes(node.NextNodeIDs);
+            var foundConditionNodes = connectedNodes
+                .OfType<CBTSystemConditionNodeSO>()
+                .ToList();
 
-            //Debug.Log($"Retrieved {connectedNodes.Count} Nodes");
+            // 2) Simply sort by Priority (ascending: lower number = higher priority)
+            foundConditionNodes.Sort((a, b) => a.Priority.CompareTo(b.Priority));
 
-            // Create the return list of all the condition nodes 
-            HashSet<CBTSystemConditionNodeSO> conditionNodes = new();
+            // 3) Return the sorted list
+            return foundConditionNodes;
+        }
 
-            // Go through the list of the connected nodes
-            foreach (CBTSystemNodeSO connectedNode in connectedNodes)
-            {
-                // Check if the connected node is a condition node
-                if (connectedNode.GetType() == typeof(CBTSystemConditionNodeSO))
-                {
-                    // Add the condition nodes to the return list 
-                    conditionNodes.Add(connectedNode as CBTSystemConditionNodeSO);
-                }
-            }
+        private List<CBTSystemActionNodeSO> GetConnectedActionNodes(CBTSystemNodeSO node)
+        {
+            //Gather all connected action nodes
+            List<CBTSystemNodeSO> connectedNodes = GetConnectedNodes(node.NextNodeIDs);
+            var foundActionNodes = connectedNodes
+                .OfType<CBTSystemActionNodeSO>()
+                .ToList();
 
-            return conditionNodes;
+            return foundActionNodes;
         }
 
         private List<CBTSystemNodeSO> GetConnectedNodes(List<string> nextNodeIDs)

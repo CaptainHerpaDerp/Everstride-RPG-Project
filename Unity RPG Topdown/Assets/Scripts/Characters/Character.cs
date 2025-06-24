@@ -21,6 +21,13 @@ namespace Characters
         TargetBlocking
     }
 
+    public struct DamagePacket
+    {
+        public float damageAmount;
+        public Transform source;
+        public float blockStaminaDrawMultiplier;
+    }
+
     public abstract class Character : MonoBehaviour
     {
         #region Serialized Fields
@@ -32,14 +39,19 @@ namespace Characters
         [FoldoutGroup("Component References"), SerializeField] protected CharacterAnimationController animationController;
 
         //[SerializeField] protected EquipmentHandler equipmentHandler;
-        [SerializeField] protected Transform statusEffectsParent; 
+        [SerializeField] protected Transform statusEffectsParent;
         [SerializeField] protected GameObject statusEffectPrefab;
         //[SerializeField] protected SpriteRenderer weaponSR, weaponTrailSR, shieldSR, shieldTrailSR;
 
         [FoldoutGroup("Character Stats"), SerializeField] protected float movementSpeed = 150f;
         public float defaultMovementSpeed { get; protected set; }
-        [field: SerializeField, FoldoutGroup("Character Stats")] public float HitPointsMax { get; protected set; }
-        [FoldoutGroup("Character Stats"), SerializeField] protected float hitPointsCurrent;
+        [field: SerializeField, FoldoutGroup("Character Stats, Health")] public float HitPointsMax { get; protected set; }
+        [FoldoutGroup("Character Stats, Health"), SerializeField] protected float _hitPointsCurrent;
+
+        [Header("The amount of time that needs to pass after taking damage where the character starts to recover hp")]
+        [FoldoutGroup("Character Stats, Health"), SerializeField] protected float healthRecoveryTime = 5;
+        [FoldoutGroup("Character Stats, Health"), SerializeField, Range(0, 1)] protected float healthRecoveryModifier = 0.5f;
+        [ShowInInspector, ReadOnly] protected float _healthRecoveryCooldown = 0;
 
         [field: SerializeField, FoldoutGroup("Character Stats")] public float StaminaMax { get; protected set; }
         [FoldoutGroup("Character Stats"), SerializeField] protected float _staminaCurrent;
@@ -47,16 +59,47 @@ namespace Characters
         [FoldoutGroup("Character Stats"), SerializeField] protected float interactionDistance;
         [field: SerializeField, FoldoutGroup("Character Stats")] public float MagicaMax { get; protected set; }
 
-         [FoldoutGroup("Character Stats"), SerializeField] protected float sprintSpeed = 200f;
+        [FoldoutGroup("Character Stats"), SerializeField] protected float sprintSpeed = 200f;
 
-        [FoldoutGroup("Character Stats"), SerializeField, Range(0, 100)] protected float staminaReductionModifier = 1;
-        [FoldoutGroup("Character Stats"), SerializeField, Range(0, 1)] protected float staminaRechargeModifier = 0.5f;
-        [FoldoutGroup("Character Stats"), SerializeField] protected float magicaRechargeSpeed = 0.5f;
+        [FoldoutGroup("Character Stats, Stamina"), SerializeField, Range(0, 100)] protected float staminaReductionModifier = 1;
+        [FoldoutGroup("Character Stats, Stamina"), SerializeField, Range(0, 1)] protected float staminaRecoveryModifier = 0.5f;
+
+        [Header("If the character's stamina ever falls to 0, it will not Recovery for the given time")]
+        [FoldoutGroup("Character Stats, Stamina"), SerializeField] protected float staminaExhaustionTime = 2.5f;
+        protected bool _staminaExhaustionDelay;
+
+        [FoldoutGroup("Character Stats"), SerializeField] protected float magicaRecoverySpeed = 0.5f;
+
+        [Header("The multiplier for the stamina recovery while the character is in blocking stance")]
+        [FoldoutGroup("Character Stats, Stamina"), SerializeField] protected float staminaRecoveryBlockingMultiplier = 0.2f;
+
+        [Header("The time after a successful block that the character will be unable to regain stamina")]
+        [FoldoutGroup("Character Stats, Stamina"), SerializeField] protected float staminaPostBlockRecoveryDelayDuration = 1f;
+        protected bool _staminaPostBlockRecoveryDelay;
+
+        [FoldoutGroup("Character Stats, Combat"), SerializeField] protected float chargeAttackMinTime = 0.4f, chargeAttackMaxTime = 1;
+        [FoldoutGroup("Character Stats, Combat"), SerializeField] protected float chargeAttackMinHoldTime = 0.25f;
+        [FoldoutGroup("Character Stats, Combat"), SerializeField] protected float minHeavyDamageMultiplier = 1.25f, maxHeavyDamageMultiplier = 2.5f;
+
+        [Header("The stamina drain multiplier to an attacked target with a shield drawn")]
+        [FoldoutGroup("Character Stats, Combat"), SerializeField] protected float minHeavyBlockStaminaMultiplier = 1f, maxHeavyBlockStaminaMultiplier = 2.5f;
+
+        protected float _damageChargeMultiplier = 1;
+        protected float _chargeHoldTime;
+        protected bool _holdingCharge;
+
+
         protected float staminaCurrent
         {
             get => _staminaCurrent;
             set
             {
+                if (value <= 0f && _staminaExhaustionDelay == false)
+                {
+                    _staminaExhaustionDelay = true;
+                    StartCoroutine(Utils.WaitDurationAndExecute(staminaExhaustionTime, () => { _staminaExhaustionDelay = false; }));
+                }
+
                 _staminaCurrent = Mathf.Clamp(value, 0, StaminaMax);
 
                 // Update the sprint time
@@ -76,6 +119,47 @@ namespace Characters
                 OnUpdateMagicaBar?.Invoke(_magicaCurrent);
             }
         }
+
+
+        public float HitPoints
+        {
+            get => _hitPointsCurrent;
+
+            set
+            {
+                // Store the current hp
+                float hpCurrent = _hitPointsCurrent;
+
+                if (value < 0)
+                {
+                    _hitPointsCurrent = 0;
+                }
+
+                else if (value > HitPointsMax)
+                {
+                    _hitPointsCurrent = HitPointsMax;
+                }
+
+                else
+                {
+                    _hitPointsCurrent = value;
+                }
+
+                // The character just lost health
+                if (_hitPointsCurrent < hpCurrent)
+                {
+                    _healthRecoveryCooldown = healthRecoveryTime;
+                }
+
+                if (_hitPointsCurrent == 0)
+                {
+                    DoDeath();
+                }
+
+                UpdateHealthBar();
+            }
+        }
+
 
         public float MovementSpeed
         {
@@ -141,6 +225,10 @@ namespace Characters
         [FoldoutGroup("Projectile Firing/Spell Casting")]
         [SerializeField] protected float spellSpawnDistance = 0.25f;
 
+        //[SerializeField] protected bool shieldRaise;
+        // Temp
+        // [SerializeField] protected float shieldRaiseTime = 0.3f;
+
         #endregion
 
         #region Other Constants and Variables
@@ -148,7 +236,7 @@ namespace Characters
         private const float blockAngle = 90;
         protected bool sucessfulEnemyBlock = false;
 
-        // This value is marked true if the player is holding a spell, if true, magica will not recharge
+        // This value is marked true if the player is holding a spell, if true, magica will not Recovery
         protected bool isHoldingSpell;
 
         #endregion
@@ -202,8 +290,8 @@ namespace Characters
 
         protected bool InAttackingState()
         {
-            return 
-                state == CharacterState.Attacking || 
+            return
+                state == CharacterState.Attacking ||
                 state == CharacterState.Blocking;
         }
 
@@ -214,9 +302,12 @@ namespace Characters
 
         protected virtual void SetState(CharacterState newState)
         {
+            // Prevents state changes after death
+            if (state == CharacterState.Death)
+                return;
+
             switch (newState)
             {
-
                 case CharacterState.Attacking:
                     animationController.StopWalkLoop();
                     break;
@@ -305,39 +396,9 @@ namespace Characters
             }
         }
 
-        public float HitPoints
-        {
-            get => hitPointsCurrent;
-
-            set
-            {
-                if (value < 0)
-                {
-                    hitPointsCurrent = 0;
-                }
-
-                else if (value > HitPointsMax)
-                {
-                    hitPointsCurrent = HitPointsMax;
-                }
-
-                else
-                {
-                    hitPointsCurrent = value;
-                }
-
-                if (hitPointsCurrent == 0)
-                {
-                    DoDeath();
-                }
-
-                UpdateHealthBar();
-            }
-        }
-
         public float CurrentHealthPercentage
         {
-            get => (hitPointsCurrent / HitPointsMax) * 100;
+            get => (_hitPointsCurrent / HitPointsMax) * 100;
         }
 
         public float CurrentStaminaPercentage
@@ -347,7 +408,7 @@ namespace Characters
 
         public virtual float PhysDamageTotal
         {
-            get => equippedWeapon.weaponDamage;
+            get => equippedWeapon.weaponDamage * _damageChargeMultiplier;
         }
 
         public float ArmourTotal
@@ -398,28 +459,74 @@ namespace Characters
 
         protected virtual void Update()
         {
-            RechargeMagica();
+            if (state != CharacterState.Death)
+            {
+                RecoverMagica();
+                RecoverHealth();
+                RecoverStamina();
+            }
         }
 
-        protected void RechargeMagica()
+        protected void RecoverMagica()
         {
             if (isHoldingSpell)
                 return;
 
             if (magicaCurrent < MagicaMax)
             {
-                magicaCurrent += (MagicaMax * magicaRechargeSpeed) * Time.deltaTime;
-               // magicaCurrent += magicaRechargeSpeed * Time.deltaTime;
+                magicaCurrent += (MagicaMax * magicaRecoverySpeed) * Time.deltaTime;
+                // magicaCurrent += magicaRecoverySpeed * Time.deltaTime;
             }
         }
 
-        protected void RechargeStamina()
+        /// <summary>
+        /// Constantly recovers the character's stamina, applying factors such as the character currently blocking
+        /// </summary>
+        protected void RecoverStamina()
         {
             if (staminaCurrent < StaminaMax)
             {
-                staminaCurrent += (StaminaMax * staminaRechargeModifier) * Time.deltaTime;
-               // staminaCurrent += Time.deltaTime * staminaRechargeModifier;
+                // If the character is attacking or the character's stamina is currently exhausted, do not Recovery stamina
+                if (_staminaPostBlockRecoveryDelay || _staminaExhaustionDelay || state == CharacterState.Attacking)
+                {
+                    return;
+                }
+
+                float baseRecovery = (StaminaMax * staminaRecoveryModifier) * Time.deltaTime;
+
+                if (state == CharacterState.Blocking)
+                {
+                    baseRecovery *= staminaRecoveryBlockingMultiplier;
+                }
+
+                staminaCurrent += baseRecovery;
             }
+        }
+
+        /// <summary>
+        /// Constantly recovers the character's health, unless the health recovery cooldown is not set to 0, in which case, the method will reduce the cooldown time
+        /// </summary>
+        protected void RecoverHealth()
+        {
+            if (_healthRecoveryCooldown > 0)
+            {
+                _healthRecoveryCooldown -= Time.deltaTime;
+                return;
+            }
+
+            if (HitPoints < HitPointsMax)
+            {
+                float baseRecovery = (HitPointsMax * healthRecoveryModifier) * Time.deltaTime;
+
+                HitPoints += baseRecovery;
+            }
+        }
+
+        protected void ReduceStamina(float amount)
+        {
+            staminaCurrent -= amount;
+            if (staminaCurrent < 0)
+                staminaCurrent = 0;
         }
 
         protected virtual void SubscribeToBusEvents() { }
@@ -659,7 +766,13 @@ namespace Characters
 
         #region Attack Methods   
 
-        protected bool TryBlockIncomingDamage(float incomingDamage, Transform source)
+        /// <summary>
+        /// Return true if the character is able to block the incoming damage and if so, excecute any blocking logic
+        /// </summary>
+        /// <param name="incomingDamage"></param>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        protected bool TryBlockIncomingDamage(DamagePacket damagePacket)
         {
             if (state == CharacterState.Blocking)
             {
@@ -685,36 +798,69 @@ namespace Characters
                 }
 
 
-                Vector3 direction = (source.position - transform.position).normalized;
+                Vector3 direction = (damagePacket.source.position - transform.position).normalized;
                 float angle = Vector2.SignedAngle(blockVector, direction);
 
-                //Debug.Log(Mathf.Abs(angle));
-
+                // Only block the damage if the angle the character is blocking in overlaps with the attacking angle, otherwise the block will fail
                 if (Mathf.Abs(angle) <= blockAngle)
                 {
                     // Play the shield block sound
                     audioManager.PlayOneShot(fmodEvents.metalShieldBlockSound, transform.position);
 
-                    Character charComponent = source.GetComponent<Character>();
+                    Character charComponent = damagePacket.source.GetComponent<Character>();
 
                     if (charComponent != null)
                     {
                         charComponent.sucessfulEnemyBlock = true;
                     }
 
-                    // Remove stamina based on the shield type
-                    PayBlockStaminaCost();
+                    // Block stamina regeneration for a period of time
+                    DoBlockStaminaRecoveryTimeout();
 
-                    // Intake a portion of the base damage depending on the shield type
-                    DealShieldDamage(incomingDamage, source);
+                    // If the character can afford the cost to block, remove the stamina and return true, leading to a successful block
+                    if (TryPayBlockStaminaCost(damagePacket.blockStaminaDrawMultiplier))
+                    {
+                        // Intake a portion of the base damage depending on the shield type
+                        DealShieldDamage(damagePacket);
 
-                    animationController.DoBlockAnimation(viewDirection);
-                    StartCoroutine(ExitBlockState());
+                        animationController.DoBlockAnimation(viewDirection);
+                        StartCoroutine(ExitBlockState());
+                    }
+                    
+                    // Otherwise, the character will be staggered and take full damage
+                    else
+                    {
+                        HitPoints -= damagePacket.damageAmount;
+
+                        if (HitPoints > 0)
+                        EnterStaggerState();
+                    }
+
                     return true;
                 }
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Blocks stamina regeneraton either until the regen pause duration has passed, or the character is no longer blocking
+        /// </summary>
+        private void DoBlockStaminaRecoveryTimeout()
+        {
+            if (_staminaPostBlockRecoveryDelay)
+            {
+                return;
+            }
+
+            // Block stamina regeneration for the given duration
+            _staminaPostBlockRecoveryDelay = true;
+            StartCoroutine(Utils.WaitDurationOrConditionAndExcecute(
+                staminaPostBlockRecoveryDelayDuration, state != CharacterState.Blocking, () =>
+                {
+                    _staminaPostBlockRecoveryDelay = false;
+                }));
+
         }
 
         private IEnumerator ExitBlockState()
@@ -732,7 +878,7 @@ namespace Characters
 
         protected void BlockWithAngle(float angle)
         {
-            DoBlockSound();
+            //  DoRaiseShieldSound();
 
             if (angle >= 0 && angle < 90)
             {
@@ -756,19 +902,34 @@ namespace Characters
             animationController.DoRaiseBlockAnimation(viewDirection);
         }
 
-        protected void PayBlockStaminaCost()
+        /// <summary>
+        /// If the character has enough stamina, returns true and removes the samina, otherwise returns false
+        /// </summary>
+        /// <returns></returns>
+        protected bool TryPayBlockStaminaCost(float staminaDrawMultiplier)
         {
             if (equippedShield == null)
             {
                 Debug.LogError("Error: Trying to pay a block stamina cost without a shield equipped!");
-                return;
+                return false;
             }
 
             // For now, remove 15% of the max stamina to the current
-            staminaCurrent -= (StaminaMax * 0.15f);
+            float totalCost = (StaminaMax * 0.15f) * staminaDrawMultiplier;
+
+            // Return false if the character cannot afford the block cost, and sets the current stamina to 0
+            if (staminaCurrent - totalCost <= 0)
+            {
+                staminaCurrent = 0;
+                return false;
+            }
+
+            staminaCurrent -= (totalCost);
+
+            return true;
         }
 
-        protected void DealShieldDamage(float baseDamage, Transform source)
+        protected void DealShieldDamage(DamagePacket damagePacket)
         {
             if (equippedShield == null)
             {
@@ -779,9 +940,9 @@ namespace Characters
             // For now, remove between 85 and 100 percent of the incoming damage
             float percent = UnityEngine.Random.Range(85, 101);
             percent /= 100f;
-            float finalDamage = baseDamage - (baseDamage * percent);
+            float finalDamage = damagePacket.damageAmount - (damagePacket.damageAmount * percent);
 
-            Debug.Log($"Reduced incoming damage from {baseDamage} to {finalDamage}");
+            //Debug.Log($"Reduced incoming damage from {baseDamage} to {finalDamage}");
 
             HitPoints -= finalDamage;
         }
@@ -999,7 +1160,14 @@ namespace Characters
 
         protected virtual void DealDamageToCharacter(Character character)
         {
-            character.EnterHitState(PhysDamageTotal, this.transform);
+            DamagePacket damagePacket = new DamagePacket
+            {
+                damageAmount = PhysDamageTotal,
+                source = this.transform,
+                blockStaminaDrawMultiplier = GetHeavyBlockStaminaDrawMultiplier()
+            };
+
+            character.EnterHitState(damagePacket);
         }
 
         public virtual Vector3 GetVelocity()
@@ -1007,9 +1175,9 @@ namespace Characters
             return Vector3.zero;
         }
 
-        protected virtual void EnterHitState(float damage, Transform attackSource)
+        protected virtual void EnterHitState(DamagePacket damagePacket)
         {
-            if (TryBlockIncomingDamage(damage, attackSource))
+            if (TryBlockIncomingDamage(damagePacket))
             {
                 return;
             }
@@ -1018,49 +1186,97 @@ namespace Characters
 
             animationController.DoFlashHit();
 
-            HitPoints -= damage;
-
-            //StartCoroutine(StuntMovementSpeed());
-
-            //state = CharacterState.Hit;
-            //attackTimer = 0;
-            //attackCR = null;
-            //mover.Stop();
-
-            //Vector3 direction = (hitObject.position - transform.position).normalized;
-
-            //float angle = Vector2.SignedAngle(Vector2.right, direction);
-
-            //// Determine the attack direction based on the angle
-            //if (angle >= -45f && angle < 45f)
-            //{
-            //    // Attack right
-            //    ChangeAnimationState(HITH);
-            //    transform.localScale = new Vector3(1f, 1f, 1f); // Reset player's local scale when attacking right
-            //}
-            //else if (angle >= 45f && angle < 135f)
-            //{
-            //    // Attack up
-            //    ChangeAnimationState(HITDOWN);
-            //}
-            //else if (angle >= 135f || angle < -135f)
-            //{
-            //    // Attack left
-            //    ChangeAnimationState(HITH);
-            //    transform.localScale = new Vector3(-1f, 1f, 1f); // Flip the player when attacking left
-            //}
-            //else if (angle >= -135f && angle < -45f)
-            //{
-            //    // Attack down
-            //    ChangeAnimationState(HITUP);
-            //}
-
-            //StartCoroutine(ExitHitState());
+            HitPoints -= damagePacket.damageAmount;
         }
 
-        public void DealDamage(float damage, Transform attackSource)
+        protected virtual void EnterStaggerState()
         {
-            EnterHitState(damage, attackSource);
+            SetState(CharacterState.Hit);
+
+            animationController.DoFlashHit();
+
+            animationController.DoStaggerAnimation(viewDirection);
+
+            StartCoroutine(Utils.WaitDurationAndExecute(.3f, () =>
+            {
+                SetState(CharacterState.Normal);
+            }));
+        }
+
+        public void DealDamage(DamagePacket damagePacket)
+        {
+            EnterHitState(damagePacket);
+        }
+
+        // Based on the current charge hold time, return how much stamina the heavy attack will cost
+        protected float GetHeavyAttackStaminaCost()
+        {
+            if (equippedWeapon == null)
+            {
+                Debug.LogWarning("Trying to get heavy attack stamina cost without an equipped weapon!");
+                return 0;
+            }
+
+            if (state != CharacterState.Attacking)
+            {
+                Debug.LogWarning("Trying to get heavy attack stamina cost when not attacking!");
+                return 0;
+            }
+
+            float t = Mathf.Clamp01((_chargeHoldTime - chargeAttackMinTime) / (chargeAttackMaxTime - chargeAttackMinTime));
+
+            float staminaCost = Mathf.Lerp(equippedWeapon.heavyAttackMinStaminaCost, equippedWeapon.heavyAttackMaxStaminaCost, t);
+
+            return staminaCost;
+        }
+
+        protected float GetHeavyAttackDamageMultiplier()
+        {
+            if (equippedWeapon == null)
+            {
+                Debug.LogWarning("Trying to get heavy attack damage multiplier without an equipped weapon!");
+                return 1;
+            }
+            if (state != CharacterState.Attacking)
+            {
+                Debug.LogWarning("Trying to get heavy attack damage multiplier when not attacking!");
+                return 1;
+            }
+
+            float t = Mathf.Clamp01((_chargeHoldTime - chargeAttackMinTime) / (chargeAttackMaxTime - chargeAttackMinTime));
+            float damageMultiplier = Mathf.Lerp(minHeavyDamageMultiplier, maxHeavyDamageMultiplier, t);
+
+            //Debug.Log($"Muiltiplier : {damageMultiplier}");
+
+            return damageMultiplier;
+        }
+
+        protected float GetHeavyBlockStaminaDrawMultiplier()
+        {
+            if (equippedWeapon == null)
+            {
+                Debug.LogWarning("Trying to get heavy attack damage multiplier without an equipped weapon!");
+                return 1;
+            }
+            if (state != CharacterState.Attacking)
+            {
+                Debug.LogWarning("Trying to get heavy attack damage multiplier when not attacking!");
+                return 1;
+            }
+            if (_chargeHoldTime < chargeAttackMinTime)
+            {
+
+                return 1;
+            }
+
+            float t = Mathf.Clamp01((_chargeHoldTime - chargeAttackMinTime) / (chargeAttackMaxTime - chargeAttackMinTime));
+            float blockStaminaDrawMultiplier = Mathf.Lerp(minHeavyBlockStaminaMultiplier, maxHeavyBlockStaminaMultiplier, t);
+            return blockStaminaDrawMultiplier;
+        }
+
+        public bool MinChargeTimeMet()
+        {
+            return _chargeHoldTime > chargeAttackMinHoldTime;
         }
 
         #endregion
@@ -1257,7 +1473,7 @@ namespace Characters
             }
         }
 
-        private void DoBlockSound()
+        private void DoRaiseShieldSound()
         {
             audioManager.PlayOneShot(fmodEvents.metalShieldBlockSound, transform.position);
         }

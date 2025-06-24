@@ -13,6 +13,8 @@ namespace CBTSystem.Elements.Nodes
 
         public CBTActionType ActionType { get; set; }
 
+        Dictionary<CBTSystemConditionNode, int> conditionNodePriorities = new();
+
         public override void Initialize(BaseGraphView graphView, Vector2 position)
         {
             base.Initialize(graphView, position);
@@ -22,6 +24,181 @@ namespace CBTSystem.Elements.Nodes
             actionContainer = new VisualElement();
             actionContainer.AddToClassList("ds-node__custom-data-container");
             extensionContainer.Add(actionContainer);
+        }
+
+        public override void SetNextNodeIDs(List<string> nextNodeIDs)
+        {
+            _nextNodeIDs = nextNodeIDs;
+
+            // If we are setting the list, it would be coming from a load, meaning the nodes will have already had priorities set
+
+            List<CBTSystemNode> graphNodes = graphView.FindNodesById(NextNodeIDs);
+            List<CBTSystemConditionNode> conditionNodes = new();
+
+            foreach (var node in graphNodes)
+            {
+                if (node is CBTSystemConditionNode conditionNode)
+                {
+                    conditionNodes.Add(conditionNode);
+                }
+            }
+
+            if (conditionNodes.Count == 0)
+            {
+                Debug.LogWarning("No condition nodes found in the next node IDs.");
+                return;
+            }
+
+            foreach (var conditionNode in conditionNodes)
+            {
+                // If the condition node has a priority set, add it to the dictionary
+                if (conditionNode.Priority != -1)
+                {
+                    conditionNodePriorities.Add(conditionNode, conditionNode.Priority);
+
+                    // Listen to its priority change event
+                    conditionNode.OnPriorityChanged = () =>
+                    {
+                        int currentIndex = conditionNodePriorities[conditionNode];
+                        int newIndex = (currentIndex + 1) % conditionNodes.Count;
+                        conditionNodePriorities[conditionNode] = newIndex;
+                        conditionNode.SetConditionPriority(newIndex);
+                    };
+                }
+                else
+                {
+                    Debug.LogWarning($"Condition node {conditionNode.title} does not have a priority set. It will not be added to the priorities dictionary.");
+                }
+            }
+
+            RefreshConditionNodePriorities();
+        }
+
+        public override void AddNextNodeID(string nextNodeID)
+        {
+            if (!NextNodeIDs.Contains(nextNodeID))
+            {
+                NextNodeIDs.Add(nextNodeID);
+                RefreshConditionNodePriorities();
+            }
+        }
+
+        public override void RemoveNextNodeID(string nextNodeID)
+        {
+            if (NextNodeIDs.Contains(nextNodeID))
+            {
+                NextNodeIDs.Remove(nextNodeID);
+                RefreshConditionNodePriorities();
+            }
+        }
+
+        public void RefreshConditionNodePriorities()
+        {
+            List<CBTSystemNode> graphNodes = graphView.FindNodesById(NextNodeIDs);
+            List<CBTSystemConditionNode> conditionNodes = new();
+
+            foreach (var node in graphNodes)
+            {
+                if (node is CBTSystemConditionNode conditionNode)
+                {
+                    conditionNodes.Add(conditionNode);
+                }
+            }
+
+            if (conditionNodes.Count == 0)
+            {
+                Debug.LogWarning("No condition nodes found in the next node IDs.");
+                return;
+            }
+
+            if (conditionNodes.Count == 1)
+            {
+                conditionNodes[0].RemoveConditionPriority();
+                return;
+            }
+
+           // Debug.Log($"Setting condition priorities for {conditionNodes.Count} condition nodes.");
+
+            // Remove any null or invalid condition nodes from the dictionary
+            var keysToRemove = new List<CBTSystemConditionNode>();
+            foreach (var node in conditionNodePriorities.Keys)
+            {
+                if (node == null || !conditionNodes.Contains(node))
+                {
+                    keysToRemove.Add(node);
+                }
+            }
+            foreach (var node in keysToRemove)
+            {
+                conditionNodePriorities.Remove(node);
+            }
+
+            //// Assign priorities in order
+            //for (int i = 0; i < conditionNodes.Count; i++)
+            //{
+            //    var conditionNode = conditionNodes[i];
+            //    conditionNodePriorities[conditionNode] = i;
+            //    //conditionNode.SetConditionPriority(i);
+            //}
+
+            // Ensure OnPriorityChanged is only registered once per node
+            foreach (var conditionNode in conditionNodes)
+            {
+                if (!conditionNodePriorities.ContainsKey(conditionNode))
+                {
+                    // If the condition node already has a priority, skip it
+                    continue;
+                }
+
+                // Listen to its priority change event
+                conditionNode.OnPriorityChanged = () =>
+                {
+                    int currentIndex = conditionNodePriorities[conditionNode];
+                    int newIndex = (currentIndex + 1) % conditionNodes.Count;
+                    conditionNodePriorities[conditionNode] = newIndex;
+                    conditionNode.SetConditionPriority(newIndex);
+                };
+
+                // When one condition node is hovered, highlight all connected condition nodes to visualize the connections
+                conditionNode.OnNodeHovered = () =>
+                {
+                    HighlightConditionNodes();
+                };
+
+                // When the condition node is unhovered, revert the highlights
+                conditionNode.OnNodeUnhovered = () =>
+                {
+                    RevertConditionNodeHighlights();
+                };
+            }
+        }
+
+        /// <summary>
+        /// Highlights all condition nodes connected to this action node by setting their background color
+        /// </summary>
+        protected void HighlightConditionNodes()
+        {
+            foreach (var conditionNode in conditionNodePriorities.Keys)
+            {
+                if (conditionNode != null)
+                {
+                    conditionNode.SetNodeHovered();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Resets the highlights of all condition nodes connected to this action node by setting their background color back to default
+        /// </summary>
+        protected void RevertConditionNodeHighlights()
+        {
+            foreach (var conditionNode in conditionNodePriorities.Keys)
+            {
+                if (conditionNode != null)
+                {
+                    conditionNode.SetNodeDefault();
+                }
+            }
         }
 
 

@@ -36,7 +36,7 @@ namespace NPCManagement
             if (!npc.HasID() || npc == null)
                 return;
 
-            Debug.Log("NPC Added: " + npc.ID);
+            //Debug.Log("NPC Added: " + npc.ID);
 
             // Adds a new NPC ID to the directory if it is not already present
             if (!LivingNPCDirectory.Contains(npc.ID))

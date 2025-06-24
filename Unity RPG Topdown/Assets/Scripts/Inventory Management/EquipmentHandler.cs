@@ -242,7 +242,7 @@ namespace InventoryManagement
             // Unequip current weapon
             UnequipWeapon();
 
-            Debug.Log($"Equipped {weapon.itemName}.");
+            //Debug.Log($"Equipped {weapon.itemName}.");
 
             equippedWeapon = weapon;
             TotalPhysicalDamage += weapon.weaponDamage;

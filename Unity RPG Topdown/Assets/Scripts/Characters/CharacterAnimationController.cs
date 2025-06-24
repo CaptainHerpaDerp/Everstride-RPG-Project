@@ -73,6 +73,7 @@ namespace Characters
             BASEATTACKBOTTOMRIGHT, BASEATTACKBOTTOMLEFT, BASEATTACKTOPRIGHT, BASEATTACKTOPLEFT,
 
             SLASHATTACKBOTTOMRIGHT, SLASHATTACKBOTTOMLEFT, SLASHATTACKTOPRIGHT, SLASHATTACKTOPLEFT,
+            SLASHCHARGEATTACKBOTTOMRIGHT, SLASHCHARGEATTACKBOTTOMLEFT, SLASHCHARGEATTACKTOPRIGHT, SLASHCHARGEATTACKTOPLEFT,
 
 
             SWINGATTACKRIGHT, SWINGATTACKLEFT, SWINGATTACKTOP, SWINGATTACKBOTTOM, SWINGATTACKTOPLEFT, SWINGATTACKBOTTOMLEFT, SWINGATTACKTOPRIGHT, SWINGATTACKBOTTOMRIGHT,
@@ -116,6 +117,7 @@ namespace Characters
 
         protected Dictionary<ViewDirection, string> IdleAnimationKeyPairs;
         protected Dictionary<ViewDirection, string> WalkAnimationKeyPairs;
+        protected Dictionary<ViewDirection, string> HitAnimationKeyPairs;
 
         public Dictionary<AttackDirection, Vector2> AttackDirectionPairs;
 
@@ -138,6 +140,7 @@ namespace Characters
         Dictionary<AttackDirection, string> SlashAttackAnimationKeys;
         protected Dictionary<ViewDirection, string> SlashIdleAnimationKeyPairs;
         protected Dictionary<ViewDirection, string> SlashWalkAnimationKeyPairs;
+        protected Dictionary<ViewDirection, string> SlashChargeAttackAnimationKeyPairs;
 
         Dictionary<AttackDirection, string> TwoHandedAttackAnimationKeys1;
         Dictionary<AttackDirection, string> TwoHandedAttackAnimationKeys2;
@@ -298,6 +301,14 @@ namespace Characters
             { ViewDirection.TopLeft, WALKTOPLEFT }
         };
 
+            HitAnimationKeyPairs = new Dictionary<ViewDirection, string>
+            {
+            { ViewDirection.BottomRight, HITBOTTOMRIGHT },
+            { ViewDirection.BottomLeft, HITBOTTOMLEFT },
+            { ViewDirection.TopRight, HITTOPRIGHT },
+            { ViewDirection.TopLeft, HITTOPLEFT }
+            };
+
             RaiseBlockAnimationKeyPairs = new Dictionary<ViewDirection, string>
         {
             { ViewDirection.BottomRight, RAISESHIELDBOTTOMRIGHT },
@@ -435,6 +446,14 @@ namespace Characters
             { AttackDirection.TopLeft, SLASHATTACKTOPLEFT }
         };
 
+            SlashChargeAttackAnimationKeyPairs = new Dictionary<ViewDirection, string>
+            {
+                { ViewDirection.BottomRight, SLASHCHARGEATTACKBOTTOMRIGHT },
+                { ViewDirection.BottomLeft, SLASHCHARGEATTACKBOTTOMLEFT },
+                { ViewDirection.TopRight, SLASHCHARGEATTACKTOPRIGHT },
+                { ViewDirection.TopLeft, SLASHCHARGEATTACKTOPLEFT }
+            };
+
             #region Two Handed Animation Keys
 
             TwoHandedAttackAnimationKeys1 = new Dictionary<AttackDirection, string>
@@ -562,6 +581,11 @@ namespace Characters
             IDLETOPRIGHT = "IdleTR";
             IDLETOPLEFT = "IdleTL";
 
+            HITBOTTOMRIGHT = "HitBR";
+            HITBOTTOMLEFT = "HitBL";
+            HITTOPRIGHT = "HitTR";
+            HITTOPLEFT = "HitTL";
+
             #region Two Handed Animation Keys
             TWOHANDEDATTACKTOPRIGHT = "TwoHandedAttackTR";
             TWOHANDEDATTACKTOPLEFT = "TwoHandedAttackTL";
@@ -622,6 +646,12 @@ namespace Characters
             SLASHATTACKTOPLEFT = "SlashAttackTL";
             SLASHATTACKBOTTOMRIGHT = "SlashAttackBR";
             SLASHATTACKBOTTOMLEFT = "SlashAttackBL";
+
+            SLASHCHARGEATTACKTOPRIGHT = "SlashChargeTR";
+            SLASHCHARGEATTACKBOTTOMLEFT = "SlashChargeBL";
+            SLASHCHARGEATTACKBOTTOMRIGHT = "SlashChargeBR";
+            SLASHCHARGEATTACKTOPLEFT = "SlashChargeTL";
+
 
             #region Swing Animation Keys
 
@@ -736,6 +766,26 @@ namespace Characters
             }
         }
 
+        public void DisableCosmeticAnimators()
+        {
+            foreach (var cosmetic in cosmeticTransforms)
+            {
+                if (cosmetic == null)
+                    continue;
+
+                if (cosmetic.gameObject.activeInHierarchy)
+                {
+                    if (!cosmetic.TryGetComponent(out Animator animator))
+                    {
+                        Debug.LogWarning("No animator found on the cosmetic transform.");
+                        continue;
+                    }
+
+                    animator.enabled = false;
+                }
+            }
+        }
+
         protected void SetCosmeticAnimationState(string newState)
         {
             if (cosmeticsTransform == null || !cosmeticsTransform.gameObject.activeInHierarchy)
@@ -834,20 +884,8 @@ namespace Characters
         /// <param name="viewDirection"></param>
         public void DoWalkAnimation(ViewDirection viewDirection, bool weaponEquipped = false, WeaponMode weaponMode = WeaponMode.Slash)
         {
-            foreach (Transform transform in cosmeticsTransform)
-            {
-                if (!transform.TryGetComponent(out SpriteResolver spriteResolver))
-                {
-                    Debug.LogWarning("No sprite resolver found on the cosmetic transform.");
-                }
-
-                if (!transform.TryGetComponent(out Animator animator))
-                {
-                    Debug.LogWarning("No animadtor found on the cosmetic transform.");
-                }
-
-                animator.enabled = false;
-            }
+            // Disables all animators amongst all cosmetics so that we can manually set the walking frames
+            DisableCosmeticAnimators();
 
             // Ensure the current walk direction is always updated, so if the coroutine is running, the direction is correct
             currentWalkDirectionEnum = viewDirection;
@@ -986,7 +1024,7 @@ namespace Characters
 
             float groundTime = Mathf.Lerp(groundTimeMsMax, groundTimeMsMin, curveValue);
 
-            Debug.Log($"[Curve] Ground Time: {groundTime}, Speed: {currentSpeed}, t: {t}, Curve: {curveValue}");
+           // Debug.Log($"[Curve] Ground Time: {groundTime}, Speed: {currentSpeed}, t: {t}, Curve: {curveValue}");
 
             return groundTime;
         }
@@ -1004,6 +1042,12 @@ namespace Characters
         public void DoWeaponAttackAnimation(AttackDirection attackDirection)
         {
             ChangeAnimationState(GetWeaponAnimationKey(attackDirection));
+        }
+
+        public void DoWeaponChargeAttackAnimation(ViewDirection viewDirection)
+        {
+            UpdateWeaponSortingLayer();
+            ChangeAnimationState(GetWeaponChargeAnimationForDirection(viewDirection));
         }
 
         /// <summary>
@@ -1142,6 +1186,18 @@ namespace Characters
 
                 default:
                     Debug.LogWarning("No idle animation for this weapon");
+                    return IdleAnimationKeyPairs[direction];
+            }
+        }
+
+        protected string GetWeaponChargeAnimationForDirection(ViewDirection direction)
+        {
+            switch (EquippedWeapon.weaponMode)
+            {           
+                case WeaponMode.Slash:
+                    return SlashChargeAttackAnimationKeyPairs[direction];
+                default:
+                    Debug.LogError("No charge animation for this weapon");
                     return IdleAnimationKeyPairs[direction];
             }
         }
@@ -1315,6 +1371,11 @@ namespace Characters
         #endregion
 
         #region Character Hit Methods
+
+        public void DoStaggerAnimation(ViewDirection currentViewDirection)
+        {
+            ChangeAnimationState(HitAnimationKeyPairs[currentViewDirection]);
+        }
 
         public void DoFlashHit()
         {

@@ -28,11 +28,28 @@ namespace CBTSystem.Windows
             NPCTestCombatBehaviourTree.OnNodeChanged += HandleNodeChanged;
             EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
         }
-
+         
         private void OnDisable()
         {
             NPCTestCombatBehaviourTree.OnNodeChanged -= HandleNodeChanged;
             EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
+        }
+
+        protected override void OnFocus()
+        {
+            base.OnFocus();
+
+            string lastLoadedGraph = EditorPrefs.GetString("CurrentLoadedCBTGraph", string.Empty);
+
+            // De-select the filename text field when the window loses focus
+            if (fileNameTextField != null)
+            {
+                fileNameTextField.value = lastLoadedGraph; // Reset to default name
+            }
+            else
+            {
+               Debug.LogWarning("File name text field is null. Cannot reset value.");   
+            }
         }
 
 
@@ -73,7 +90,7 @@ namespace CBTSystem.Windows
         }
 
 
-        /// <summary>
+        /// <summary> 
         /// If we have a stored graph in the editor prefs, reload it after a script reset.
         /// </summary>
         protected override void ReloadLastLoadedGraph()
@@ -82,11 +99,13 @@ namespace CBTSystem.Windows
 
             if (!string.IsNullOrEmpty(lastLoadedGraph))
             {
-                //Debug.Log($"Re-loading last loaded graph: {lastLoadedGraph}");
+                Debug.Log($"Re-loading last loaded graph: {lastLoadedGraph}");
 
                 Clear();
 
                 CBTSystemIOUtility.Initialize(graphView, lastLoadedGraph);
+
+                fileNameTextField.value = lastLoadedGraph;
 
                 try
                 {
@@ -214,7 +233,7 @@ namespace CBTSystem.Windows
             // De-select the filename text field so that the user value is not taken into account
             cbtFileTextField.Blur();
 
-            Debug.Log($"Updating file name to: {newName}");
+           // Debug.Log($"Updating file name to: {newName}");
 
             cbtFileTextField.value = newName;
         }

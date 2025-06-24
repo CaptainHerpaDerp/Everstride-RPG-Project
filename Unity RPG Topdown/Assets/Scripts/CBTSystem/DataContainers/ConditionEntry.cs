@@ -17,5 +17,13 @@ namespace CBTSystem.Elements
                    ConditionType == CBTConditionType.SelfInAttackRange || 
                    ConditionType == CBTConditionType.CombatTargetAttacking;
         }
+
+        public bool IsPercentageCondition()
+        {
+            return ConditionType == CBTConditionType.HeavySwingChargeProgress ||
+                   ConditionType == CBTConditionType.CheckHealth ||
+                   ConditionType == CBTConditionType.CheckStamina ||
+                   ConditionType == CBTConditionType.TargetRangeCoverage;
+        }
     }
 }

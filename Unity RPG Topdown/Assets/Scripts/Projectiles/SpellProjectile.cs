@@ -81,8 +81,14 @@ namespace Projectiles
 
             if (collision.gameObject.GetComponent<Character>())
             {
+                DamagePacket damagePacket = new DamagePacket
+                {
+                    damageAmount = damage,
+                    source = transform,
+                };
+
                 // Debug.Log("Hit " + collision.gameObject.name);
-                collision.gameObject.GetComponent<Character>().DealDamage(damage, transform);
+                collision.gameObject.GetComponent<Character>().DealDamage(damagePacket);
             }
 
             // Disable the collider so that the projectile doesn't hit anything else

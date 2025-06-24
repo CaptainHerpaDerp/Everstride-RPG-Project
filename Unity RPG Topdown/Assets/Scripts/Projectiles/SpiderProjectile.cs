@@ -20,7 +20,14 @@ namespace Projectiles
             if (collision.gameObject.GetComponent<Character>())
             {
                 Character character = collision.gameObject.GetComponent<Character>();
-                character.DealDamage(damage, transform);
+
+                DamagePacket damagePacket = new DamagePacket
+                {
+                    damageAmount = damage,
+                    source = transform
+                };
+
+                character.DealDamage(damagePacket);
                 character.ApplyStatusEffect(StatusEffect.TempSlow, 5, transform);
             }
 

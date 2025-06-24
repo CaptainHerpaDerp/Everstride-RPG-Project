@@ -25,8 +25,12 @@ MonoBehaviour:
   weaponMode: 0
   weaponType: 1
   weaponDamage: 7
-  weaponRange: 1
+  weaponRange: 0.75
   weaponAngle: 65
   canBlock: 0
+  canChargeAttack: 1
+  lightAttackStaminaCost: 15
+  heavyAttackMinStaminaCost: 20
+  heavyAttackMaxStaminaCost: 40
   _spellType: 0
   _castCost: 0

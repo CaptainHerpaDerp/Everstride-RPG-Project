@@ -1,12 +1,12 @@
+using Core;
 using Core.Enums;
+using Core.Interfaces;
 using Effects.Lighting;
+using FMOD.Studio;
 using Items;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Core;
-using FMOD.Studio;
-using Core.Interfaces;
 
 namespace Characters
 {
@@ -28,7 +28,9 @@ namespace Characters
         private bool bowDrawn = false;
         private bool sprintEnabled = true;
         private bool isSprinting = false;
-        private bool sprintLock = false;
+
+       // private bool sprintLock = false;
+
         private bool menuOpen = false;
         private bool lockMovement = false;
 
@@ -36,7 +38,7 @@ namespace Characters
         {
             get
             {
-                if (sprintEnabled && !sprintLock && staminaCurrent > 0)
+                if (sprintEnabled && !_staminaExhaustionDelay && staminaCurrent > 0)
                     return true;
                 else
                     return false;
@@ -129,7 +131,7 @@ namespace Characters
 
         protected override void UpdateHealthBar()
         {    
-            OnUpdateHealthBar?.Invoke(hitPointsCurrent);
+            OnUpdateHealthBar?.Invoke(_hitPointsCurrent);
         }
 
         /// <summary>
@@ -217,28 +219,61 @@ namespace Characters
             menuOpen = false;
         }
 
-        private IEnumerator ExitHitState()
+        private IEnumerator ExitAttackState(float angle)
         {
-            //// Wait for the hit animation to finish.
-            //yield return new WaitForSeconds(hitAnimationDuration);
+            if (equippedWeapon == null)
+            {
+                Debug.LogWarning("No weapon equipped, cannot attack.");
+                yield break;
+            }
 
-            //// Revert the NPC to an idle state.     
-            //state = CharacterState.Normal;
-            //mover.Resume();
-            //ChangeAnimationState(IDLE);
-            yield break;
-        }
+            if (equippedWeapon.canChargeAttack)
+            {
+                // Update the view direction based on the mouse position so that the charge animation can face the right way
+                UpdateViewDirection();
 
-        private IEnumerator ExitAttackState()
-        {
+                animationController.DoWeaponChargeAttackAnimation(viewDirection);
+
+                // Wait until the attack button is released
+                while (Input.GetKey(KC.Attack))
+                {
+                    _chargeHoldTime += Time.deltaTime;
+                    yield return null;
+                }
+
+                /* If the mouse is released but the charge time already exceeds the min heavy attack threshhold,
+                 we need to wait for the remaining duration before releasing and performing a heavy attack */
+
+                if (_chargeHoldTime > chargeAttackMinHoldTime && _chargeHoldTime < chargeAttackMinTime)
+                {
+                    float remainingChargeTime = chargeAttackMinTime - _chargeHoldTime;
+                    yield return new WaitForSeconds(remainingChargeTime);
+                }
+            }
+
+            // Calculate the damage charge multiplier based on chargeTime
+            if (equippedWeapon.canChargeAttack && _chargeHoldTime >= chargeAttackMinTime)
+            {
+                _damageChargeMultiplier = GetHeavyAttackDamageMultiplier();
+                ReduceStamina(GetHeavyAttackStaminaCost());
+            }
+            else
+            {
+                _damageChargeMultiplier = 1f;
+                ReduceStamina(equippedWeapon.lightAttackStaminaCost);
+            }
+
+            AttackWithAngle(angle);
+
             if (equippedWeapon != null && equippedWeapon.weaponType == WeaponType.LongSword)
-            {          
+            {
                 yield return new WaitForSeconds(twoHandedAnimationDurations[attackIteration]);
             }
             else
             {
                 yield return new WaitForSeconds(attackAnimationDuration);
             }
+
 
             EndAttack();
             yield break;
@@ -497,8 +532,8 @@ namespace Characters
                     // Preforms a melee attack
                     else
                     {
-                        StartCoroutine(ExitAttackState());
-                        AttackWithAngle(angle);
+                        StartCoroutine(ExitAttackState(angle));
+                       // AttackWithAngle(angle);
                     }
                 }
             }
@@ -526,7 +561,7 @@ namespace Characters
                         {
                             // Play the no arrow sound
                             //SoundManager.PlaySound(SoundManager.Sound.NoArrow);
-                            StartCoroutine(ExitAttackState());
+                        //    StartCoroutine(ExitAttackState());
                             return;
                         }
 
@@ -580,35 +615,18 @@ namespace Characters
                 if (velocity.magnitude > 0)
                 staminaCurrent -= Time.deltaTime * staminaReductionModifier;
 
-                // If the sprint time reaches 0, we lock sprinting for a period of time, and it may not recharge for this period
+                // If the sprint time reaches 0, we lock sprinting for a period of time, and it may not Recovery for this period
                 if (staminaCurrent <= 0)
                 {
                     StopSprinting();
-                    staminaCurrent = 0;
-                    sprintLock = true;
-
-                    // Wait before allowing the player to sprint again
-                    StartCoroutine(Utils.WaitDurationAndExecute(3, () =>
-                    {
-                        sprintLock = false;
-                        staminaCurrent = 0.1f;
-                    }));
                 }
-            }
-
-            // Otherwise, if the player is not sprinting, increase the sprint time
-            else
-            {
-                // If the player is not sprinting, increase the sprint time
-                if (!sprintLock)
-                    RechargeStamina();
             }
         }
 
         private void DoBlocking()
         {
             // Block
-            if (Input.GetMouseButton(1) && CanBlock() && state != CharacterState.Attacking && state != CharacterState.Blocking && !menuOpen)
+            if (Input.GetMouseButton(1) && CanBlock() && state != CharacterState.Attacking && state != CharacterState.Blocking && state != CharacterState.Hit && !menuOpen)
             {
                 StopSprinting();
 
@@ -622,6 +640,13 @@ namespace Characters
                 // Determine the attack direction based on the angle
                 BlockWithAngle(GetMouseAngle());
             }
+        }
+
+        protected override void EnterStaggerState()
+        {
+            base.EnterStaggerState();
+
+            StopMovement();
         }
 
         private void StopMovement()
@@ -643,7 +668,7 @@ namespace Characters
             float angle = Vector2.SignedAngle(Vector2.right, direction);
             return angle;
         }
-
+         
         #region animationKeys 
 
         private void EndAttack()
@@ -661,6 +686,12 @@ namespace Characters
                     StartCoroutine(chainAttackOpportunity);
                 }
             }
+
+            // Reset the charge damage multiplier
+            _damageChargeMultiplier = 1;
+
+            // reset the hold time
+            _chargeHoldTime = 0;
 
             // Reset the player state back to normal after the attack animation finishes
             SetState(CharacterState.Normal);
@@ -726,7 +757,7 @@ namespace Characters
         private void HandleMovement()
         {
             // If dialogue is active or player is attacking, do not handle movement
-            if (menuOpen || lockMovement || InAttackingState() || state == CharacterState.Death)
+            if (menuOpen || lockMovement || InAttackingState() || state == CharacterState.Death || state == CharacterState.Hit)
             {
                 rigidBody.velocity = Vector2.zero;
                 return;

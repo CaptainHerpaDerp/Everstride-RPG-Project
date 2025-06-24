@@ -60,7 +60,7 @@ namespace CBTSystem.Utilities
 
         public static void Save()
         {
-            Debug.Log("Saving");
+          //  Debug.Log("Saving");
 
             CreateDefaultFolders();
 
@@ -224,7 +224,9 @@ namespace CBTSystem.Utilities
             }
             else if (node is CBTSystemConditionNode conditionNode)
             {
-                nodeSaveDataList.Add(GetConditionSaveDataFromNode(conditionNode));
+                CBTSystemConditionNodeSaveData condSaveData = GetConditionSaveDataFromNode(conditionNode);
+
+                nodeSaveDataList.Add(condSaveData);
             }
             else
             {
@@ -320,7 +322,9 @@ namespace CBTSystem.Utilities
                 ConditionEntries = conditionNode.ConditionEntries,
                 Connectors = conditionNode.Connectors,
 
-                IsRootNode = conditionNode.IsRootNode
+                IsRootNode = conditionNode.IsRootNode,
+
+                Priority = conditionNode.Priority
             };
         }
 
@@ -342,7 +346,7 @@ namespace CBTSystem.Utilities
 
             var nodeSO = IOUtilities.CreateAsset<CBTSystemActionNodeSO>(nodePath, node.ID);
 
-            Debug.Log($"Saving action node with {node.NextNodeIDs.Count} connections");
+          //  Debug.Log($"Saving action node with {node.NextNodeIDs.Count} connections");
 
             nodeSO.Initialize(
                    node.ID,
@@ -383,7 +387,8 @@ namespace CBTSystem.Utilities
                    conditionNode.NextNodeIDs,
                    conditionNode.IsRootNode,
                    conditionNode.ConditionEntries,
-                   conditionNode.Connectors
+                   conditionNode.Connectors,
+                   conditionNode.Priority
             );
 
             if (conditionNode.Group != null)
@@ -427,6 +432,9 @@ namespace CBTSystem.Utilities
                 TypeNameHandling = TypeNameHandling.All
             });
 
+            // We need to store any loaded action nodes in a dictionary to set their next node IDs after all nodes have been loaded
+            Dictionary<CBTSystemActionNode, CBTSystemActionNodeSaveData> loadedActionNodes = new();
+
             foreach (var nodeData in nodeSaveDataList)
             {
                 if (nodeData is CBTSystemActionNodeSaveData actionNodeData)
@@ -439,6 +447,8 @@ namespace CBTSystem.Utilities
                     {
                         group.AddElement(newActionNode);
                     }
+
+                    loadedActionNodes.Add(newActionNode, actionNodeData);
 
                     newActionNode.Draw();
                 }
@@ -459,6 +469,15 @@ namespace CBTSystem.Utilities
                 {
                     Debug.LogError($"Error: No load logic found for the node of type {nodeData.GetType()}");
                 }
+            }
+
+            // Iterate through the loaded action nodes and set their next node IDs
+            // We need to do this last because the next node IDs might reference other nodes that haven't been loaded yet
+            foreach (var kvp in loadedActionNodes)
+            {
+                CBTSystemActionNode actionNode = kvp.Key;
+                CBTSystemActionNodeSaveData actionNodeData = kvp.Value;
+                actionNode.SetNextNodeIDs(actionNodeData.NextNodeIDs);
             }
         }
 
@@ -521,10 +540,10 @@ namespace CBTSystem.Utilities
             CBTSystemActionNode actionNode = graphView.CreateNode(typeof(CBTSystemActionNode), actionNodeSaveData.Position, false) as CBTSystemActionNode;
 
             actionNode.ID = actionNodeSaveData.ID;
-            actionNode.NextNodeIDs = actionNodeSaveData.NextNodeIDs;
+         //   actionNode.SetNextNodeIDs(actionNodeSaveData.NextNodeIDs);
             actionNode.IsRootNode = actionNodeSaveData.IsRootNode;
 
-            Debug.Log($"Loadng node of type {actionNodeSaveData.ActionType}");
+        //    Debug.Log($"Loadng node of type {actionNodeSaveData.ActionType}");
 
             actionNode.ActionType = actionNodeSaveData.ActionType;
 
@@ -541,10 +560,14 @@ namespace CBTSystem.Utilities
             CBTSystemConditionNode conditionNode = graphView.CreateNode(typeof(CBTSystemConditionNode), conditionNodeSaveData.Position, false) as CBTSystemConditionNode;
 
             conditionNode.ID = conditionNodeSaveData.ID;
-            conditionNode.NextNodeIDs = conditionNodeSaveData.NextNodeIDs;
+            conditionNode.SetNextNodeIDs(conditionNodeSaveData.NextNodeIDs);
             conditionNode.ConditionEntries = conditionNodeSaveData.ConditionEntries;
             conditionNode.Connectors = conditionNodeSaveData.Connectors;
             conditionNode.IsRootNode = conditionNodeSaveData.IsRootNode;
+
+          //  Debug.Log($"Loading condition node with priority {conditionNodeSaveData.Priority}");
+
+            conditionNode.SetConditionPriority(conditionNodeSaveData.Priority);
 
             return conditionNode;
         }

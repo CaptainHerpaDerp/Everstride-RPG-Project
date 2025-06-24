@@ -31,6 +31,14 @@ namespace Items
         [ShowIf("isMelee"), BoxGroup("Weapon Attributes")]
         public bool canBlock;
 
+        [ShowIf("isMelee"), BoxGroup("Weapon Attributes")]
+        public bool canChargeAttack;
+
+        [ShowIf("isMelee"), BoxGroup("Weapon Attributes, Stamina Cost")]
+        public float lightAttackStaminaCost;
+        public float heavyAttackMinStaminaCost;
+        public float heavyAttackMaxStaminaCost;
+
         [ShowIf("isSpell"), BoxGroup("Spell Attributes")]
         [field: SerializeField] private SpellType _spellType;
 

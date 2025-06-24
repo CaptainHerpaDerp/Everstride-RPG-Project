@@ -9,16 +9,17 @@ namespace CBTSystem.ScriptableObjects.Nodes
 
     public class CBTSystemConditionNodeSO : CBTSystemNodeSO
     {
-
         [field: SerializeField] public List<ConditionEntry> ConditionEntries;
         [field: SerializeField] public List<LogicalOperator> Connectors;
+        [field: SerializeField] public int Priority {  get; set; }
 
-        public void Initialize(string nodeID, List<string> nextNodeID, bool isRootNode, List<ConditionEntry> conditionEntries, List<LogicalOperator> logicalOperators)
+        public void Initialize(string nodeID, List<string> nextNodeID, bool isRootNode, List<ConditionEntry> conditionEntries, List<LogicalOperator> logicalOperators, int priority)
         {
             base.Initialize(nodeID, nextNodeID, isRootNode);
 
             ConditionEntries = conditionEntries;
             Connectors = logicalOperators;
+            Priority = priority;
         }
 
         /// <summary>

@@ -7,6 +7,7 @@ namespace CBTSystem.Elements.Nodes
 {
     using Enumerations;
     using UnityEditor.Experimental.GraphView;
+    using UnityEngine.Events;
 
 
     /// <summary>
@@ -23,7 +24,14 @@ namespace CBTSystem.Elements.Nodes
         // Logical connectors between successive conditions
         public List<LogicalOperator> Connectors = new List<LogicalOperator>();
 
+        // Node Priority (0 = highest). Colors will cycle through ROYGBIV.
+        public int Priority = -1;
+
         private VisualElement conditionContainer;
+
+        public UnityAction OnPriorityChanged;
+        public UnityAction OnNodeHovered;
+        public UnityAction OnNodeUnhovered;
 
         public override void Initialize(BaseGraphView graphView, Vector2 position)
         {
@@ -33,14 +41,68 @@ namespace CBTSystem.Elements.Nodes
             conditionContainer = new VisualElement();
             conditionContainer.AddToClassList("ds-node__custom-data-container");
             extensionContainer.Add(conditionContainer);
+
+            // detect hover start
+            this.RegisterCallback<PointerEnterEvent>(evt =>
+            {
+                OnNodeHovered?.Invoke();
+            });
+
+            // detect hover end
+            this.RegisterCallback<PointerLeaveEvent>(evt =>
+            {
+                OnNodeUnhovered?.Invoke();
+            });
         }
 
         public override void Draw()
         {
             base.Draw();
+
+            if (Priority != -1)
+            SetConditionPriority(Priority);
+
             DrawConditionsUI();
             RefreshExpandedState();
             RefreshPorts();
+        }
+
+        public void SetConditionPriority(int newPriority)
+        {
+            Priority = newPriority;
+            DrawPriorityButton();
+        }
+
+        public void RemoveConditionPriority()
+        {
+            Priority = -1; // Reset Priority
+            var existing = extensionContainer.Q<Button>("Priority-btn");
+            if (existing != null) extensionContainer.Remove(existing);
+        }
+
+        public void DrawPriorityButton()
+        {
+            // Remove existing if any
+            var existing = extensionContainer.Q<VisualElement>("Priority-btn");
+            if (existing != null) extensionContainer.Remove(existing);
+
+            // Create Priority button
+            var btn = new Button(() =>
+            {
+                OnPriorityChanged?.Invoke();
+
+                DrawPriorityButton();
+            })
+            { name = "Priority-btn", text = "P: " + (Priority + 1)};
+            btn.style.width = 48;
+            btn.style.height = 24;
+            btn.style.backgroundColor = new StyleColor(GetPriorityButtonColor(Priority));
+            
+            // Increase the font size
+            btn.style.fontSize = 14;
+            btn.style.color = new StyleColor(GetPriorityTextColor(Priority));
+
+            extensionContainer.Insert(0, btn);
         }
 
         protected override void AddPorts()
@@ -159,7 +221,7 @@ namespace CBTSystem.Elements.Nodes
                     float newValue = evt.newValue;
 
                     // If the current condition type is a percent value, we want to clamp the value between 0 and 100
-                    if (ConditionEntries[idx].ConditionType == CBTConditionType.CheckHealth || ConditionEntries[idx].ConditionType == CBTConditionType.CheckStamina)
+                    if (ConditionEntries[idx].IsPercentageCondition())
                     {
                         newValue = Mathf.Clamp(evt.newValue, 0f, 100f);
                     }
@@ -198,9 +260,40 @@ namespace CBTSystem.Elements.Nodes
                 CBTConditionType.CheckDistance => "(m)",
                 CBTConditionType.CheckHealth => "%Health",
                 CBTConditionType.CheckStamina => "%Stamina",
+                CBTConditionType.TargetInAttackRange => "0:F, 1:T",
+                CBTConditionType.SelfInAttackRange => "0:F, 1:T",
+                CBTConditionType.CombatTargetAttacking => "0:F, 1:T",
+                CBTConditionType.HeavySwingChargeProgress => "%Charge",
+                CBTConditionType.TargetRangeCoverage => "%Coverage",
                 _ => string.Empty,
             };
-        } 
+        }
+
+        private Color GetPriorityButtonColor(int prio)
+        {
+            switch (prio)
+            {
+                case 0: return Color.red;
+                case 1: return new Color(1f, 0.5f, 0f); // orange
+                case 2: return Color.yellow;
+                case 3: return Color.green;
+                case 4: return Color.cyan;
+                case 5: return Color.blue;
+                case 6: return new Color(0.5f, 0f, 0.5f); // violet
+                default: return Color.white;
+            }
+        }
+
+        private Color GetPriorityTextColor(int prio)
+        {
+            switch (prio)
+            {
+                case 2: return Color.black; // Dark colors for green, cyan, blue
+                case 3: return Color.black; // Dark colors for green, cyan, blue
+                case 4: return Color.black; // Dark colors for green, cyan, blue
+                default: return Color.white;
+            }
+        }
 
         //public override NodeState Evaluate(CombatContext ctx)
         //{
