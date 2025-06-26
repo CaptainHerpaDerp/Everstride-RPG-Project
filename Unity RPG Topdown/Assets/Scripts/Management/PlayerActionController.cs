@@ -40,7 +40,7 @@ namespace Management
 
                         if (potion.consumableType == ConsumableType.HealthPotion)
                         {
-                            float remainingHealth = playerClass.HitPointsMax - playerClass.HitPoints;
+                            float remainingHealth = playerClass.MaxHealth - playerClass.HitPoints;
                             float currentDifference = remainingHealth - potion.effectQuantity;
 
                             if (currentDifference > 0 && currentDifference < smallestDifference)

@@ -20,63 +20,6 @@ namespace Characters
         }
 
         public override float PhysDamageTotal => AttackDamage;
-
-        protected override IEnumerator AttackInRange()
-        {
-            while (true)
-            {
-                if (combatTarget != null)
-                {
-                    if (combatTarget != null && combatTargetCollider == null)
-                    {
-                        combatTargetCollider = combatTarget.GetCollider();
-                    }
-
-                    // Checks if the distance between the npc and the target is less than the npc's attack radius plus the target's circle collider
-                    if (Vector3.Distance(transform.position, combatTarget.transform.position) < attackCircle.radius + combatTargetCollider.radius)
-                    {
-                        if (state == CharacterState.Normal)
-                        {
-                            // Disables movement
-                            mover.Stop();
-
-                            // Changes to attack state
-                            SetState(CharacterState.Attacking);
-
-                            Vector3 direction = (combatTarget.transform.position - transform.position).normalized;
-
-                            float angle = Vector2.SignedAngle(Vector2.right, direction);
-
-                            PlayAttackSound();
-
-                            AttackWithAngle(angle);
-
-                            yield return new WaitForSeconds(attackAnimationDuration);
-
-                            if (sucessfulEnemyBlock)
-                            {
-                                sucessfulEnemyBlock = false;
-
-                                yield return new WaitForSeconds(attackAnimationDuration * 2);
-                            }
-
-                            if (state == CharacterState.Death)
-                                yield break;
-
-                            SetState(CharacterState.Normal);
-
-                            mover.Resume();
-
-                            //  DoCurrentViewIdle();
-                            yield return new WaitForSeconds(attackCooldown);
-                        }
-                    }
-                }
-
-                yield return new WaitForFixedUpdate();
-            }
-        }
-
         public override void AttackWithAngle(float angle)
         {
             AttackDirection attackDirection = AttackDirection.BottomRight;

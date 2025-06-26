@@ -31,6 +31,7 @@ namespace CBTSystem.Base
 
             this.AddManipulator(CreateNodeContextualMenu("Create Action Node", typeof(CBTSystemActionNode)));
             this.AddManipulator(CreateNodeContextualMenu("Create Condition Node", typeof(CBTSystemConditionNode)));
+            this.AddManipulator(CreateNodeContextualMenu("Create Utility Selector Node", typeof(CBTSystemUtilitySelectorNode)));
 
             this.AddManipulator(new ContextualMenuManipulator(evt =>
             {
@@ -66,18 +67,21 @@ namespace CBTSystem.Base
 
         public void SetActiveNode(string nodeID)
         {
-            // Clear previous active node styles
-            foreach (var element in graphElements)
-            {
-                if (element is CBTSystemNode node)
-                {
-                    // Set all nodes to be the default colour
-                    node.SetNodeInactive();
-                }
-            }
-            // Set the new active node style
+            
+            // First, find out if the node is in the graph
             if (nodeID != null && FindNodeByID(nodeID) is CBTSystemNode activeNode)
             {
+                // Clear previous active node styles
+                foreach (var element in graphElements)
+                {
+                    if (element is CBTSystemNode node)
+                    {
+                        // Set all nodes to be the default colour
+                        node.SetNodeInactive();
+                    }
+                }
+
+                // Set the node as active
                 activeNode.SetNodeActive();
             }
         }

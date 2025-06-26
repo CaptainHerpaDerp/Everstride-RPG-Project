@@ -112,8 +112,8 @@ namespace CBTSystem.Elements.Nodes
             inputContainer.Clear();
             outputContainer.Clear();
 
-            var outputPort = this.CreatePort("", Orientation.Horizontal, Direction.Output, Port.Capacity.Single);
-            var inputPort = this.CreatePort("", Orientation.Horizontal, Direction.Input, Port.Capacity.Multi);
+            var outputPort = this.CreatePort("Output", Orientation.Horizontal, Direction.Output, Port.Capacity.Single);
+            var inputPort = this.CreatePort("Input", Orientation.Horizontal, Direction.Input, Port.Capacity.Multi);
             outputContainer.Add(outputPort);
             inputContainer.Add(inputPort);
         }

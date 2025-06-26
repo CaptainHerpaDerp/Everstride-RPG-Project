@@ -19,6 +19,6 @@ MonoBehaviour:
   ConditionEntries:
   - ConditionType: 3
     Operator: '>='
-    Value: 20
+    Value: 10
   Connectors: 
   <Priority>k__BackingField: -1

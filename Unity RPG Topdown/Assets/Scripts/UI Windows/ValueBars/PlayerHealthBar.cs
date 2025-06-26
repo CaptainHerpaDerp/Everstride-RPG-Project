@@ -7,7 +7,7 @@ namespace UIWindows
         {
             base.Start();
 
-            InitializeValueBar(parentCharacter.HitPointsMax);
+            InitializeValueBar(parentCharacter.MaxHealth);
         }
 
         protected override void OnEnable()

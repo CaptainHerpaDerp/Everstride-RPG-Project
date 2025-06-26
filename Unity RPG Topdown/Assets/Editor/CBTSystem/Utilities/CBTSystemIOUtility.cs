@@ -60,7 +60,7 @@ namespace CBTSystem.Utilities
 
         public static void Save()
         {
-          //  Debug.Log("Saving");
+            //  Debug.Log("Saving");
 
             CreateDefaultFolders();
 
@@ -224,9 +224,11 @@ namespace CBTSystem.Utilities
             }
             else if (node is CBTSystemConditionNode conditionNode)
             {
-                CBTSystemConditionNodeSaveData condSaveData = GetConditionSaveDataFromNode(conditionNode);
-
-                nodeSaveDataList.Add(condSaveData);
+                nodeSaveDataList.Add(GetConditionSaveDataFromNode(conditionNode));
+            }
+            else if (node is CBTSystemUtilitySelectorNode utilitySelectorNode)
+            {
+                nodeSaveDataList.Add(GetUtilitySelectorSaveDataFromNode(utilitySelectorNode));
             }
             else
             {
@@ -243,6 +245,10 @@ namespace CBTSystem.Utilities
             else if (node is CBTSystemConditionNode conditionNode)
             {
                 SaveConditionNodeSO(conditionNode, containerSO);
+            }
+            else if (node is CBTSystemUtilitySelectorNode utilitySelectorNode)
+            {
+                SaveUtilitySelectorNodeSO(utilitySelectorNode, containerSO);
             }
             else
             {
@@ -299,15 +305,15 @@ namespace CBTSystem.Utilities
 
         public static CBTSystemActionNodeSaveData GetActionSaveDataFromNode(CBTSystemActionNode actionNode)
         {
-           return new CBTSystemActionNodeSaveData()
-           {
+            return new CBTSystemActionNodeSaveData()
+            {
                 ID = actionNode.ID,
                 Position = actionNode.GetPosition().position,
                 GroupID = actionNode.Group?.ID,
                 NextNodeIDs = actionNode.NextNodeIDs,
                 ActionType = actionNode.ActionType,
                 IsRootNode = actionNode.IsRootNode
-           };
+            };
         }
 
         public static CBTSystemConditionNodeSaveData GetConditionSaveDataFromNode(CBTSystemConditionNode conditionNode)
@@ -325,6 +331,18 @@ namespace CBTSystem.Utilities
                 IsRootNode = conditionNode.IsRootNode,
 
                 Priority = conditionNode.Priority
+            };
+        }
+
+        public static CBTSystemUtilitySelectorNodeSaveData GetUtilitySelectorSaveDataFromNode(CBTSystemUtilitySelectorNode utilitySelectorNode)
+        {
+            return new CBTSystemUtilitySelectorNodeSaveData()
+            {
+                ID = utilitySelectorNode.ID,
+                Position = utilitySelectorNode.GetPosition().position,
+                GroupID = utilitySelectorNode.Group?.ID,
+                NextNodeIDs = utilitySelectorNode.NextNodeIDs,
+                IsRootNode = utilitySelectorNode.IsRootNode,
             };
         }
 
@@ -346,7 +364,7 @@ namespace CBTSystem.Utilities
 
             var nodeSO = IOUtilities.CreateAsset<CBTSystemActionNodeSO>(nodePath, node.ID);
 
-          //  Debug.Log($"Saving action node with {node.NextNodeIDs.Count} connections");
+            //  Debug.Log($"Saving action node with {node.NextNodeIDs.Count} connections");
 
             nodeSO.Initialize(
                    node.ID,
@@ -401,6 +419,34 @@ namespace CBTSystem.Utilities
             }
 
             createdNodes.Add(conditionNode.ID, nodeSO);
+            IOUtilities.SaveAsset(nodeSO);
+        }
+
+        public static void SaveUtilitySelectorNodeSO(CBTSystemUtilitySelectorNode utilitySelectorNode, CBTSystemContainerSO containerSO)
+        {
+            string nodePath = utilitySelectorNode.Group != null
+                ? $"{containerFolderPath}/Groups/{utilitySelectorNode.Group.title}/Nodes"
+                : $"{containerFolderPath}/Global/Nodes";
+            // Ensure the directory exists before creating the asset
+            if (!Directory.Exists(nodePath))
+            {
+                Directory.CreateDirectory(nodePath);
+            }
+            var nodeSO = IOUtilities.CreateAsset<CBTSystemUtilitySelectorNodeSO>(nodePath, utilitySelectorNode.ID);
+            nodeSO.Initialize(
+                   utilitySelectorNode.ID,
+                   utilitySelectorNode.NextNodeIDs,
+                   utilitySelectorNode.IsRootNode
+            );
+            if (utilitySelectorNode.Group != null)
+            {
+                containerSO.Groups.AddItem(createdGroups[utilitySelectorNode.Group.ID], nodeSO);
+            }
+            else
+            {
+                containerSO.UngroupedNodes.Add(nodeSO);
+            }
+            createdNodes.Add(utilitySelectorNode.ID, nodeSO);
             IOUtilities.SaveAsset(nodeSO);
         }
 
@@ -464,6 +510,19 @@ namespace CBTSystem.Utilities
                     }
 
                     newConditionNode.Draw();
+                }
+                else if (nodeData is CBTSystemUtilitySelectorNodeSaveData utilitySelectorNodeData)
+                {
+                    CBTSystemUtilitySelectorNode newSelectorNode = LoadUtilitySelectorNode(utilitySelectorNodeData);
+
+                    graphView.AddElement(newSelectorNode);
+
+                    if (utilitySelectorNodeData.GroupID != null && loadedGroups.TryGetValue(utilitySelectorNodeData.GroupID, out var group))
+                    {
+                        group.AddElement(newSelectorNode);
+                    }
+
+                    newSelectorNode.Draw();
                 }
                 else
                 {
@@ -540,11 +599,7 @@ namespace CBTSystem.Utilities
             CBTSystemActionNode actionNode = graphView.CreateNode(typeof(CBTSystemActionNode), actionNodeSaveData.Position, false) as CBTSystemActionNode;
 
             actionNode.ID = actionNodeSaveData.ID;
-         //   actionNode.SetNextNodeIDs(actionNodeSaveData.NextNodeIDs);
             actionNode.IsRootNode = actionNodeSaveData.IsRootNode;
-
-        //    Debug.Log($"Loadng node of type {actionNodeSaveData.ActionType}");
-
             actionNode.ActionType = actionNodeSaveData.ActionType;
 
             return actionNode;
@@ -565,11 +620,22 @@ namespace CBTSystem.Utilities
             conditionNode.Connectors = conditionNodeSaveData.Connectors;
             conditionNode.IsRootNode = conditionNodeSaveData.IsRootNode;
 
-          //  Debug.Log($"Loading condition node with priority {conditionNodeSaveData.Priority}");
+            //  Debug.Log($"Loading condition node with priority {conditionNodeSaveData.Priority}");
 
             conditionNode.SetConditionPriority(conditionNodeSaveData.Priority);
 
             return conditionNode;
+        }
+
+        public static CBTSystemUtilitySelectorNode LoadUtilitySelectorNode(CBTSystemUtilitySelectorNodeSaveData utilitySelectorNodeSaveData)
+        {
+            CBTSystemUtilitySelectorNode utilitySelectorNode = graphView.CreateNode(typeof(CBTSystemUtilitySelectorNode), utilitySelectorNodeSaveData.Position, false) as CBTSystemUtilitySelectorNode;
+
+            utilitySelectorNode.ID = utilitySelectorNodeSaveData.ID;
+            utilitySelectorNode.SetNextNodeIDs(utilitySelectorNodeSaveData.NextNodeIDs);
+            utilitySelectorNode.IsRootNode = utilitySelectorNodeSaveData.IsRootNode;
+
+            return utilitySelectorNode;
         }
 
         #endregion

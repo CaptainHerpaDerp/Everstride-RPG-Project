@@ -2,12 +2,13 @@ namespace CBTSystem.Enumerations
 {
     public enum CBTActionType
     {
-        MoveToTarget,
+        MoveToStanceRadius,
         CombatStance,
         HoldBlock,
         LightAttack,
         StartHeavyAttack,
         ReleaseHeavyAttack,
+        MoveToAttackRange,
     }
 
     public enum CBTConditionType

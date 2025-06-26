@@ -7,12 +7,6 @@ namespace CBTSystem.Windows
     using CBTSystem.Base;
     using GraphSystem.Base;
     using GraphSystem.Base.Windows;
-    using QuestSystem.Elements;
-    using QuestSystem.Enumerations;
-
-    //using Elements;
-    //   using Enumerations;
-
 
     public class CBTSearchWindow : BaseSearchWindow
     {
@@ -31,7 +25,6 @@ namespace CBTSystem.Windows
             List<SearchTreeEntry> searchTreeEntries = new()
             {
                 new SearchTreeGroupEntry(new GUIContent("Create Elements")),
-                new SearchTreeGroupEntry(new GUIContent("Dialogue Nodes"), 1),
             };
 
             return searchTreeEntries;

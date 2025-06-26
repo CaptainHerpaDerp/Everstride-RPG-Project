@@ -7,7 +7,7 @@ namespace UIWindows
         {
             base.Start();
 
-            InitializeValueBar(parentCharacter.StaminaMax);
+            InitializeValueBar(parentCharacter.MaxStamina);
         }
 
         protected override void OnEnable()

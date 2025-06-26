@@ -1,4 +1,4 @@
-using CBTSystem.Elements;
+﻿using CBTSystem.Elements;
 using CBTSystem.Enumerations;
 using CBTSystem.ScriptableObjects.Nodes;
 using Items;
@@ -10,28 +10,39 @@ using System.Linq;
 using UnityEngine;
 using Core.Enums;
 
-namespace Characters
+namespace Characters.Behaviour
 {
     public class NPCTestCombatBehaviourTree : MonoBehaviour
     {
         [BoxGroup("Component References"), SerializeField] private Mover mover;
         [BoxGroup("Component References"), SerializeField] NPC npc;
 
-        [SerializeField] private Transform combatTarget;
+        [SerializeField] private Transform combatTarget => npc.CombatTarget.transform;
 
         [SerializeField] private CBTSystemContainerSO CBTConfig;
 
         // A list of the current condition nodes that are connected to the current node
-        private List<CBTSystemConditionNodeSO> currentConditionNodes = new();
-
-        private List<CBTSystemActionNodeSO> actionNodes = new();
+        private List<CBTSystemConditionNodeSO> curConnectedConditionNodes = new();
+        private List<CBTSystemActionNodeSO> curConnectedActionNodes = new();
+        private List<CBTSystemUtilitySelectorNodeSO> curConnectedUtilityNodes = new();
 
         // The current action node that is being executed
         private CBTSystemActionNodeSO _currentActionNode;
 
         [BoxGroup("Combat Stance"), SerializeField] private float combatStanceMoveSpeed;
+        [BoxGroup("Combat Stance"), SerializeField] private float radiusStep = 1;
+        [BoxGroup("Combat Stance"), SerializeField] private float defensiveRadius = 1.5f;
+        [BoxGroup("Combat Stance"), SerializeField] private float maxAngleStep = 1, minAngleStep = 1;
+        [BoxGroup("Combat Stance"), SerializeField] private float waitDuration = 1;
+
+        private Coroutine combatStanceCoroutine = null;
 
         public static Action<string> OnNodeChanged;
+
+        [BoxGroup("Utility AI Settings")]
+        [Range(0.1f, 5f)]
+        // The lower the greedier (go with best choice), the higher the more random
+        public float softmaxTemperature = 1.0f;
 
         // When we set the new action node, automatically get the new list of connected condition nodes
         private CBTSystemActionNodeSO currentActionNode
@@ -51,11 +62,11 @@ namespace Characters
                 OnNodeChanged?.Invoke(_currentActionNode.NodeID);
 
                 // Assigns the condition node list, and sorts the nodes by their priority
-                currentConditionNodes = GetConnectedConditionNodes(_currentActionNode);
+                curConnectedConditionNodes = GetConnectedConditionNodes(_currentActionNode);
+                curConnectedActionNodes = GetConnectedActionNodes(_currentActionNode);
+                curConnectedUtilityNodes = GetConnectedUtilityNodes(_currentActionNode);
 
-                actionNodes = GetConnectedActionNodes(_currentActionNode);
-
-                // Debug.Log($"Current Action Node: {_currentActionNode.NodeID} - {currentConditionNodes.Count} connected condition nodes found.");
+                // Debug.Log($"Current Action Node: {_currentActionNode.NodeID} - {curConnectedConditionNodes.Count} connected condition nodes found.");
             }
         }
 
@@ -84,38 +95,49 @@ namespace Characters
 
             while (true)
             {
+                if (npc.CombatTarget == null)
+                {
+                    yield return new WaitForEndOfFrame();
+
+                    continue;
+                }
+
                 if (currentActionNode is CBTSystemActionNodeSO actionNode)
                 {
                     ExecuteActionNode(actionNode);
                 }
 
-                // Try to check if any condition nodes are met, and change the current action node if so
-                TryCheckConditionNodes();
-
-                if (currentConditionNodes.Count == 0)
-                {
-
-                    // If there are no condition nodes connected, set the current action node to the first action node in the list
-                    TryEnterActionNodes();
-
-                }
-
                 yield return new WaitForEndOfFrame();
+
+                // Try to check if any condition nodes are met, and change the current action node if so
+                if (TryCheckConditionNodes());
+                if (TryEnterActionNodes());
+                TryEnterUtilityNodes();
             }
         }
 
         private void ExecuteActionNode(CBTSystemActionNodeSO actionNode)
         {
+            if (combatTarget == null)
+                return;
+
             if (npc.State == CharacterState.Death)
                 return;
 
             switch (actionNode.ActionType)
             {
-                case CBTActionType.MoveToTarget:
+                case CBTActionType.MoveToStanceRadius:
 
                     npc.OnUpdateCombatState?.Invoke(NPCState.Moving);
                     mover.Resume();
-                    mover.SetTarget(combatTarget);
+                    mover.SetTarget(combatTarget.transform, npc.ctx.CombatStanceRadius);
+                    break;
+
+                case CBTActionType.MoveToAttackRange:
+
+                    npc.OnUpdateCombatState?.Invoke(NPCState.Moving);
+                    mover.Resume();
+                    mover.SetTarget(combatTarget.transform);
 
                     break;
 
@@ -123,7 +145,7 @@ namespace Characters
 
                     npc.OnUpdateCombatState?.Invoke(NPCState.Defensive);
 
-                    npc.ViewLockTargetTransform = combatTarget;
+                    npc.DoTargetViewLock = true;
 
                     if (combatStanceCoroutine == null)
                     {
@@ -173,14 +195,14 @@ namespace Characters
         private bool TryCheckConditionNodes()
         {
             // Simply retrieve the current condition nodes from the current action node
-            if (currentConditionNodes == null || currentConditionNodes.Count == 0)
+            if (curConnectedConditionNodes == null || curConnectedConditionNodes.Count == 0)
             {
                 return false;
             }
 
             // Since all of our condition nodes are sorted by priority, we can simply iterate through them and check if any of the conditions are met
 
-            foreach (var conditionNode in currentConditionNodes)
+            foreach (var conditionNode in curConnectedConditionNodes)
             {
                 if (CheckConditionNode(conditionNode))
                 {
@@ -196,7 +218,7 @@ namespace Characters
                     if (cbtSystemNode.GetType() == typeof(CBTSystemActionNodeSO))
                     {
                         // Exit out of the current action node if it is currently executing
-                        if (!TryExitActionNode())
+                        if (!TryExitCurrentActionNode())
                         {
                             return false;
                         }
@@ -225,23 +247,23 @@ namespace Characters
         /// <returns></returns>
         private bool TryEnterActionNodes()
         {
-            if (actionNodes == null || actionNodes.Count == 0)
+            if (curConnectedActionNodes == null || curConnectedActionNodes.Count == 0)
             {
                 return false;
             }
 
-            if (actionNodes.Count > 1)
+            if (curConnectedActionNodes.Count > 1)
             {
                 // If there are multiple action nodes, we can only execute the first one (this should never happen)
                 Debug.LogWarning("Multiple action nodes found, executing the first one.");
             }
 
-            CBTSystemActionNodeSO newActionNode = actionNodes[0];
+            CBTSystemActionNodeSO newActionNode = curConnectedActionNodes[0];
 
             if (newActionNode.GetType() == typeof(CBTSystemActionNodeSO))
             {
                 // Exit out of the current action node if it is currently executing
-                if (!TryExitActionNode())
+                if (!TryExitCurrentActionNode())
                 {
                     return false;
                 }
@@ -256,13 +278,34 @@ namespace Characters
                 Debug.LogError("Error: Next node is not an action node!");
             }
 
+            return false; 
+        }
+
+        private bool TryEnterUtilityNodes()
+        {
+            if (curConnectedUtilityNodes == null || curConnectedUtilityNodes.Count == 0)
+            {
+                return false;
+            }
+
+            foreach (var utilityNode in curConnectedUtilityNodes)
+            {
+                CBTSystemActionNodeSO newActionNode = EvaluateUtilitySelectorNode(utilityNode);
+
+                if (newActionNode != null && TryExitCurrentActionNode())
+                {
+                    currentActionNode = newActionNode;
+                    return true;
+                }
+            }
+
             return false;
         }
 
         /// <summary>
         /// When exiting/switching the currently preformed action, this method will be called to perform any necessary cleanup or state changes
         /// </summary>
-        private bool TryExitActionNode()
+        private bool TryExitCurrentActionNode()
         {
             switch (currentActionNode.ActionType)
             {
@@ -273,7 +316,7 @@ namespace Characters
                         combatStanceCoroutine = null;
                     }
 
-                    npc.ViewLockTargetTransform = null;
+                    npc.DoTargetViewLock = false;
                     npc.SetMovementSpeed(npc.defaultMovementSpeed);
                     mover.Stop();
 
@@ -450,7 +493,7 @@ namespace Characters
                 case ">": return conditionTrueValue > conditionValue;
                 case ">=": return conditionTrueValue >= conditionValue;
                 case "=": return Mathf.Approximately(conditionTrueValue, conditionValue);
-                default: throw new InvalidOperationException($"Invalid op �{conditionOperator}�");
+                default: throw new InvalidOperationException($"Invalid op “{conditionOperator}”");
             }
         }
 
@@ -489,11 +532,10 @@ namespace Characters
                     return Vector3.Distance(transform.position, combatTarget.position);
 
                 case CBTConditionType.CheckHealth:
-                    return npc.CurrentHealthPercentage;
+                    return npc.CurrentHealthPercentage * 100;
 
                 case CBTConditionType.CheckStamina:
-                    float perc = npc.CurrentStaminaPercentage;
-                    return perc;
+                    return npc.CurrentStaminaPercentage * 100;
 
                 case CBTConditionType.TargetInAttackRange:
                     targetDist = Vector3.Distance(transform.position, combatTarget.position);
@@ -520,7 +562,7 @@ namespace Characters
 
                     float remainingAttackDist = Mathf.Clamp01((maxDistance - targetDist) / maxDistance);
 
-                    Debug.Log($"Remainding: {remainingAttackDist}");
+                  //  Debug.Log($"Remainding: {remainingAttackDist}");
 
                     return remainingAttackDist * 100; // Return as a percentage (0-100)
 
@@ -562,7 +604,7 @@ namespace Characters
                         return 0;
                     }
 
-                  //  Debug.Log($"Heavy attack hold percentage: {npc.GetHeavyAttackHoldPercentage()}");
+                    //  Debug.Log($"Heavy attack hold percentage: {npc.GetHeavyAttackHoldPercentage()}");
 
                     return npc.GetHeavyAttackHoldPercentage();
 
@@ -586,17 +628,9 @@ namespace Characters
 
         #region Action Methods
 
-        [BoxGroup("Defencive Stance"), SerializeField] private float radiusStep = 1, defensiveRadius;
-
-        [BoxGroup("Defencive Stance"), SerializeField] private float maxAngleStep = 1, minAngleStep = 1;
-
-        [BoxGroup("Defencive Stance"), SerializeField] private float waitDuration = 1;
-
-        private Coroutine combatStanceCoroutine = null;
-
         private IEnumerator DoCombatStance()
         {
-            npc.ViewLockTargetTransform = combatTarget;
+            npc.DoTargetViewLock = true;
 
             npc.SetMovementSpeed(combatStanceMoveSpeed);
 
@@ -687,6 +721,16 @@ namespace Characters
             return foundActionNodes;
         }
 
+        private List<CBTSystemUtilitySelectorNodeSO> GetConnectedUtilityNodes(CBTSystemNodeSO node)
+        {
+            // Gather all connected utility selector nodes
+            List<CBTSystemNodeSO> connectedNodes = GetConnectedNodes(node.NextNodeIDs);
+            var foundUtilityNodes = connectedNodes
+                .OfType<CBTSystemUtilitySelectorNodeSO>()
+                .ToList();
+            return foundUtilityNodes;
+        }
+
         private List<CBTSystemNodeSO> GetConnectedNodes(List<string> nextNodeIDs)
         {
             // Create the return list
@@ -758,6 +802,209 @@ namespace Characters
                 }
             }
             return null;
+        }
+
+        #endregion
+
+        #region Combat Context Evaluation
+
+        [BoxGroup("Scoring Variables"), SerializeField] private float stickyBonus = 0.2f; // Factor to increase the score when stamina is low
+
+        public CBTSystemActionNodeSO EvaluateUtilitySelectorNode(CBTSystemUtilitySelectorNodeSO utilitySelecorNode)
+        {
+            // Get all action nodes connected to the utility selector node
+            List<CBTSystemActionNodeSO> actionNodes = GetConnectedActionNodes(utilitySelecorNode);
+
+            // Exclude the current action node from the candidates
+            //foreach (var actionNode in actionNodes)
+            //{
+            //    if (actionNode == currentActionNode)
+            //    {
+            //        actionNodes.Remove(actionNode);
+            //        break;
+            //    }
+            //}
+
+            // Get all the action nodes that can be executed based on the current combat context
+            var candidates = actionNodes.Where(node => CanExcecute(node.ActionType, npc.ctx)).ToList();
+
+            if (candidates.Count == 0)
+            {
+                return null;
+            }
+
+            // Score each of the candidates
+            var rawScores = candidates
+                .Select(node => EvaluateUtility(node.ActionType, npc.ctx))
+                .ToArray();
+
+            // right before you softmax:
+            for (int i = 0; i < candidates.Count; i++)
+                if (candidates[i] == currentActionNode)
+                    rawScores[i] += stickyBonus;  // e.g. +0.2 or +1.0
+
+            // Turn the scores into probabilities
+            var probabilities = SoftMax(rawScores, softmaxTemperature);
+
+            // Pick one index by weighted random choice, then execute it
+            int chosenIndex = Sample(probabilities);
+            var chosen = candidates[chosenIndex];
+
+            if (chosen == currentActionNode)
+                return null;
+
+            Debug.Log("setting new node");
+            return chosen;
+        }
+
+        public bool CanExcecute(CBTActionType desiredAction, CombatContext ctx)
+        {
+            switch (desiredAction)
+            {
+                case CBTActionType.MoveToStanceRadius:
+                    // only if we're outside our combat stance radius
+                    return ctx.DistanceToTarget > ctx.CombatStanceRadius;
+
+                case CBTActionType.MoveToAttackRange:
+                    // inside your defensive circle, but still too far to hit
+                    return ctx.DistanceToTarget <= ctx.CombatStanceRadius
+                        && ctx.DistanceToTarget > ctx.LightAttackRange;
+
+                case CBTActionType.CombatStance:
+                    // always valid once in range
+                    return ctx.DistanceToTarget <= ctx.CombatStanceRadius;
+
+                case CBTActionType.HoldBlock:
+                    // only if we have enough stamina to block
+                    return ctx.SeenIncomingAttack && ctx.CurrentStamina > 0f;
+
+                case CBTActionType.LightAttack:
+                    // only if we have enough stamina to attack and the target is in range
+                    return ctx.CurrentStaminaPercentage >= 0.2f && ctx.DistanceToTarget <= ctx.LightAttackRange;
+
+                case CBTActionType.StartHeavyAttack:
+                    // only if we have enough stamina to attack and the target is in range
+                    return ctx.CurrentStaminaPercentage >= 0.35f && ctx.DistanceToTarget <= ctx.HeavyAttackRange;
+
+                case CBTActionType.ReleaseHeavyAttack:
+                    return npc.MinChargeTimeMet();
+
+                default: 
+                    Debug.LogError($"Action {desiredAction} not implemented in action execution check.");   
+                    return false;
+            }
+        }
+
+        [BoxGroup("Scoring Variables, Combat Stance"), SerializeField] private float lowStaminaFactor = 0.8f; // Factor to increase the score when stamina is low
+        [BoxGroup("Scoring Variables, Combat Stance"), SerializeField] private float lastHitThreshholdTime = 3f; // Last hit threshhold time in seconds, after which the NPC can be more aggressive
+
+        [BoxGroup("Scoring Variables, Move Attack"), SerializeField] private float distanceWeight = 0.6f;
+        [BoxGroup("Scoring Variables, Move Attack"), SerializeField] private float staminaWeight = 0.3f;
+        [BoxGroup("Scoring Variables, Move Attack"), SerializeField] private float timeSinceLastHitWeight = 0.1f; // Weight for the time since last hit factor
+
+        public float EvaluateUtility(CBTActionType action, CombatContext ctx)
+        {
+            switch (action)
+            {
+                case CBTActionType. MoveToStanceRadius:
+                    // highest when you’re very far
+                    return Mathf.Clamp01((ctx.DistanceToTarget - ctx.CombatStanceRadius) / ctx.CombatStanceRadius);
+
+                case CBTActionType.MoveToAttackRange:
+
+                    // Get the distance to the target
+                    float dist = ctx.DistanceToTarget - ctx.LightAttackRange;
+                    float distanceScore = Mathf.Clamp01(dist / (ctx.CombatStanceRadius - ctx.LightAttackRange));
+
+                    // Take stamina into account (Dont want to go head first if we have no stamina left to attack with)
+                    float staminaFactor = ctx.CurrentStaminaPercentage;
+
+                    // Take the time since last hit into account (If we have not been hit in a while, we can be more aggressive)
+                    float timeSinceLastHitFactor = Mathf.Clamp01(1f - (ctx.TimeSinceLastHit / lastHitThreshholdTime)); // 5 seconds is the threshold for being aggressive
+
+                    return
+                        dist * distanceWeight +
+                        staminaFactor * staminaWeight +
+                        timeSinceLastHitFactor * timeSinceLastHitWeight;
+
+                case CBTActionType.CombatStance:
+
+                    // base fallback score
+                    float score = 0.1f;
+
+                    // If stamina/health is low, it's more important to stay in stance (recover/block)
+
+                    // The lower the stamina, the higher the score
+                    float stamina = 1f - ctx.CurrentStaminaPercentage;
+
+                    // Multiply the score by the stamina factor
+                    score += stamina * lowStaminaFactor;
+                     
+                    return score;
+
+                case CBTActionType.HoldBlock:
+                    // very high when swung at
+                    return ctx.SeenIncomingAttack ? 1f : 0f;
+
+                case CBTActionType.LightAttack:
+                    // mid‐tier, better when close
+                    return Mathf.Lerp(0.2f, 0.6f, 1 - (ctx.DistanceToTarget / ctx.LightAttackRange));
+
+                case CBTActionType.StartHeavyAttack:
+                    // high when we have stamina & are close
+                    return Mathf.Clamp01(ctx.CurrentStaminaPercentage) * 0.8f
+                         * (ctx.DistanceToTarget <= ctx.HeavyAttackRange ? 1f : 0f);
+
+                case CBTActionType.ReleaseHeavyAttack:
+                    // only peaks once min‐charge is met, else zero
+                    return npc.MinChargeTimeMet() ? 0.9f : 0f;
+
+                default:
+                    Debug.LogError($"Action {action} not implemented in utility evaluation.");
+                    return 0f;
+            }
+        }
+
+        static float[] SoftMax(float[] scores, float temperature = 1.0f)
+        {
+            int n = scores.Length;
+            float max = scores.Max();
+            float sum = 0f;
+            float[] exps = new float[n];
+
+            for (int i = 0; i < n; i++)
+            {
+                float e = Mathf.Exp((scores[i] - max) / temperature);
+                exps[i] = e;
+                sum += e;
+            }
+
+            for (int i = 0; i < n; i++)
+            {
+                exps[i] /= sum;
+            }
+
+            return exps;
+        }
+
+        static int Sample(IList<float> probs)
+        {
+            float rand = UnityEngine.Random.value; // [0,1)
+            float cumulative = 0f;
+            for (int i = 0; i < probs.Count; i++)
+            {
+                cumulative += probs[i];
+                if (rand <= cumulative)
+                    return i;
+            }
+            return probs.Count - 1; // fallback due to rounding
+        }
+
+        float ApplyCompensationToScore(float rawScore, int numConsiderations)
+        {
+            float modFactor = 1f - (1f /  numConsiderations);
+            float makeUp = (1f - rawScore) * modFactor; // how much we need to make up for
+            return rawScore + (makeUp * rawScore);
         }
 
         #endregion

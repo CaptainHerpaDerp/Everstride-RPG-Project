@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Core.Enums;
@@ -45,7 +45,7 @@ namespace Characters
 
         [FoldoutGroup("Character Stats"), SerializeField] protected float movementSpeed = 150f;
         public float defaultMovementSpeed { get; protected set; }
-        [field: SerializeField, FoldoutGroup("Character Stats, Health")] public float HitPointsMax { get; protected set; }
+        [field: SerializeField, FoldoutGroup("Character Stats, Health")] public float MaxHealth { get; protected set; }
         [FoldoutGroup("Character Stats, Health"), SerializeField] protected float _hitPointsCurrent;
 
         [Header("The amount of time that needs to pass after taking damage where the character starts to recover hp")]
@@ -53,7 +53,7 @@ namespace Characters
         [FoldoutGroup("Character Stats, Health"), SerializeField, Range(0, 1)] protected float healthRecoveryModifier = 0.5f;
         [ShowInInspector, ReadOnly] protected float _healthRecoveryCooldown = 0;
 
-        [field: SerializeField, FoldoutGroup("Character Stats")] public float StaminaMax { get; protected set; }
+        [field: SerializeField, FoldoutGroup("Character Stats")] public float MaxStamina { get; protected set; }
         [FoldoutGroup("Character Stats"), SerializeField] protected float _staminaCurrent;
 
         [FoldoutGroup("Character Stats"), SerializeField] protected float interactionDistance;
@@ -66,7 +66,6 @@ namespace Characters
 
         [Header("If the character's stamina ever falls to 0, it will not Recovery for the given time")]
         [FoldoutGroup("Character Stats, Stamina"), SerializeField] protected float staminaExhaustionTime = 2.5f;
-        protected bool _staminaExhaustionDelay;
 
         [FoldoutGroup("Character Stats"), SerializeField] protected float magicaRecoverySpeed = 0.5f;
 
@@ -75,7 +74,6 @@ namespace Characters
 
         [Header("The time after a successful block that the character will be unable to regain stamina")]
         [FoldoutGroup("Character Stats, Stamina"), SerializeField] protected float staminaPostBlockRecoveryDelayDuration = 1f;
-        protected bool _staminaPostBlockRecoveryDelay;
 
         [FoldoutGroup("Character Stats, Combat"), SerializeField] protected float chargeAttackMinTime = 0.4f, chargeAttackMaxTime = 1;
         [FoldoutGroup("Character Stats, Combat"), SerializeField] protected float chargeAttackMinHoldTime = 0.25f;
@@ -88,19 +86,26 @@ namespace Characters
         protected float _chargeHoldTime;
         protected bool _holdingCharge;
 
+        // Combat Context Variables
+        protected float _exhaustionEndTime; // The time remaining until the NPC can regain stamina after being exhausted
+        protected float _blockRegenEndTime;
+
+        public Action OnAttackStart, OnAttackEnd;
 
         protected float staminaCurrent
         {
             get => _staminaCurrent;
             set
             {
-                if (value <= 0f && _staminaExhaustionDelay == false)
+                if (value <= 0f)
                 {
-                    _staminaExhaustionDelay = true;
-                    StartCoroutine(Utils.WaitDurationAndExecute(staminaExhaustionTime, () => { _staminaExhaustionDelay = false; }));
+                    if (Time.time >= _exhaustionEndTime )
+                    {
+                        _exhaustionEndTime  = Time.time + staminaExhaustionTime;
+                    }
                 }
 
-                _staminaCurrent = Mathf.Clamp(value, 0, StaminaMax);
+                _staminaCurrent = Mathf.Clamp(value, 0, MaxStamina);
 
                 // Update the sprint time
                 OnUpdateStaminaBar?.Invoke(_staminaCurrent);
@@ -135,9 +140,9 @@ namespace Characters
                     _hitPointsCurrent = 0;
                 }
 
-                else if (value > HitPointsMax)
+                else if (value > MaxHealth)
                 {
-                    _hitPointsCurrent = HitPointsMax;
+                    _hitPointsCurrent = MaxHealth;
                 }
 
                 else
@@ -398,13 +403,17 @@ namespace Characters
 
         public float CurrentHealthPercentage
         {
-            get => (_hitPointsCurrent / HitPointsMax) * 100;
+            get => (_hitPointsCurrent / MaxHealth);
         }
+
+        public float CurrentHealth => _hitPointsCurrent;
 
         public float CurrentStaminaPercentage
         {
-            get => (staminaCurrent / StaminaMax) * 100;
+            get => (staminaCurrent / MaxStamina);
         }
+
+        public float CurrentStamina => _staminaCurrent;
 
         public virtual float PhysDamageTotal
         {
@@ -433,6 +442,9 @@ namespace Characters
 
             if (attackCircle == null)
                 attackCircle = transform.GetChild(1).GetComponent<CircleCollider2D>();
+
+            _blockRegenEndTime = 0;
+            _exhaustionEndTime = 0;
         }
 
         protected virtual void Start()
@@ -484,20 +496,29 @@ namespace Characters
         /// </summary>
         protected void RecoverStamina()
         {
-            if (staminaCurrent < StaminaMax)
+            if (staminaCurrent < MaxStamina)
             {
-                // If the character is attacking or the character's stamina is currently exhausted, do not Recovery stamina
-                if (_staminaPostBlockRecoveryDelay || _staminaExhaustionDelay || state == CharacterState.Attacking)
+
+                // If we’re still in block‐regen pause, skip regen
+                if (Time.time < _blockRegenEndTime )
+                    return;
+
+                // If we’re still in exhaustion, skip regen
+                if (Time.time < _exhaustionEndTime )
+                    return;
+
+
+                // If the character is attacking
+                if (state == CharacterState.Attacking)
                 {
                     return;
                 }
 
-                float baseRecovery = (StaminaMax * staminaRecoveryModifier) * Time.deltaTime;
+                float baseRecovery = (MaxStamina * staminaRecoveryModifier) * Time.deltaTime;
 
                 if (state == CharacterState.Blocking)
-                {
                     baseRecovery *= staminaRecoveryBlockingMultiplier;
-                }
+                
 
                 staminaCurrent += baseRecovery;
             }
@@ -514,9 +535,9 @@ namespace Characters
                 return;
             }
 
-            if (HitPoints < HitPointsMax)
+            if (HitPoints < MaxHealth)
             {
-                float baseRecovery = (HitPointsMax * healthRecoveryModifier) * Time.deltaTime;
+                float baseRecovery = (MaxHealth * healthRecoveryModifier) * Time.deltaTime;
 
                 HitPoints += baseRecovery;
             }
@@ -650,6 +671,19 @@ namespace Characters
         public bool IsInFaction(Faction faction)
         {
             return factions.Contains(faction);
+        }
+
+        public bool IsInFaction(List<Faction> factions)
+        {
+            foreach (var faction in factions)
+            {
+                if (IsInFaction(faction))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -848,19 +882,7 @@ namespace Characters
         /// </summary>
         private void DoBlockStaminaRecoveryTimeout()
         {
-            if (_staminaPostBlockRecoveryDelay)
-            {
-                return;
-            }
-
-            // Block stamina regeneration for the given duration
-            _staminaPostBlockRecoveryDelay = true;
-            StartCoroutine(Utils.WaitDurationOrConditionAndExcecute(
-                staminaPostBlockRecoveryDelayDuration, state != CharacterState.Blocking, () =>
-                {
-                    _staminaPostBlockRecoveryDelay = false;
-                }));
-
+            _blockRegenEndTime  = Time.time + staminaPostBlockRecoveryDelayDuration;
         }
 
         private IEnumerator ExitBlockState()
@@ -915,7 +937,7 @@ namespace Characters
             }
 
             // For now, remove 15% of the max stamina to the current
-            float totalCost = (StaminaMax * 0.15f) * staminaDrawMultiplier;
+            float totalCost = (MaxStamina * 0.15f) * staminaDrawMultiplier;
 
             // Return false if the character cannot afford the block cost, and sets the current stamina to 0
             if (staminaCurrent - totalCost <= 0)
@@ -1167,7 +1189,14 @@ namespace Characters
                 blockStaminaDrawMultiplier = GetHeavyBlockStaminaDrawMultiplier()
             };
 
+            OnDamageDealt(damagePacket.damageAmount);
+
             character.EnterHitState(damagePacket);
+        }
+
+        protected virtual void OnDamageDealt(float damage)
+        {
+
         }
 
         public virtual Vector3 GetVelocity()
@@ -1209,7 +1238,7 @@ namespace Characters
         }
 
         // Based on the current charge hold time, return how much stamina the heavy attack will cost
-        protected float GetHeavyAttackStaminaCost()
+        protected float GetCurrentHeavyAttackStaminaCost()
         {
             if (equippedWeapon == null)
             {

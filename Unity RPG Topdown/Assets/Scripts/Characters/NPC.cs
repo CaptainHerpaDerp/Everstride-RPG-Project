@@ -1,3 +1,5 @@
+using Characters.Behaviour;
+using Characters.Utilities;
 using Core;
 using Core.Enums;
 using Core.Interfaces;
@@ -6,10 +8,18 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UIElements;
 
 namespace Characters
 {
+    public class CombatStats
+    {
+        public float TotalDamageDealt = 0f;
+        public int LightAttacks = 0;
+        public int HeavyAttacks = 0;
+        public int SuccessfulBlocks = 0;
+        public int FailedBlocks = 0;
+    }
+
     public class NPC : Character
     {
         public static event Action<NPC> OnNPCCreated;
@@ -17,9 +27,10 @@ namespace Characters
 
         #region Serialized Fields
 
-        [SerializeField] protected CharacterRadiusTracker characterRadiusTracker;
-
-        [SerializeField] private NPCCombatFSM combatFSM;
+        [FoldoutGroup("Component References"), SerializeField] protected CharacterRadiusTracker characterRadiusTracker;
+        [FoldoutGroup("Component References"), SerializeField] protected CharacterRetriever characterRetriever;
+        [FoldoutGroup("Component References"), SerializeField] protected KnockbackController knockbackController;
+        [FoldoutGroup("Component References"), SerializeField] protected Mover mover;
 
         [SerializeField] public string NPCName;
         [field: SerializeField] public string ID { get; protected set; }
@@ -48,22 +59,106 @@ namespace Characters
 
         // Create an event with a string parameter
 
+        // Testing
+        public CombatStats combatStats { get; private set; } = new CombatStats();
+
+
         #endregion
 
         #region Private Fields
 
-        protected KnockbackController knockbackController;
-        protected Mover mover;
+
         [SerializeField] private float hitTime;
         private IEnumerator attackCR = null;
         Vector3 PrevPos;
         Vector3 NewPos;
         protected Vector3 ObjVelocity;
-        protected Character combatTarget;
+
+        [SerializeField] protected Character _combatTarget;
+        public Character CombatTarget
+        {
+            get { if (_combatTarget == null) return null; return _combatTarget; }
+        }
+
+        // Combat Context Variables
+        [ShowInInspector] protected bool _seenIncomingAttack = false;
+        public CombatContext ctx
+        {
+            get
+            {
+                return new CombatContext(this);
+            }
+        }
+
+        protected Character combatTarget
+        {
+            get => _combatTarget;
+
+            set
+            {
+                SetNewCombatTarget(value);
+            }
+        }
+
+        //Testing
+        protected override void OnDamageDealt(float damage)
+        {
+            combatStats.TotalDamageDealt += damage;
+        }
+
+        protected void SetNewCombatTarget(Character newCombatTarget)
+        {
+            if (newCombatTarget == null)
+                return;
+
+            if (_combatTarget == newCombatTarget)
+                return;
+
+            // Unsubscribe from the old combat target's events
+            if (_combatTarget != null)
+            {
+                _combatTarget.OnAttackStart -= () =>
+                {
+                    _seenIncomingAttack = true;
+                };
+
+                _combatTarget.OnAttackEnd -= () =>
+                {
+                    _seenIncomingAttack = false;
+                };
+
+            }
+
+            // Set the new combat target
+            _combatTarget = newCombatTarget;
+
+            // Subscribe to the new combat target's events
+            _combatTarget.OnAttackStart += () =>
+            {
+                _seenIncomingAttack = true;
+            };
+
+            _combatTarget.OnAttackEnd += () =>
+            {
+                _seenIncomingAttack = false;
+            };
+
+            combatTargetCollider = _combatTarget?.GetCollider();
+
+        }
+
         protected CircleCollider2D combatTargetCollider;
 
-        [BoxGroup("Defencive Stance"), SerializeField] private bool doTargetViewLock;
-        public Transform ViewLockTargetTransform;
+        [BoxGroup("Defencive Stance"), SerializeField] public bool DoTargetViewLock;
+
+
+        // Combat Context Variables
+        private float _lastHitTime;
+
+        public float staminaRetreatThreshhold { get; protected set; } = 10f; // The stamina percentage at which the NPC will retreat from combat (this is a percentage, not a value)
+        public float healthRetreatThreshhold { get; protected set; } = 15f; // The health percentage at which the NPC will retreat from combat (this is a percentage, not a value)
+        public float combatStanceRadius { get; protected set; } = 1.5f; // The radius at which the NPC will stand in combat stance
+        public float safeRadius { get; protected set; } = 2f; // The radius at which the NPC will retreat to when it is low on health or stamina
 
         #endregion
 
@@ -79,13 +174,26 @@ namespace Characters
                 hitColliderCircle = GetComponent<CircleCollider2D>();
             if (mover == null)
                 mover = GetComponent<Mover>();
-
-            knockbackController = GetComponent<KnockbackController>();
+            if (knockbackController == null)
+                knockbackController = GetComponent<KnockbackController>();
         }
 
         protected override void Start()
         {
             base.Start();
+
+            if (_combatTarget != null)
+            {
+                _combatTarget.OnAttackStart += () =>
+                {
+                    _seenIncomingAttack = true;
+                }; 
+             
+                _combatTarget.OnAttackEnd += () =>
+                {
+                    _seenIncomingAttack = false;
+                };
+            }
 
             // Add this npc to the NPC Directory
             OnNPCCreated?.Invoke(this);
@@ -101,8 +209,8 @@ namespace Characters
             if (movementSpeed != 0)
                 mover.agent.speed = movementSpeed;
 
-            staminaCurrent = StaminaMax;
-            HitPoints = HitPointsMax;
+            staminaCurrent = MaxStamina;
+            HitPoints = MaxHealth;
             ObjVelocity = Vector3.zero;
         }
 
@@ -148,9 +256,11 @@ namespace Characters
         {
             base.Update();
 
+            GetNewCombatTarget();
             HandleMovement();
             UpdateAnimationState();
 
+            // TODO: Make a method out of this
             if (combatTarget != null && state != CharacterState.Death && !knockbackController.IsKnockbackActive())
             {
                 NavMeshPath path = new();
@@ -182,6 +292,9 @@ namespace Characters
                     }
                 }
             }
+
+            // Update the combat context
+           // ctx = new CombatContext(this);
         }
 
         #endregion
@@ -207,9 +320,21 @@ namespace Characters
                 return;
             }
 
-            if (TryBlockIncomingDamage(damagePacket))
+            // Update the last hit time to the current time
+            _lastHitTime = Time.time;
+            
+            if (state == CharacterState.Blocking)
             {
-                return;
+                if (TryBlockIncomingDamage(damagePacket))
+                {
+                    combatStats.SuccessfulBlocks++;
+                    return;
+                }
+                else
+                {
+                    combatStats.FailedBlocks++;
+                }
+
             }
 
             // Checks to see if the incoming attack source was via projectile, in which case, an arrow will be added to the NPC's inventory
@@ -335,6 +460,8 @@ namespace Characters
                 return;
             }
 
+            combatStats.LightAttacks++;
+
             attackCR = StartAttack(GetAngleToTarget(targetTransform));
 
             ReduceStamina(equippedWeapon.lightAttackStaminaCost);
@@ -350,6 +477,12 @@ namespace Characters
         /// <param name="targetTransform"></param>
         public void StartHeavyAttack(Transform targetTransform)
         {
+            if (CurrentStamina <= 0)
+            {
+                Debug.LogWarning("NPC " + NPCName + " tried to start a heavy attack without enough stamina!");
+                return;
+            }
+
             if (onAttackCooldown)
             {
                 return;
@@ -361,6 +494,9 @@ namespace Characters
             animationController.DoWeaponChargeAttackAnimation(viewDirection);
 
             SetState(CharacterState.Attacking);
+
+            // Invoke the OnAttackStart event
+            OnAttackStart?.Invoke();
 
             // Increase the heavy attack hold time
             if (_chargeHoldTime < chargeAttackMaxTime)
@@ -395,9 +531,14 @@ namespace Characters
                 return;
             }
 
+            combatStats.HeavyAttacks++;
+
+            // Invoke the OnAttackEnd event
+            OnAttackEnd?.Invoke();
+
             _holdingCharge = false;
 
-            ReduceStamina(GetHeavyAttackStaminaCost());
+            ReduceStamina(GetCurrentHeavyAttackStaminaCost());
             _damageChargeMultiplier = GetHeavyAttackDamageMultiplier();
 
             attackCR = StartAttack(_chargeHoldAngle);
@@ -487,6 +628,25 @@ namespace Characters
 
         #region Combat and Movement Coroutines
 
+        /// <summary>
+        /// If the current combat target is new, get the closest one
+        /// </summary>
+        protected void GetNewCombatTarget()
+        {
+            if (combatTarget != null && !combatTarget.IsDead())
+                return;
+
+            Character character = characterRetriever.GetClosestEnemy(factions);
+
+            if (character == null)
+            {
+                Debug.LogWarning("Couldn't find a valid character");
+                return;
+            }
+
+            combatTarget = character;
+        }
+
         protected virtual IEnumerator GetNewTarget()
         {
             if (characterRadiusTracker == null)
@@ -516,84 +676,6 @@ namespace Characters
             }
         }
 
-
-        protected virtual IEnumerator MoveToCombatTargetInRange()
-        {
-            while (true)
-            {
-                if (combatFSM.InAttackingState() && state != CharacterState.Death && !knockbackController.IsKnockbackActive())
-                {
-                    Debug.Log("In attacking state");
-
-                    combatTarget = combatFSM.GetCombatTarget();
-
-                    if (Vector3.Distance(transform.position, combatTarget.transform.position) < targetLossRange)
-                    {
-                        Debug.Log("Moving to target");
-                        mover.SetTarget(combatTarget.transform);
-                        weaponSheathed = false;
-                    }
-                    else
-                    {
-                        weaponSheathed = true;
-                        combatTarget = null;
-                        mover.SetTarget(null);
-                    }
-                }
-
-                yield return new WaitForFixedUpdate();
-            }
-        }
-
-        protected virtual IEnumerator AttackInRange()
-        {
-            while (true)
-            {
-                if (combatFSM.InAttackingState())
-                {
-                    combatTarget = combatFSM.GetCombatTarget();
-
-                    if (combatTarget != null && combatTargetCollider == null)
-                    {
-                        combatTargetCollider = combatTarget.GetCollider();
-                    }
-
-                    // If the npc is a ranged attacker, check if the target is in range of the npc's attack circle
-                    if (IsRangedAttacker())
-                    {
-                        if (Vector3.Distance(transform.position, combatTarget.transform.position) < archerAttackRange && TargetInLos())
-                        {
-                            if (attackCR == null && state == CharacterState.Normal)
-                            {
-                                attackCR = StartRangedAttack(combatTarget.transform);
-                                StartCoroutine(attackCR);
-
-                                yield return new WaitForSeconds(attackCooldown);
-                            }
-                        }
-                    }
-
-                    else
-                    {
-                        // Checks if the distance between the npc and the target is less than the npc's attack radius plus the target's circle collider
-                        if (Vector3.Distance(transform.position, combatTarget.transform.position) < attackCircle.radius + combatTargetCollider.radius)
-                        {
-                            if (attackCR == null && state == CharacterState.Normal)
-                            {
-                                attackCR = StartAttack(GetAngleToTarget(combatTarget.transform));
-                                StartCoroutine(attackCR);
-
-                                yield return new WaitForSeconds(attackCooldown);
-                            }
-                        }
-                    }
-                }
-
-                yield return new WaitForSeconds(0.1f);
-            }
-        }
-
-
         protected virtual IEnumerator StartAttack(float attackAngle)
         {
             // Disables movement
@@ -605,6 +687,9 @@ namespace Characters
 
             AttackWithAngle(attackAngle);
 
+            // Invoke the OnAttackStart event
+            OnAttackStart?.Invoke();
+
             yield return new WaitForSeconds(attackAnimationDuration);
 
             if (sucessfulEnemyBlock)
@@ -614,6 +699,9 @@ namespace Characters
                 animationController.FlashHideWeaponTrail(attackAnimationDuration * 2);
                 //yield return new WaitForSeconds(attackAnimationDuration * 2);
             }
+
+            // When the attack ends, invoke the OnAttackEnd event
+            OnAttackEnd?.Invoke();
 
             if (state != CharacterState.Attacking)
                 yield break;
@@ -799,9 +887,9 @@ namespace Characters
             if ((xAxis != 0 || yAxis != 0))
             {
                 // If the target is in a view lock, the NPC will face the target no matter what direction it is moving in
-                if (doTargetViewLock && ViewLockTargetTransform != null)
+                if (DoTargetViewLock)
                 {
-                    Vector3 difference = (transform.position - ViewLockTargetTransform.position).normalized;
+                    Vector3 difference = (transform.position - CombatTarget.transform.position).normalized;
 
                     // Get an angle from 
 
@@ -878,7 +966,7 @@ namespace Characters
         }
 
         #endregion
-
+        
         #region Audio Methods
 
         protected override void PlayHitSound()
@@ -895,6 +983,69 @@ namespace Characters
         {
             Debug.LogWarning("Player attack sound not implemented");
         }
+
+        #endregion
+
+        #region Combat Context Pull Methods
+
+        /// <summary>
+        /// Returns the range of the NPC's light attack.
+        /// </summary>
+        /// <returns></returns>
+        public float LightAttackRange()
+        {
+            if (equippedWeapon == null)
+                return 0f;
+            return equippedWeapon.weaponRange;
+        }
+
+        /// <summary>
+        /// Returns the range of the NPC's heavy attack.
+        /// </summary>
+        /// <returns></returns>
+        public float HeavyAttackRange()
+        {
+            if (equippedWeapon == null)
+                return 0f;
+            return equippedWeapon.weaponRange;
+        }
+
+        /// <summary>
+        /// Returns the time since the NPC was last hit.
+        /// </summary>
+        /// <returns></returns>
+        public float LastHitTime()
+        {
+            return _lastHitTime;
+        }
+
+        /// <summary>
+        /// Returns the remaining duration that the NPC's stamina regeneration is blocked for.
+        /// </summary>
+        /// <returns></returns>
+        public float EhaustionUntil()
+        {
+            return _exhaustionEndTime ;
+        }
+
+        /// <summary>
+        /// When blocking an attack, stamina regeneration is blocked for a while. This value shows how long until it can regenerate stamina again.
+        /// </summary>
+        /// <returns></returns>
+        public float StaminaRegenBlockedUntil()
+        {
+            return _blockRegenEndTime ;
+        }
+
+        /// <summary>
+        /// Returns true if the NPC's combat target is attacking, false otherwise.
+        /// </summary>
+        /// <returns></returns>
+        public bool SeenIncomingAttackFlag()
+        {
+            return _seenIncomingAttack;
+        }
+
 
         #endregion
     }

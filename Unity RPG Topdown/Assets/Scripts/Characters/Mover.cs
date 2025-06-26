@@ -1,12 +1,12 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 namespace Characters
 {
     public class Mover : MonoBehaviour
     {
-        [SerializeField] Transform target;
-        private Vector3 targetPosition;
+        [SerializeField] Transform movementTarget;
+        private Vector3 movementTargetPosition;
         public NavMeshAgent agent;
         private void Awake()
         {
@@ -18,16 +18,32 @@ namespace Characters
             Vector3 velocity = agent.velocity;
         }
 
-        public void SetTarget(Transform targetTransform)
+        public void SetTarget(Transform target, float stopDistance)
         {
-            targetPosition = Vector3.zero;
-            target = targetTransform;
+            Vector2 movementTargetPos = target.position;           // T
+            Vector2 myPos = target.position;        // P
+
+            // Direction from T → P (so pointing out from the movementTarget toward you)
+            Vector2 dir = (myPos - movementTargetPos).normalized;
+
+            // Desired destination = T + dir * stopDistance
+            Vector2 dest = movementTargetPos + dir * stopDistance;
+
+            // Now call your existing mover logic on that point
+            SetTarget(dest);
+        }
+
+        public void SetTarget(Transform movementTargetTransform)
+        {
+            agent.stoppingDistance = 0f; // Default stopping distance
+            movementTargetPosition = Vector3.zero;
+            movementTarget = movementTargetTransform;
         }
 
         public void SetTarget(Vector3 position)
         {
-            target = null;
-            targetPosition = position;
+            movementTarget = null;
+            movementTargetPosition = position;
         }
 
         public void MoveTo(Vector3 destination)
@@ -48,16 +64,37 @@ namespace Characters
 
         public void Stop()
         {
+            // check if the agent on a valid navmesh
+            if (!agent.isOnNavMesh)
+            {
+                Debug.LogWarning("Mover: Stop called on agent not on a valid NavMesh.");
+                return;
+            }
+
             agent.isStopped = true;
         }
 
         public void Resume()
         {
+            // check if the agent on a valid navmesh
+            if (!agent.isOnNavMesh)
+            {
+                Debug.LogWarning("Mover: Resume called on agent not on a valid NavMesh.");
+                return;
+            }
+
             agent.isStopped = false;
         }
 
         public bool AgentArrived()
         {
+            // check if the agent on a valid navmesh
+            if (!agent.isOnNavMesh)
+            {
+                Debug.LogWarning("Mover: Arrived called on agent not on a valid NavMesh.");
+                return false;
+            }
+
             return agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending;
         }
 
@@ -66,13 +103,13 @@ namespace Characters
             if (!agent.enabled)
                 return;
 
-            if (!agent.isStopped && target != null)
+            if (!agent.isStopped && movementTarget != null)
             {
-                MoveTo(target.transform.position);
+                MoveTo(movementTarget.transform.position);
             }
-            else if (!agent.isStopped && targetPosition != Vector3.zero)
+            else if (!agent.isStopped && movementTargetPosition != Vector3.zero)
             {
-                MoveTo(targetPosition);
+                MoveTo(movementTargetPosition);
             }
         }
 

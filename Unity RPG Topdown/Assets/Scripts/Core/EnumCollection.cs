@@ -70,7 +70,11 @@ namespace Core.Enums
         Wolf,
         Bat,
         CaveCreatures,
-        PlayerFriendly
+        PlayerFriendly,
+
+        // Debug
+        Team1, 
+        Team2
     }
 
     public enum StatusEffect

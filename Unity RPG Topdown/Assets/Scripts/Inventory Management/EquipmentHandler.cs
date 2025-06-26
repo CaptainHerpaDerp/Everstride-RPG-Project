@@ -382,7 +382,6 @@ namespace InventoryManagement
         {
             if (equippedShield == null)
             {
-                Debug.LogWarning("No shield equipped.");
                 return;
             }
 

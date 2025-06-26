@@ -2,7 +2,6 @@ using UnityEngine;
 
 namespace CBTSystem.ScriptableObjects.Nodes
 {
-
     using Enumerations;
     using System.Collections.Generic;
 

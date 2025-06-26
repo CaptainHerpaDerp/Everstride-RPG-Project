@@ -5,12 +5,10 @@ using UnityEngine.UIElements;
 namespace CBTSystem.Windows
 {
     using Base;
-    using CBTSystem.Elements.Nodes;
     using CBTSystem.Utilities;
-    using Characters;
+    using Characters.Behaviour;
     using Core;
     using System.IO;
-    using System.Linq;
     using UnityEditor;
 
     public class CBTEditorWindow : BaseGraphEditorWindow
@@ -58,7 +56,7 @@ namespace CBTSystem.Windows
         private void HandleNodeChanged(string nodeID)
         {
             //Debug.Log($"Node changed: ID={nodeID}");
-
+            if (graphView != null)
             graphView.SetActiveNode(nodeID);
         }
 

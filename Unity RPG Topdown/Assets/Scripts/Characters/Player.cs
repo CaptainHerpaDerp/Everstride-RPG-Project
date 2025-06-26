@@ -38,7 +38,11 @@ namespace Characters
         {
             get
             {
-                if (sprintEnabled && !_staminaExhaustionDelay && staminaCurrent > 0)
+                // If we’re still in exhaustion, skip regen
+                if (Time.time < _exhaustionEndTime)
+                    return false;
+
+                if (sprintEnabled && staminaCurrent > 0)
                     return true;
                 else
                     return false;
@@ -83,10 +87,10 @@ namespace Characters
             playerTransform = transform;
 
             // Set the player's health to the max hit points
-            HitPoints = HitPointsMax;
+            HitPoints = MaxHealth;
 
             // Set the player's stamina to the max stamina
-            staminaCurrent = StaminaMax;
+            staminaCurrent = MaxStamina;
 
             // Set the player's magica to the max magica
             magicaCurrent = MagicaMax;
@@ -99,8 +103,8 @@ namespace Characters
             if (movementSpeed == 0)
                 movementSpeed = 200;
 
-            if (HitPointsMax == 0)
-                HitPointsMax = 10;
+            if (MaxHealth == 0)
+                MaxHealth = 10;
 
             if (interactionDistance == 0)
                 interactionDistance = 1f;
@@ -227,6 +231,9 @@ namespace Characters
                 yield break;
             }
 
+            // Invoke the onattackstart event
+            OnAttackStart?.Invoke();
+
             if (equippedWeapon.canChargeAttack)
             {
                 // Update the view direction based on the mouse position so that the charge animation can face the right way
@@ -255,7 +262,7 @@ namespace Characters
             if (equippedWeapon.canChargeAttack && _chargeHoldTime >= chargeAttackMinTime)
             {
                 _damageChargeMultiplier = GetHeavyAttackDamageMultiplier();
-                ReduceStamina(GetHeavyAttackStaminaCost());
+                ReduceStamina(GetCurrentHeavyAttackStaminaCost());
             }
             else
             {
@@ -459,6 +466,12 @@ namespace Characters
                 // Attack
                 if (Input.GetKeyDown(KC.Attack))
                 {
+                    if (equippedWeapon == null)
+                    {
+                        Debug.LogWarning("No weapon equipped, cannot attack.");
+                        return;
+                    }
+
                     // If the weapon is sheathed, unsheath it and return
                     if (IsWeaponSheathed())
                     {
@@ -686,6 +699,9 @@ namespace Characters
                     StartCoroutine(chainAttackOpportunity);
                 }
             }
+
+            // Invoke the OnAttackEnd event
+            OnAttackEnd?.Invoke();
 
             // Reset the charge damage multiplier
             _damageChargeMultiplier = 1;

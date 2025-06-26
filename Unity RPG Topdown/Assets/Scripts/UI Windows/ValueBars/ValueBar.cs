@@ -56,7 +56,7 @@ namespace UIWindows
 
             foregroundRectTransform.sizeDelta = new Vector2(TargetWidth, foregroundRectTransform.rect.height);
 
-           // InitializeValueBar(parentCharacter.HitPointsMax);
+           // InitializeValueBar(parentCharacter.MaxHealth);
 
             //HideValueBar(); // Initially, hide the Value bar.
         }

@@ -2245,8 +2245,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0cd6e5a4d44da2c43b26ce7b1545ae7c, type: 2}
-  m_sharedMaterial: {fileID: 8359957851740516759, guid: 0cd6e5a4d44da2c43b26ce7b1545ae7c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2572,6 +2572,12 @@ MonoBehaviour:
   healthBarParent: {fileID: 4104884514392269515}
   backgroundRectTransform: {fileID: 6749275185021391161}
   npcNameTextComponent: {fileID: 6383213471071181682}
+  stateUIImage: {fileID: 0}
+  movingSprite: {fileID: 0}
+  attackingSprite: {fileID: 0}
+  defensiveSprite: {fileID: 0}
+  targetSeenSprite: {fileID: 0}
+  targetBlockingSprite: {fileID: 0}
 --- !u!1 &8424401835853726790
 GameObject:
   m_ObjectHideFlags: 0
@@ -2932,6 +2938,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1655754594446593520, guid: 1b096c0e9119f6844bc7af685b6bb9de, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4145821131041335409}
+    - targetCorrespondingSourceObject: {fileID: 1655754594446593520, guid: 1b096c0e9119f6844bc7af685b6bb9de, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7009412395222406057}
   m_SourcePrefab: {fileID: 100100000, guid: 1b096c0e9119f6844bc7af685b6bb9de, type: 3}
 --- !u!4 &6792586133259829834 stripped
 Transform:
@@ -2968,22 +2977,49 @@ MonoBehaviour:
   statusEffectsParent: {fileID: 0}
   statusEffectPrefab: {fileID: 0}
   movementSpeed: 0
-  hitPointsMax: 100
-  hitPointsCurrent: 0
+  <MaxHealth>k__BackingField: 0
+  _hitPointsCurrent: 0
+  healthRecoveryTime: 5
+  healthRecoveryModifier: 0.5
+  <MaxStamina>k__BackingField: 0
+  _staminaCurrent: 0
   interactionDistance: 0.8
+  <MagicaMax>k__BackingField: 0
+  sprintSpeed: 200
+  staminaReductionModifier: 1
+  staminaRecoveryModifier: 0.5
+  staminaExhaustionTime: 2.5
+  magicaRecoverySpeed: 0.5
+  staminaRecoveryBlockingMultiplier: 0.2
+  staminaPostBlockRecoveryDelayDuration: 1
+  chargeAttackMinTime: 0.4
+  chargeAttackMaxTime: 1
+  chargeAttackMinHoldTime: 0.25
+  minHeavyDamageMultiplier: 1.25
+  maxHeavyDamageMultiplier: 2.5
+  minHeavyBlockStaminaMultiplier: 1
+  maxHeavyBlockStaminaMultiplier: 2.5
   equippedWeapon: {fileID: 0}
   equippedShield: {fileID: 0}
+  _state: 0
   attackAnimationDuration: 0
   blockAnimationDuration: 0.3
   weaponRange: 0
   weaponAngle: 0
+  projectileSpawnDistance: 0.45
+  spellCastTime: 0.4
+  spellFireTime: 0.4
+  spellThrowTime: 0.5
+  spellSpawnDistance: 0.25
   factions: 
   characterViewDirection: 3
   attackIteration: 0
   characterRadiusTracker: {fileID: 1984196009013590575}
-  combatFSM: {fileID: 0}
+  characterRetriever: {fileID: 7009412395222406057}
+  knockbackController: {fileID: 7230864901545671164}
+  mover: {fileID: 4950558094515198377}
   NPCName: Character
-  ID: 
+  <ID>k__BackingField: 
   minWalkVelocity: 0
   hitAnimationDuration: 0.3
   attackCooldown: 0.45
@@ -2991,7 +3027,10 @@ MonoBehaviour:
   DeathTime: 1.2
   archerAttackRange: 0
   lootSpawnOffset: {x: 0, y: 0, z: 0}
+  blockingTime: 0.5
   hitTime: 0.3
+  _combatTarget: {fileID: 0}
+  DoTargetViewLock: 0
 --- !u!114 &7725606371364055362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3019,7 +3058,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 059f077fb8fc2ee4ab16418db5796035, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  movementTarget: {fileID: 0}
   agent: {fileID: 0}
 --- !u!195 &7598291616084649838
 NavMeshAgent:
@@ -3123,6 +3162,35 @@ MonoBehaviour:
   shieldSR: {fileID: 8922526016409003704}
   shieldTrailSR: {fileID: 5282351733475561648}
   weaponTrailTransform: {fileID: 2121853320252436899}
+  airTimeMs: 0.2
+  groundTimeMsMin: 0
+  groundTimeMsMax: 0
+  runSpeedMinModifier: 65
+  runSpeedMaxModifier: 150
+  groundTimeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: -1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   IDLEBOTTOMRIGHT: 
   IDLEBOTTOMLEFT: 
   IDLETOPRIGHT: 
@@ -3151,6 +3219,10 @@ MonoBehaviour:
   SLASHATTACKBOTTOMLEFT: 
   SLASHATTACKTOPRIGHT: 
   SLASHATTACKTOPLEFT: 
+  SLASHCHARGEATTACKBOTTOMRIGHT: 
+  SLASHCHARGEATTACKBOTTOMLEFT: 
+  SLASHCHARGEATTACKTOPRIGHT: 
+  SLASHCHARGEATTACKTOPLEFT: 
   SWINGATTACKRIGHT: 
   SWINGATTACKLEFT: 
   SWINGATTACKTOP: 
@@ -3235,6 +3307,18 @@ MonoBehaviour:
   BOWWALKBOTTOMLEFT: 
   BOWWALKTOPRIGHT: 
   BOWWALKTOPLEFT: 
+  SPELLCASTBOTTOMRIGHT: 
+  SPELLCASTBOTTOMLEFT: 
+  SPELLCASTTOPRIGHT: 
+  SPELLCASTTOPLEFT: 
+  SPELLHOLDBOTTOMRIGHT: 
+  SPELLHOLDBOTTOMLEFT: 
+  SPELLHOLDTOPRIGHT: 
+  SPELLHOLDTOPLEFT: 
+  SPELLTHROWBOTTOMRIGHT: 
+  SPELLTHROWBOTTOMLEFT: 
+  SPELLTHROWTOPRIGHT: 
+  SPELLTHROWTOPLEFT: 
   SOULDIE: 
   SPINDEATH: 
   SPINDEATHSINK: 
@@ -3264,3 +3348,21 @@ MonoBehaviour:
   neckSpriteLibrary: {fileID: 0}
   ringSpriteLibrary: {fileID: 0}
   character: {fileID: 9181265510801544}
+  equipBestItemsOnStart: 0
+--- !u!114 &7009412395222406057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6792586133259829875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8a09ba3a4d24d045b7583b9980ef20b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentNPC: {fileID: 9181265510801544}
+  characterLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  targetOverlapRange: 15
