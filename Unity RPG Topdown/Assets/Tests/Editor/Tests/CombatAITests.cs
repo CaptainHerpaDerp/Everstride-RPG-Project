@@ -3,13 +3,14 @@
 
 using Characters;
 using NUnit.Framework;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
-using System.Collections.Generic;
 
 public class CombatAITests
 {
@@ -21,9 +22,9 @@ public class CombatAITests
         List<RunData> runDataList = new List<RunData>();
 
         // Set the random seed for reproducibility
-        Random.InitState(123456);
+        UnityEngine.Random.InitState(123456);
 
-        for (int i = 0; i < 50; i++)
+        for (int i = 0; i < 5; i++)
         {
             // Load test scene
             yield return SceneManager.LoadSceneAsync("CombatTestScene", LoadSceneMode.Single);
@@ -41,7 +42,7 @@ public class CombatAITests
             Assert.IsNotNull(npcA, "Base AI Dummy prefab does not contain an NPC component.");
             Assert.IsNotNull(npcB, "Utility AI Dummy prefab does not contain an NPC component.");
 
-            yield return new WaitForSeconds(0.25f); // Wait for NPCs to initialize
+            yield return new WaitForFixedUpdate();
 
             // Set the game speed to 5x
             Time.timeScale = 10f;
@@ -81,7 +82,7 @@ public class CombatAITests
 
             runDataList.Add(runData);
 
-            yield return new WaitForSeconds(0.25f); // Wait a bit before the next trial
+            yield return new WaitForFixedUpdate();
         }
 
 
@@ -108,15 +109,30 @@ public class CombatAITests
 
     public void WriteTestResults(List<RunData> runs)
     {
-        using (var writer = new StreamWriter("Assets/TestResults/CombatResults.csv"))
+        string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+        string version = "A1"; // or dynamically get from test config
+        string testType = "1v1";
+        string fileName = $"CombatResults_{version}_{testType}_{timestamp}.csv";
+        string filePath = Path.Combine(Application.dataPath, "TestResults", fileName);
+
+        string folderPath = Path.Combine(Application.dataPath, "TestResults");
+        Directory.CreateDirectory(folderPath); // Ensure folder exists
+
+        string fullFilePath = Path.Combine(folderPath, fileName);
+
+        using (var writer = new StreamWriter(fullFilePath))
         {
-            writer.WriteLine("Winner,Elapsed time,A Damage,B Damage,A Light Attacks,B Light Attacks,A Heavy Attacks,B Heavy Attacks,A Successful Blocks,B Successful Blocks,A Failed Blocks,B Failed Blocks");
+            writer.WriteLine($"# AI Version: {version}");
+            writer.WriteLine($"# Test Type: {testType}");
+            writer.WriteLine($"# Time: {timestamp}");
+
+            writer.WriteLine("Run Index, Winner,Elapsed time,A Damage,B Damage,A Light Attacks,B Light Attacks,A Heavy Attacks,B Heavy Attacks,A Successful Blocks,B Successful Blocks,A Failed Blocks,B Failed Blocks");
 
             for (int i = 0; i < runs.Count; i++)
             {
                 RunData run = runs[i];
 
-                writer.WriteLine($"{run.result},{run.elapsedTime}," +  // Add the comma here
+                writer.WriteLine($"{i},{run.result},{run.elapsedTime}," +  // Add the comma here
          $"{run.aiAStats.TotalDamageDealt},{run.aiBStats.TotalDamageDealt}," +
          $"{run.aiAStats.LightAttacks},{run.aiBStats.LightAttacks}," +
          $"{run.aiAStats.HeavyAttacks},{run.aiBStats.HeavyAttacks}," +

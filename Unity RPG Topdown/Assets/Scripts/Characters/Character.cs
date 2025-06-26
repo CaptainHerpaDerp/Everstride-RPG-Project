@@ -859,8 +859,11 @@ namespace Characters
 
                         animationController.DoBlockAnimation(viewDirection);
                         StartCoroutine(ExitBlockState());
+
+                        // Blocked successfully, so return true
+                        return true;
                     }
-                    
+
                     // Otherwise, the character will be staggered and take full damage
                     else
                     {
@@ -868,9 +871,10 @@ namespace Characters
 
                         if (HitPoints > 0)
                         EnterStaggerState();
-                    }
 
-                    return true;
+                        // Block failed, so return false
+                        return false;
+                    }
                 }
             }
 
