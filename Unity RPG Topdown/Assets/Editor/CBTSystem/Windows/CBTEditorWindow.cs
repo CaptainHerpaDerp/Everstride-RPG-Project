@@ -8,6 +8,7 @@ namespace CBTSystem.Windows
     using CBTSystem.Utilities;
     using Characters.Behaviour;
     using Core;
+    using GraphSystem.Base.Utilities;
     using System.IO;
     using UnityEditor;
 
@@ -17,19 +18,24 @@ namespace CBTSystem.Windows
         private TextField cbtFileTextField;
 
         private CBTGraphView graphView;
+
         protected override string defaultFileName { get; } = "CBTFileName";
 
         EventBus eventBus;
 
         private void OnEnable()
         {
-            NPCTestCombatBehaviourTree.OnNodeChanged += HandleNodeChanged;
+            UtilityAICombatBehaviourManager.OnNodeChanged += HandleNodeChanged;
+            BaseAICombatBehaviourManager.OnNodeChanged += HandleNodeChanged;
+
             EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
         }
          
         private void OnDisable()
         {
-            NPCTestCombatBehaviourTree.OnNodeChanged -= HandleNodeChanged;
+            UtilityAICombatBehaviourManager.OnNodeChanged -= HandleNodeChanged;
+            BaseAICombatBehaviourManager.OnNodeChanged -= HandleNodeChanged;
+
             EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
         }
 
@@ -119,6 +125,14 @@ namespace CBTSystem.Windows
 
 
         #region Elements Addition
+
+        protected override void AddStyles()
+        {
+            // Root must be Editor Default Resources / !
+
+            // Adds the variables stylesheet to list of stylesheets in the graph view.
+            rootVisualElement.AddStyleSheets("DialogueSystem/DialogueSystemVariables.uss", "CBTSystem/CBTGraphStyles.uss");
+        }
 
         /// <summary>
         /// Sets the graph view to the root visual element of the window.

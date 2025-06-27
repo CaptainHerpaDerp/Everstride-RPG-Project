@@ -9,6 +9,8 @@ namespace CBTSystem.Enumerations
         StartHeavyAttack,
         ReleaseHeavyAttack,
         MoveToAttackRange,
+        DodgeAttack,
+        InstantBlock,
     }
 
     public enum CBTConditionType
@@ -25,5 +27,12 @@ namespace CBTSystem.Enumerations
     }
 
     public enum LogicalOperator { And, Or };
+
+    public enum ActionPriority
+    {
+        Idle,
+        Combat,
+        Emergency, // Emergency actions like blocking or dodging
+    }
 
 }

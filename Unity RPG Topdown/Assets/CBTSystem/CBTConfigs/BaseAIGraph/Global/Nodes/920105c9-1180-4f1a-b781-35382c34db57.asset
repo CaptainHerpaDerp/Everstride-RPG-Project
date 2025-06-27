@@ -21,4 +21,4 @@ MonoBehaviour:
     Operator: '>'
     Value: 4
   Connectors: 
-  <Priority>k__BackingField: 0
+  <Priority>k__BackingField: -1

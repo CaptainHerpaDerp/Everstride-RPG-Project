@@ -13,8 +13,5 @@ MonoBehaviour:
   m_Name: BaseAIDummy
   m_EditorClassIdentifier: 
   inventoryEntries:
-  - item: {fileID: 11400000, guid: debf65511581ad441a1510dce78b96f8, type: 2}
-  - item: {fileID: 11400000, guid: 4a48a075d5a83a7418c7c384c6d6038f, type: 2}
-  - item: {fileID: 11400000, guid: 250d89473ad55ca46b329308188219ca, type: 2}
   - item: {fileID: 11400000, guid: 51ab01cf9fdffcd40b9fadb153a03761, type: 2}
   - item: {fileID: 11400000, guid: c90bff220fec98f4b985554f6fa586b7, type: 2}

@@ -1,0 +1,33 @@
+﻿/* ── Condition node ────────────────────────────────────────────── */
+.cbt-cond {
+    padding: 4px 6px;
+    background-color: #242424;
+    border-width: 1px;
+    border-color: #3b3b3b;
+    border-radius: 4px; 
+}
+
+.cbt-cond__bar {
+    height: 4px;
+    background-color: #4e78f6;
+    border-radius: 4px 4px 0 0;
+    margin-bottom: 4px;
+}
+
+.cbt-cond__row      { flex-direction: row; align-items: center; padding: 2px 0; }
+.cbt-row--alt       { background-color: #303030; }
+
+/* AND / OR pill */
+.cbt-pill {
+    width: 38px;
+    height: 18px;
+    background-color: #555;
+    color: #eee;
+    border-radius: 9px;
+    font-size: 10px;
+    -unity-text-align: middle-center;
+    margin: 0 4px;
+}
+
+/* Optional width helpers */
+.cbt-cond .unity-base-field { min-width: 30px; }

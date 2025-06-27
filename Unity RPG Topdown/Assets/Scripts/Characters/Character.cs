@@ -92,6 +92,10 @@ namespace Characters
 
         public Action OnAttackStart, OnAttackEnd;
 
+        // Temp
+        [SerializeField] private bool godMode;
+
+
         protected float staminaCurrent
         {
             get => _staminaCurrent;
@@ -392,7 +396,14 @@ namespace Characters
 
         public float WeaponRange
         {
-            get => weaponRange;
+            get
+            {
+                if (equippedWeapon == null)
+                {
+                    return 0;
+                }
+                return equippedWeapon.weaponRange;
+            }
 
             set
             {
@@ -983,7 +994,7 @@ namespace Characters
             {
                 return ViewDirection.BottomLeft;
             }
-            else if (angle >= 90 && angle < 180)
+            else if (angle >= 90 && angle <= 180)
             {
                 return ViewDirection.BottomRight;
             }
@@ -1210,6 +1221,9 @@ namespace Characters
 
         protected virtual void EnterHitState(DamagePacket damagePacket)
         {
+            if (godMode)
+                return;
+
             if (TryBlockIncomingDamage(damagePacket))
             {
                 return;
@@ -1261,6 +1275,16 @@ namespace Characters
             float staminaCost = Mathf.Lerp(equippedWeapon.heavyAttackMinStaminaCost, equippedWeapon.heavyAttackMaxStaminaCost, t);
 
             return staminaCost;
+        }
+
+        /// <summary>
+        /// Returns a percent value from 0 to 1 of how long the heavy attack has been held for, compared to the maximum hold time of the equpped weapon.
+        /// </summary>
+        /// <returns></returns>
+        public float GetHeavyAttackHoldPercentage()
+        {
+            // Returns the percentage of the heavy attack hold time
+            return Mathf.Clamp01(_chargeHoldTime / chargeAttackMaxTime);
         }
 
         protected float GetHeavyAttackDamageMultiplier()

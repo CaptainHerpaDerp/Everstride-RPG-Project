@@ -1,4 +1,6 @@
 
+using UnityEngine;
+
 namespace CBTSystem.Data.Save.Nodes
 {
     /// <summary>
@@ -10,6 +12,11 @@ namespace CBTSystem.Data.Save.Nodes
     [System.Serializable]
     public class CBTSystemUtilitySelectorNodeSaveData : CBTSystemNodeSaveData
     {
-      
+        [field: SerializeField] public float Temperature { get; set; }
+        [field: SerializeField] public float DecisionInterval { get; set; }
+        [field: SerializeField] public float MinSwitchScore { get; set; }
+        [field: SerializeField] public bool EmergencyOverride { get; set; }
+        [field: SerializeField] public float StickyBonus { get; set; }
+
     }
 }

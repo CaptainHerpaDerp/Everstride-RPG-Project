@@ -43,6 +43,15 @@ namespace Characters
                 }
                 else
                 {
+
+                    // check if the agent on a valid navmesh
+                    if (!agent.isOnNavMesh)
+                    {
+                        Debug.LogWarning("Cant call agent when they are not on navmesh!");
+                        return;
+                    }
+
+
                     // If the knockback duration has elapsed, reset everything.
                     isKnockbackActive = false;
                     agent.isStopped = false;

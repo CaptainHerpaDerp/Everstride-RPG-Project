@@ -14,10 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <NodeID>k__BackingField: 44082fd1-3608-4cbc-ade7-6f6638c43a62
   <NextNodeIDs>k__BackingField:
-  - c4cf9c6f-f4b8-4ad8-b82a-18322f3ea742
+  - e62c97ae-c0b3-44f0-9153-c836013323d6
   - c487a793-9ead-4629-b4c8-df49b1ba989c
-  - 5c447b99-4bc9-47f0-969e-7a6c8039656b
-  - cee86e7a-e519-4a7f-8fed-65ce086b6f61
-  - b1b9f419-5bbd-4eb7-bcbf-85b1cc9d9dd0
   - 5021d891-cb24-4e2c-98f3-6782ca70e325
   <IsRootNode>k__BackingField: 0
+  <Temperature>k__BackingField: 0.8
+  <DecisionInterval>k__BackingField: 0.33
+  <MinSwitchScore>k__BackingField: 0
+  <EmergencyOverride>k__BackingField: 1
+  <StickyBonus>k__BackingField: 0
+  CurrentActionNodeScore: 0

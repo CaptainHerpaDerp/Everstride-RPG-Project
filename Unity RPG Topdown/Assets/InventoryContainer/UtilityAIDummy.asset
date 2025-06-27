@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: UtilityAIDummy
   m_EditorClassIdentifier: 
   inventoryEntries:
-  - item: {fileID: 11400000, guid: f6db254dae93ed54ca83ce3700cb6c14, type: 2}
-  - item: {fileID: 11400000, guid: 693b7e467b2ebe24e80009bbdd0bf649, type: 2}
-  - item: {fileID: 11400000, guid: 250d89473ad55ca46b329308188219ca, type: 2}
   - item: {fileID: 11400000, guid: 51ab01cf9fdffcd40b9fadb153a03761, type: 2}
   - item: {fileID: 11400000, guid: c90bff220fec98f4b985554f6fa586b7, type: 2}
+  - item: {fileID: 11400000, guid: b768f0b0a2891d44881f3e76bca581dd, type: 2}
+  - item: {fileID: 11400000, guid: debf65511581ad441a1510dce78b96f8, type: 2}

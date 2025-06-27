@@ -274,7 +274,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9181265510801544, guid: 71eba9726b4f01048bcc3fcd7c177dc2, type: 3}
       propertyPath: NPCName
-      value: Orc
+      value: Utility AI
       objectReference: {fileID: 0}
     - target: {fileID: 9181265510801544, guid: 71eba9726b4f01048bcc3fcd7c177dc2, type: 3}
       propertyPath: faction
@@ -292,10 +292,6 @@ PrefabInstance:
       propertyPath: weaponSR
       value: 
       objectReference: {fileID: 7037686224717687812, guid: b2ef4e55fdc1dd748b893c68559559df, type: 3}
-    - target: {fileID: 9181265510801544, guid: 71eba9726b4f01048bcc3fcd7c177dc2, type: 3}
-      propertyPath: combatFSM
-      value: 
-      objectReference: {fileID: 2221425594368224085}
     - target: {fileID: 9181265510801544, guid: 71eba9726b4f01048bcc3fcd7c177dc2, type: 3}
       propertyPath: rigidBody
       value: 
@@ -558,7 +554,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3607043741262252828, guid: 71eba9726b4f01048bcc3fcd7c177dc2, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3942028125765859580, guid: 71eba9726b4f01048bcc3fcd7c177dc2, type: 3}
       propertyPath: m_Sprite
@@ -654,7 +650,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6383213471071181682, guid: 71eba9726b4f01048bcc3fcd7c177dc2, type: 3}
       propertyPath: m_text
-      value: Orc
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6383213471071181682, guid: 71eba9726b4f01048bcc3fcd7c177dc2, type: 3}
       propertyPath: m_fontAsset
@@ -666,19 +662,19 @@ PrefabInstance:
       objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 6641681176660415211, guid: 71eba9726b4f01048bcc3fcd7c177dc2, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6641681176660415211, guid: 71eba9726b4f01048bcc3fcd7c177dc2, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6641681176660415211, guid: 71eba9726b4f01048bcc3fcd7c177dc2, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.44817328
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6641681176660415211, guid: 71eba9726b4f01048bcc3fcd7c177dc2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.05555
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6730022459990448955, guid: 71eba9726b4f01048bcc3fcd7c177dc2, type: 3}
       propertyPath: m_SpriteSortPoint
@@ -694,11 +690,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6792586133259829834, guid: 71eba9726b4f01048bcc3fcd7c177dc2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12.029
+      value: 13.15
       objectReference: {fileID: 0}
     - target: {fileID: 6792586133259829834, guid: 71eba9726b4f01048bcc3fcd7c177dc2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.812
+      value: 6.72
       objectReference: {fileID: 0}
     - target: {fileID: 6792586133259829834, guid: 71eba9726b4f01048bcc3fcd7c177dc2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -807,6 +803,10 @@ PrefabInstance:
     - target: {fileID: 7481417625418315833, guid: 71eba9726b4f01048bcc3fcd7c177dc2, type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7598291616084649838, guid: 71eba9726b4f01048bcc3fcd7c177dc2, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 7632511233113477827, guid: 71eba9726b4f01048bcc3fcd7c177dc2, type: 3}
       propertyPath: m_AnchorMax.y
@@ -936,10 +936,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6792586133259829875, guid: 71eba9726b4f01048bcc3fcd7c177dc2, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8441481026615648618}
+      addedObject: {fileID: 4152671577798009747}
     - targetCorrespondingSourceObject: {fileID: 6792586133259829875, guid: 71eba9726b4f01048bcc3fcd7c177dc2, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2221425594368224085}
+      addedObject: {fileID: 363915488816602733}
     - targetCorrespondingSourceObject: {fileID: 8267731862357750729, guid: 71eba9726b4f01048bcc3fcd7c177dc2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4679856575305258256}
@@ -996,7 +996,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6792586133259829875, guid: 71eba9726b4f01048bcc3fcd7c177dc2, type: 3}
   m_PrefabInstance: {fileID: 8798596175220236860}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8441481026615648618
+--- !u!114 &4152671577798009747
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1005,60 +1005,49 @@ MonoBehaviour:
   m_GameObject: {fileID: 2620806377453297743}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff542abd96de5504a98aa8146830cbe0, type: 3}
+  m_Script: {fileID: 11500000, guid: e57728c454e02524689a3503a7556d70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mover: {fileID: 4515156324272552853}
   npc: {fileID: 8807487077852693172}
   CBTConfig: {fileID: 11400000, guid: d800d3fce4882e04792913a4c4aab222, type: 2}
+  weights: {fileID: 363915488816602733}
   combatStanceMoveSpeed: 1
   radiusStep: 0.25
   defensiveRadius: 1.5
+  defensiveSafeRadius: 2.5
   maxAngleStep: 0.65
   minAngleStep: 0.35
   waitDuration: 0.2
-  softmaxTemperature: 1
-  stickyBonus: 0.2
   lowStaminaFactor: 0.8
-  lastHitThreshholdTime: 3
-  distanceWeight: 0.6
-  staminaWeight: 0.3
-  timeSinceLastHitWeight: 0.1
---- !u!114 &2221425594368224085
+  lastHitThresholdTime: 3
+--- !u!114 &363915488816602733
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2620806377453297743}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 099a2a3e146071b489cb631360bb6dde, type: 3}
+  m_Script: {fileID: 11500000, guid: 02cc75f627362574fae43d199a8d0519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentNPC: {fileID: 8807487077852693172}
-  mover: {fileID: 4515156324272552853}
-  allies: []
-  characterLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  targetRetreivalRate: 0.5
-  retreatPercentageThreshold: 0
-  viewRange: 7
-  groupCombatRange: 5
-  state: 0
-  navMeshAreaMask: 1
-  attackWeight: 0.5
-  strafeWeight: 0.2
-  flankWeight: 0.15
-  tauntWeight: 0.15
-  minFlankDistance: 1
-  maxFlankDistance: 5
-  flankSampleRadius: 10
-  flankClockwise: 0
-  retreatDistance: 10
-  retreatSampleRadius: 20
-  retreatPointRefreshRate: 1
+  moveToAttack_recentHit: 0.16799653
+  moveToAttack_healthDiff: 0.4055789
+  moveToAttack_stamDiff: 0.2959654
+  moveToAttack_stamReady: 0.1304592
+  combatStance_recentHit: 0.1471123
+  combatStance_healthDiff: 0.46382663
+  combatStance_stamDiff: 0.28339598
+  combatStance_stamReady: 0.10566517
+  lightAttack_proximityWeight: 0.45816073
+  lightAttack_staminaLightBonus: 0.30317214
+  lightAttack_lowHealthBonus: 0.2386671
+  block_staminaWeight: 0.44368804
+  block_distanceWeight: 0.5563119
+  dodge_inSafeAreaWeight: 0.5547824
+  dodge_staminaAbundanceWeight: 0.4452177
 --- !u!50 &2620806377453297778 stripped
 Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 6792586133259829838, guid: 71eba9726b4f01048bcc3fcd7c177dc2, type: 3}

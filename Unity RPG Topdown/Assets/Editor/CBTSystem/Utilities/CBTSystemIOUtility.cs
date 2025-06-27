@@ -343,6 +343,11 @@ namespace CBTSystem.Utilities
                 GroupID = utilitySelectorNode.Group?.ID,
                 NextNodeIDs = utilitySelectorNode.NextNodeIDs,
                 IsRootNode = utilitySelectorNode.IsRootNode,
+                Temperature = utilitySelectorNode.Temperature,
+                DecisionInterval = utilitySelectorNode.DecisionInterval,
+                MinSwitchScore = utilitySelectorNode.MinSwitchScore,
+                EmergencyOverride = utilitySelectorNode.EmergencyOverride,
+                StickyBonus = utilitySelectorNode.StickyBonus
             };
         }
 
@@ -436,7 +441,12 @@ namespace CBTSystem.Utilities
             nodeSO.Initialize(
                    utilitySelectorNode.ID,
                    utilitySelectorNode.NextNodeIDs,
-                   utilitySelectorNode.IsRootNode
+                   utilitySelectorNode.IsRootNode,
+                   utilitySelectorNode.Temperature,
+                   utilitySelectorNode.DecisionInterval,
+                   utilitySelectorNode.MinSwitchScore,
+                   utilitySelectorNode.EmergencyOverride,
+                   utilitySelectorNode.StickyBonus
             );
             if (utilitySelectorNode.Group != null)
             {
@@ -634,6 +644,11 @@ namespace CBTSystem.Utilities
             utilitySelectorNode.ID = utilitySelectorNodeSaveData.ID;
             utilitySelectorNode.SetNextNodeIDs(utilitySelectorNodeSaveData.NextNodeIDs);
             utilitySelectorNode.IsRootNode = utilitySelectorNodeSaveData.IsRootNode;
+            utilitySelectorNode.Temperature = utilitySelectorNodeSaveData.Temperature;
+            utilitySelectorNode.DecisionInterval = utilitySelectorNodeSaveData.DecisionInterval;
+            utilitySelectorNode.MinSwitchScore = utilitySelectorNodeSaveData.MinSwitchScore;
+            utilitySelectorNode.EmergencyOverride = utilitySelectorNodeSaveData.EmergencyOverride;
+            utilitySelectorNode.StickyBonus = utilitySelectorNodeSaveData.StickyBonus;
 
             return utilitySelectorNode;
         }

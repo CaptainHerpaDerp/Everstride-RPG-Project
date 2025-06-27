@@ -96,10 +96,10 @@ namespace Characters.Utilities
                         continue;
                     }
 
-                    // If the character is NOT in the allied factions, add them to the return characters
-                    if (!character.IsInFaction(alliedFactions))
+                    // If the character is in the allied factions, continue
+                    if (character.IsInFaction(alliedFactions))
                     {
-                        returnCharacters.Add(character);
+                        continue;
                     }
 
                     returnCharacters.Add(character);

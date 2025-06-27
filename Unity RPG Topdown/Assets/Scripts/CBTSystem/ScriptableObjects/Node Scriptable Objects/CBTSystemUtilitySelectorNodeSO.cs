@@ -6,8 +6,23 @@ namespace CBTSystem.ScriptableObjects.Nodes
 {
     public class CBTSystemUtilitySelectorNodeSO : CBTSystemNodeSO
     {
-        public override void Initialize(string nodeID, List<string> nextNodeIDs, bool isRootNode)
+        [field: SerializeField] public float Temperature { get; set; }
+        [field: SerializeField] public float DecisionInterval { get; set; }
+        [field: SerializeField] public float MinSwitchScore { get; set; }
+        [field: SerializeField] public bool EmergencyOverride { get; set; }
+        [field: SerializeField] public float StickyBonus { get; set; }
+
+        // Track the score of the current node so it can be compared to new candidates
+        public float CurrentActionNodeScore;
+
+        public void Initialize(string nodeID, List<string> nextNodeIDs, bool isRootNode, float temperature, float decisionInterval, float minSwitchScore, bool emergencyOverride, float sickyBonus)
         {
+            Temperature = temperature;
+            DecisionInterval = decisionInterval;
+            MinSwitchScore = minSwitchScore;
+            EmergencyOverride = emergencyOverride;
+            StickyBonus = sickyBonus;
+
             base.Initialize(nodeID, nextNodeIDs, isRootNode);
         }
 

@@ -18,7 +18,7 @@ namespace GraphSystem.Base.Windows
         protected virtual string defaultFileName { get; } = "FileName";
 
         protected virtual void OnFocus()
-        {
+        { 
             activeWindow = this;
 
             // When the window gains focus, we can set the filename text field to the default name
@@ -32,9 +32,9 @@ namespace GraphSystem.Base.Windows
             {
                 // De-select the filename text field when the window loses focus
                 if (fileNameTextField != null)
-                    fileNameTextField.value = defaultFileName; // Reset to default name
-
-                fileNameTextField.Blur();
+                {
+                    fileNameTextField.Blur();
+                }
 
                 activeWindow = null; // Clear active
             }
@@ -97,7 +97,7 @@ namespace GraphSystem.Base.Windows
             rootVisualElement.Add(toolbar);
         }
 
-        protected void AddStyles()
+        protected virtual void AddStyles()
         {
             // Adds the variables stylesheet to list of stylesheets in the graph view.
             rootVisualElement.AddStyleSheets("DialogueSystem/DialogueSystemVariables.uss");

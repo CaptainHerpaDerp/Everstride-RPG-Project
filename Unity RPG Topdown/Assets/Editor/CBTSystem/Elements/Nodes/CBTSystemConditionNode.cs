@@ -42,6 +42,11 @@ namespace CBTSystem.Elements.Nodes
             conditionContainer.AddToClassList("ds-node__custom-data-container");
             extensionContainer.Add(conditionContainer);
 
+            conditionContainer.AddToClassList("cbt-cond");
+            conditionContainer.Insert(0, new VisualElement { name = "hdr" });
+            conditionContainer.Q("hdr").AddToClassList("cbt-cond__header");
+
+
             // detect hover start
             this.RegisterCallback<PointerEnterEvent>(evt =>
             {
@@ -70,7 +75,9 @@ namespace CBTSystem.Elements.Nodes
         public void SetConditionPriority(int newPriority)
         {
             Priority = newPriority;
-            DrawPriorityButton();
+
+            if (Priority != -1)
+                DrawPriorityButton();
         }
 
         public void RemoveConditionPriority()
@@ -118,25 +125,31 @@ namespace CBTSystem.Elements.Nodes
             inputContainer.Add(inputPort);
         }
 
+        /* -------------------------------------------------------------------- */
+        /*  UI builder                                                          */
+        /* -------------------------------------------------------------------- */
         private void DrawConditionsUI()
         {
-            // Sync connectors count with entries
+            // Keep connectors array in sync
             int needed = ConditionEntries.Count - 1;
-            while (Connectors.Count < needed)
-                Connectors.Add(LogicalOperator.And);
-            while (Connectors.Count > needed)
-                Connectors.RemoveAt(Connectors.Count - 1);
+            while (Connectors.Count < needed) Connectors.Add(LogicalOperator.And);
+            while (Connectors.Count > needed) Connectors.RemoveAt(Connectors.Count - 1);
 
             conditionContainer.Clear();
 
-            // Add/Remove buttons
-            var btnRow = new VisualElement { style = { flexDirection = FlexDirection.Row, justifyContent = Justify.SpaceBetween } };
+            /* -- Add / Remove row -------------------------------------------- */
+            var btnRow = new VisualElement
+            {
+                style = { flexDirection = FlexDirection.Row, justifyContent = Justify.SpaceBetween, marginBottom = 4 }
+            };
             var addBtn = new Button(() =>
             {
-                ConditionEntries.Add(new ConditionEntry { ConditionType = CBTConditionType.CheckDistance, Operator = "<=", Value = 1f });
+                ConditionEntries.Add(
+                    new ConditionEntry { ConditionType = CBTConditionType.CheckDistance, Operator = "<=", Value = 1f });
                 DrawConditionsUI();
             })
             { text = "+ Condition" };
+
             var removeBtn = new Button(() =>
             {
                 if (ConditionEntries.Count > 1)
@@ -146,110 +159,105 @@ namespace CBTSystem.Elements.Nodes
                 }
             })
             { text = "- Condition" };
+
             btnRow.Add(addBtn);
             btnRow.Add(removeBtn);
             conditionContainer.Add(btnRow);
 
-            // Draw each condition with optional connector
+            /* -- Each condition row ------------------------------------------ */
             for (int i = 0; i < ConditionEntries.Count; i++)
             {
                 int idx = i;
-                // Connector before entry
+
+                var row = new VisualElement();
+                row.AddToClassList("cbt-cond__row");
+                if (IsOdd(idx)) row.AddToClassList("cbt-row--alt");
+
+                /* Connector (AND / OR) before every entry after the first */
                 if (idx > 0)
-                {
-                    var connField = new PopupField<LogicalOperator>(
-                        new List<LogicalOperator> { LogicalOperator.And, LogicalOperator.Or },
-                        Connectors[idx - 1]
-                    );
-                    connField.RegisterValueChangedCallback(evt => Connectors[idx - 1] = evt.newValue);
-                    connField.style.width = 60;
-                    conditionContainer.Add(connField);
+                { 
+                    Label pill = new Label(Connectors[idx - 1].ToString().ToUpper());
+                    pill.AddToClassList("cbt-pill");
+                    pill.RegisterCallback<MouseDownEvent>(_ =>
+                    {
+                        Connectors[idx - 1] = Connectors[idx - 1] == LogicalOperator.And
+                                            ? LogicalOperator.Or
+                                            : LogicalOperator.And;
+                        pill.text = Connectors[idx - 1].ToString().ToUpper();
+                    });
+                    row.Add(pill);
                 }
 
-                // Condition row
-                var row = new VisualElement { style = { flexDirection = FlexDirection.Row, alignItems = Align.Center, marginTop = 4 } };
+                /* move the style assignment here if you need extra padding */
+                row.style.flexDirection = FlexDirection.Row;
+                row.style.alignItems = Align.Center;
+                row.style.marginTop = 2;
 
-                // Unit label
-                var label = new Label(GetConditionLabel(ConditionEntries[idx].ConditionType));
-
-                // Value
-                var valField = new FloatField { value = ConditionEntries[idx].Value }; 
-
-                // Boolean
-                var boolField = new Toggle { value =  true};
-
-                boolField.RegisterValueChangedCallback((evt) =>
-                {
-                    ConditionEntries[idx].Value = evt.newValue ? 1f : 0f; // Store as 1 or 0
-                });
-
-                // Operator field
-                var ops = new List<string> { "<", "<=", ">=", ">", "=" };
-                int opIndex = ops.IndexOf(ConditionEntries[idx].Operator);
-                if (opIndex < 0) opIndex = 1;
-                var opField = new PopupField<string>(ops, opIndex);
-
-                // Type
+                /* --- Condition-Type popup ----------------------------------- */
                 var typeField = new EnumField(ConditionEntries[idx].ConditionType);
-                typeField.RegisterValueChangedCallback(
-                    (evt) =>
-                    {
-                        ConditionEntries[idx].ConditionType = (CBTConditionType)evt.newValue;
-                        // Update label based on type change
-                        label.text = GetConditionLabel(ConditionEntries[idx].ConditionType);
-
-                        // If we change to a percent-based condition, clamp the value accordingly
-                        if (ConditionEntries[idx].ConditionType == CBTConditionType.CheckHealth || ConditionEntries[idx].ConditionType == CBTConditionType.CheckStamina)
-                        {
-                            valField.value = Mathf.Clamp(valField.value, 0f, 100f);
-                        }
-                        else if (ConditionEntries[idx].ConditionType == CBTConditionType.CheckDistance)
-                        {
-                            valField.value = Mathf.Max(valField.value, 0f); // Distance can't be negative
-                        }                  
-                    });
-
-                typeField.style.width = 120;
+                typeField.style.width = 140;
+                typeField.RegisterValueChangedCallback(evt =>
+                {
+                    ConditionEntries[idx].ConditionType = (CBTConditionType)evt.newValue;
+                    DrawConditionsUI();          // rebuild row because UI type may change
+                });
                 row.Add(typeField);
 
-                // Operator
-                opField.RegisterValueChangedCallback(evt => ConditionEntries[idx].Operator = evt.newValue);
-                opField.style.width = 40;
+                /* --- Operator popup (hide for boolean) ----------------------- */
+                bool isBool = ConditionEntries[idx].IsBooleanCondition();
+                if (!isBool)
+                {
+                    var ops = new List<string> { "<", "<=", ">=", ">", "=" };
+                    var opField = new PopupField<string>(ops, ops.IndexOf(ConditionEntries[idx].Operator));
+                    opField.style.width = 20;
+                    opField.RegisterValueChangedCallback(e => ConditionEntries[idx].Operator = e.newValue);
+                    row.Add(opField);
+                }
+                else
+                {
+                    ConditionEntries[idx].Operator = "=";  // force equality check for bool
+                }
 
-                valField.RegisterValueChangedCallback((evt) => {
-
-                    float newValue = evt.newValue;
-
-                    // If the current condition type is a percent value, we want to clamp the value between 0 and 100
-                    if (ConditionEntries[idx].IsPercentageCondition())
+                /* --- Value field (Float or Toggle) --------------------------- */
+                if (isBool)
+                {
+                    // Hide operator + unit
+                    // Toggle replaces FloatField
+                    Toggle tog = new Toggle { value = ConditionEntries[idx].Value > 0.5f };
+                    tog.RegisterValueChangedCallback(e =>
+                        ConditionEntries[idx].Value = e.newValue ? 1f : 0f);
+                    tog.AddToClassList("cbt-field");
+                    row.Add(tog);
+                }
+                else
+                {
+                    var valField = new FloatField { value = ConditionEntries[idx].Value };
+                    valField.style.width = 20;
+                    valField.RegisterValueChangedCallback(e =>
                     {
-                        newValue = Mathf.Clamp(evt.newValue, 0f, 100f);
-                    }
-                    else if (ConditionEntries[idx].ConditionType == CBTConditionType.CheckDistance)
-                    {
-                        newValue = Mathf.Max(evt.newValue, 0f); // Distance can't be negative
-                    }
-                    else if (ConditionEntries[idx].IsBooleanCondition())
-                    {
-                        newValue = Mathf.Clamp(evt.newValue, 0f, 1);
-                    }
+                        float v = e.newValue;
 
-                    ConditionEntries[idx].Value = newValue;   
-                    valField.value = newValue;
-                });
+                        if (ConditionEntries[idx].IsPercentageCondition())
+                            v = Mathf.Clamp(v, 0f, 100f);
+                        else if (ConditionEntries[idx].ConditionType == CBTConditionType.CheckDistance)
+                            v = Mathf.Max(0f, v);
 
-                valField.style.width = 60;
+                        ConditionEntries[idx].Value = v;
+                        valField.SetValueWithoutNotify(v);   // avoid recursion
+                    });
+                    row.Add(valField); 
+                }
 
-                  
-                row.Add(opField);
-                row.Add(valField);
-                
-
-                // Unit label
-                label.style.marginLeft = 4;
-                row.Add(label);
+                /* --- Unit label --------------------------------------------- */
+                var unitLabel = new Label(GetConditionLabel(ConditionEntries[idx].ConditionType))
+                {
+                    style = { marginLeft = 4 }
+                };
+                row.Add(unitLabel);
 
                 conditionContainer.Add(row);
+
+
             }
         }
 
@@ -258,16 +266,15 @@ namespace CBTSystem.Elements.Nodes
             return type switch
             {
                 CBTConditionType.CheckDistance => "(m)",
-                CBTConditionType.CheckHealth => "%Health",
-                CBTConditionType.CheckStamina => "%Stamina",
-                CBTConditionType.TargetInAttackRange => "0:F, 1:T",
-                CBTConditionType.SelfInAttackRange => "0:F, 1:T",
-                CBTConditionType.CombatTargetAttacking => "0:F, 1:T",
-                CBTConditionType.HeavySwingChargeProgress => "%Charge",
-                CBTConditionType.TargetRangeCoverage => "%Coverage",
+                CBTConditionType.CheckHealth => "%HP",
+                CBTConditionType.CheckStamina => "%Stam",
+                CBTConditionType.HeavySwingChargeProgress => "%Chrg",
+                CBTConditionType.TargetRangeCoverage => "%Cov",
                 _ => string.Empty,
             };
         }
+
+        bool IsOdd(int i) => (i & 1) == 1;
 
         private Color GetPriorityButtonColor(int prio)
         {

@@ -1,4 +1,4 @@
-/* CONTAINERS */
+﻿/* CONTAINERS */
 
 .ds-node__extension-container
 {
@@ -12,7 +12,7 @@
 }
 
 .ds-node__custom-data-container
-{
+{ 
 	background-color: var(--ds-colors-window-dark-grey-3);
 	border-radius: var(--ds-metrics-window-pixels-4);
 	padding: var(--ds-metrics-window-pixels-8);
@@ -146,3 +146,14 @@ TextField
 
 
 .ds-node__running { background-color: rgba(255,255,0,0.3); }
+
+.connector-field {
+    background-color: #3b3b3b;
+    color: #e0e0e0;
+    border-radius: 3px;
+    margin-top: 2px;
+}
+
+.ds-node__custom-data-container .unity-popup-field__input {
+    font-size: 12px;
+}

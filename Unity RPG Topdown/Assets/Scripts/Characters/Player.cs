@@ -29,7 +29,7 @@ namespace Characters
         private bool sprintEnabled = true;
         private bool isSprinting = false;
 
-       // private bool sprintLock = false;
+        // private bool sprintLock = false;
 
         private bool menuOpen = false;
         private bool lockMovement = false;
@@ -134,7 +134,7 @@ namespace Characters
         }
 
         protected override void UpdateHealthBar()
-        {    
+        {
             OnUpdateHealthBar?.Invoke(_hitPointsCurrent);
         }
 
@@ -359,7 +359,7 @@ namespace Characters
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3 direction = (mousePosition - playerTransform.position).normalized;
             float angle = Vector2.SignedAngle(Vector2.right, direction);
-        
+
             // Play the spell release sound
             audioManager.PlayOneShot(fmodEvents.GetCorrespondingSpellThrowSound(equippedWeapon.SpellType), transform.position);
 
@@ -376,7 +376,7 @@ namespace Characters
             {
                 SetState(CharacterState.Normal);
             }));
-            
+
         }
 
         private IEnumerator DrainMagicaByAmount(float amount, float castTime)
@@ -390,7 +390,7 @@ namespace Characters
                 magicaCurrent -= drainAmount * Time.deltaTime;
 
                 timer += Time.fixedDeltaTime;
-                yield return new WaitForFixedUpdate();   
+                yield return new WaitForFixedUpdate();
             }
         }
 
@@ -429,7 +429,7 @@ namespace Characters
         #endregion
 
         protected override void Update()
-        {            
+        {
             base.Update();
 
             if (Input.GetKeyDown(KeyCode.K))
@@ -461,95 +461,7 @@ namespace Characters
 
             DoSprinting();
 
-            if (state != CharacterState.Attacking && state != CharacterState.Blocking && !menuOpen)
-            {
-                // Attack
-                if (Input.GetKeyDown(KC.Attack))
-                {
-                    if (equippedWeapon == null)
-                    {
-                        Debug.LogWarning("No weapon equipped, cannot attack.");
-                        return;
-                    }
-
-                    // If the weapon is sheathed, unsheath it and return
-                    if (IsWeaponSheathed())
-                    {
-                        UnsheathWeapon();
-                        return;
-                    }
-
-                    StopMovement();
-
-                    if (chainAttackOpportunity != null)
-                    {
-                        StopCoroutine(chainAttackOpportunity);
-                        chainAttackOpportunity = null;
-                    }
-
-                    SetState(CharacterState.Attacking);
-
-                    // Determine the attack direction based on the angle
-                    Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    Vector3 direction = (mousePosition - playerTransform.position).normalized;
-                    float angle = Vector2.SignedAngle(Vector2.right, direction);
-
-                    // Preforms a ranged attack if we are using a ranged weapon
-                    if (weaponMode == WeaponMode.Ranged || weaponMode == WeaponMode.Spell)
-                    {
-                        // Checks to see if the player is attacking with a bow
-                        if (equippedWeapon.weaponType == WeaponType.Bow)
-                        {
-                            // Check to see if the player has an arrow to shoot
-
-                            //Item ammoItem = inventory.GetAmmunitionForWeapon(WeaponType.Bow, true);
-
-                            // Play the bow draw sound
-                            audioManager.PlayOneShot(fmodEvents.bowDrawSound, transform.position);
-
-                            StartCoroutine(BowReleaseCR(angle));
-
-
-                            //Item ammoItem = null;
-
-                            //if (ammoItem == null)
-                            //{
-                            //    // Play the no arrow sound
-                            //    //SoundManager.PlaySound(SoundManager.Sound.NoArrow);
-                            //    StartCoroutine(ExitAttackState());
-                            //    return;
-                            //}
-
-                            //else
-                            //    StartCoroutine(BowReleaseCR(angle, ammoItem));
-                        }
-
-                        if (equippedWeapon.weaponType == WeaponType.Book)
-                        {
-                            Debug.Log("Casting spell");
-                            
-                            // Determine if the player has enough magica to cast the spell
-                            if (magicaCurrent < equippedWeapon.CastCost)
-                            {
-                                Debug.Log("Not enough magica to cast spell");
-                                SetState(CharacterState.Normal);
-                                return;
-                            }
-
-                            StartCoroutine(SpellShootCR());
-                        }
-
-                        AttackWithAngle(angle);
-                    }
-
-                    // Preforms a melee attack
-                    else
-                    {
-                        StartCoroutine(ExitAttackState(angle));
-                       // AttackWithAngle(angle);
-                    }
-                }
-            }
+            DoAttacking();
 
             if (Input.GetKeyUp(KC.Attack) && bowDrawn && state == CharacterState.Attacking)
             {
@@ -574,7 +486,7 @@ namespace Characters
                         {
                             // Play the no arrow sound
                             //SoundManager.PlaySound(SoundManager.Sound.NoArrow);
-                        //    StartCoroutine(ExitAttackState());
+                            //    StartCoroutine(ExitAttackState());
                             return;
                         }
 
@@ -608,6 +520,99 @@ namespace Characters
             }
         }
 
+        private void DoAttacking()
+        {
+            // Attack
+            if (Input.GetKeyDown(KC.Attack))
+            {
+                if (state == CharacterState.Attacking || state == CharacterState.Blocking || menuOpen)
+                    return;
+
+                if (equippedWeapon == null)
+                {
+                    Debug.LogWarning("No weapon equipped, cannot attack.");
+                    return;
+                }
+
+                // If the weapon is sheathed, unsheath it and return
+                if (IsWeaponSheathed())
+                {
+                    UnsheathWeapon();
+                    return;
+                }
+
+                StopMovement();
+
+                if (chainAttackOpportunity != null)
+                {
+                    StopCoroutine(chainAttackOpportunity);
+                    chainAttackOpportunity = null;
+                }
+
+                SetState(CharacterState.Attacking);
+
+                // Determine the attack direction based on the angle
+                Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Vector3 direction = (mousePosition - playerTransform.position).normalized;
+                float angle = Vector2.SignedAngle(Vector2.right, direction);
+
+                // Preforms a ranged attack if we are using a ranged weapon
+                if (weaponMode == WeaponMode.Ranged || weaponMode == WeaponMode.Spell)
+                {
+                    // Checks to see if the player is attacking with a bow
+                    if (equippedWeapon.weaponType == WeaponType.Bow)
+                    {
+                        // Check to see if the player has an arrow to shoot
+
+                        //Item ammoItem = inventory.GetAmmunitionForWeapon(WeaponType.Bow, true);
+
+                        // Play the bow draw sound
+                        audioManager.PlayOneShot(fmodEvents.bowDrawSound, transform.position);
+
+                        StartCoroutine(BowReleaseCR(angle));
+
+
+                        //Item ammoItem = null;
+
+                        //if (ammoItem == null)
+                        //{
+                        //    // Play the no arrow sound
+                        //    //SoundManager.PlaySound(SoundManager.Sound.NoArrow);
+                        //    StartCoroutine(ExitAttackState());
+                        //    return;
+                        //}
+
+                        //else
+                        //    StartCoroutine(BowReleaseCR(angle, ammoItem));
+                    }
+
+                    if (equippedWeapon.weaponType == WeaponType.Book)
+                    {
+                        Debug.Log("Casting spell");
+
+                        // Determine if the player has enough magica to cast the spell
+                        if (magicaCurrent < equippedWeapon.CastCost)
+                        {
+                            Debug.Log("Not enough magica to cast spell");
+                            SetState(CharacterState.Normal);
+                            return;
+                        }
+
+                        StartCoroutine(SpellShootCR());
+                    }
+
+                    AttackWithAngle(angle);
+                }
+
+                // Preforms a melee attack
+                else
+                {
+                    StartCoroutine(ExitAttackState(angle));
+                    // AttackWithAngle(angle);
+                }
+            }
+        }
+
         private void DoSprinting()
         {
             if (isSprinting && Input.GetKeyUp(KC.Sprint))
@@ -626,7 +631,7 @@ namespace Characters
                 }
 
                 if (velocity.magnitude > 0)
-                staminaCurrent -= Time.deltaTime * staminaReductionModifier;
+                    staminaCurrent -= Time.deltaTime * staminaReductionModifier;
 
                 // If the sprint time reaches 0, we lock sprinting for a period of time, and it may not Recovery for this period
                 if (staminaCurrent <= 0)
@@ -681,7 +686,7 @@ namespace Characters
             float angle = Vector2.SignedAngle(Vector2.right, direction);
             return angle;
         }
-         
+
         #region animationKeys 
 
         private void EndAttack()
@@ -719,7 +724,7 @@ namespace Characters
         }
 
         #endregion
-        
+
         // Reset the attack iteration if the player does not continue the current attack chain within a certain time frame
         private IEnumerator DoLossAttackIterationOpportunity()
         {
@@ -796,7 +801,7 @@ namespace Characters
                 if (state == CharacterState.Blocking)
                 {
                     // If the player is blocking, the logic will change a little bit 
-                    
+
                 }
                 else
                 {

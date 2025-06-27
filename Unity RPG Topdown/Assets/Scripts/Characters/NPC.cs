@@ -155,11 +155,6 @@ namespace Characters
         // Combat Context Variables
         private float _lastHitTime;
 
-        public float staminaRetreatThreshhold { get; protected set; } = 10f; // The stamina percentage at which the NPC will retreat from combat (this is a percentage, not a value)
-        public float healthRetreatThreshhold { get; protected set; } = 15f; // The health percentage at which the NPC will retreat from combat (this is a percentage, not a value)
-        public float combatStanceRadius { get; protected set; } = 1.5f; // The radius at which the NPC will stand in combat stance
-        public float safeRadius { get; protected set; } = 2f; // The radius at which the NPC will retreat to when it is low on health or stamina
-
         #endregion
 
         #region Unity Callbacks
@@ -176,6 +171,10 @@ namespace Characters
                 mover = GetComponent<Mover>();
             if (knockbackController == null)
                 knockbackController = GetComponent<KnockbackController>();
+
+            staminaCurrent = MaxStamina;
+            HitPoints = MaxHealth;
+            ObjVelocity = Vector3.zero;
         }
 
         protected override void Start()
@@ -185,7 +184,7 @@ namespace Characters
             if (_combatTarget != null)
             {
                 _combatTarget.OnAttackStart += () =>
-                {
+                {                 
                     _seenIncomingAttack = true;
                 }; 
              
@@ -208,10 +207,6 @@ namespace Characters
 
             if (movementSpeed != 0)
                 mover.agent.speed = movementSpeed;
-
-            staminaCurrent = MaxStamina;
-            HitPoints = MaxHealth;
-            ObjVelocity = Vector3.zero;
         }
 
         protected virtual void OnEnable()
@@ -460,6 +455,11 @@ namespace Characters
                 return;
             }
 
+            if (CurrentStamina <= equippedWeapon.lightAttackStaminaCost)
+            {
+                return;
+            }
+
             combatStats.LightAttacks++;
 
             attackCR = StartAttack(GetAngleToTarget(targetTransform));
@@ -536,26 +536,15 @@ namespace Characters
             // Invoke the OnAttackEnd event
             OnAttackEnd?.Invoke();
 
-            _holdingCharge = false;
-
             ReduceStamina(GetCurrentHeavyAttackStaminaCost());
             _damageChargeMultiplier = GetHeavyAttackDamageMultiplier();
 
             attackCR = StartAttack(_chargeHoldAngle);
             StartCoroutine(attackCR);
             EnterAttackCooldown();
-        }
 
-        /// <summary>
-        /// Returns a percent value from 0 to 100 of how long the heavy attack has been held for, compared to the maximum hold time of the equpped weapon.
-        /// </summary>
-        /// <returns></returns>
-        public float GetHeavyAttackHoldPercentage()
-        {
-            // Returns the percentage of the heavy attack hold time
-            return Mathf.Clamp01(_chargeHoldTime / chargeAttackMaxTime) * 100;
+            _holdingCharge = false;
         }
-
 
         protected virtual void MoveToTarget(Transform target)
         {

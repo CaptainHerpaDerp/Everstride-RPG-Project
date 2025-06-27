@@ -35,7 +35,7 @@ namespace Characters
 
         public void SetTarget(Transform movementTargetTransform)
         {
-            agent.stoppingDistance = 0f; // Default stopping distance
+            agent.stoppingDistance = 0.7f; // Default stopping distance
             movementTargetPosition = Vector3.zero;
             movementTarget = movementTargetTransform;
         }

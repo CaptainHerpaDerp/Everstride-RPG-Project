@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49846a9bfc8364646966a96235513010, type: 3}
+  m_Name: 180c19aa-a814-42ce-b7ac-8ebc59b49c7e
+  m_EditorClassIdentifier: 
+  <NodeID>k__BackingField: 180c19aa-a814-42ce-b7ac-8ebc59b49c7e
+  <NextNodeIDs>k__BackingField:
+  - c487a793-9ead-4629-b4c8-df49b1ba989c
+  - 5c447b99-4bc9-47f0-969e-7a6c8039656b
+  - c5413db5-6790-4494-a79b-7128d6944dfe
+  - e62c97ae-c0b3-44f0-9153-c836013323d6
+  - d7c66b77-39b9-4368-8411-de2fae8123b4
+  <IsRootNode>k__BackingField: 0
+  <Temperature>k__BackingField: 0.06
+  <DecisionInterval>k__BackingField: 1
+  <MinSwitchScore>k__BackingField: 0.03
+  <EmergencyOverride>k__BackingField: 1
+  <StickyBonus>k__BackingField: 0.3
+  CurrentActionNodeScore: 0.6641797
