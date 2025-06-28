@@ -24,7 +24,7 @@ public class CombatAITest1v1
         // Set the random seed for reproducibility
         UnityEngine.Random.InitState(123456);
 
-        for (int i = 0; i < 11; i++)
+        for (int i = 0; i < 50; i++)
         {
             // Load test scene
             yield return SceneManager.LoadSceneAsync("CombatTestScene", LoadSceneMode.Single);
@@ -110,7 +110,7 @@ public class CombatAITest1v1
     public void WriteTestResults(List<RunData> runs)
     {
         string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
-        string version = "A1"; // or dynamically get from test config
+        string version = "A2"; // or dynamically get from test config
         string testType = "1v1";
         string fileName = $"CombatResults_{version}_{testType}_{timestamp}.csv";
         string filePath = Path.Combine(Application.dataPath, "TestResults", fileName);

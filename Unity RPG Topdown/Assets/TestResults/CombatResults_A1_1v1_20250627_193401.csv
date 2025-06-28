@@ -1,0 +1,15 @@
+# AI Version: A1
+# Test Type: 1v1
+# Time: 20250627_193401
+Run Index, Winner,Elapsed time,A Damage,B Damage,A Light Attacks,B Light Attacks,A Heavy Attacks,B Heavy Attacks,A Successful Blocks,B Successful Blocks,A Failed Blocks,B Failed Blocks
+0,Base AI,24.0073,108.5,8.75,13,0,2,1,0,0,0,0
+1,Base AI,29.73176,105,52.98192,11,0,1,7,3,0,0,0
+2,Base AI,35.28526,119,73.89938,13,0,1,9,4,0,0,0
+3,Base AI,40.09765,121.4686,65.31316,12,0,2,7,5,0,0,0
+4,Base AI,24.41554,106.75,59.53292,10,0,2,6,1,0,0,0
+5,Base AI,21.29642,105,42.31397,11,0,1,4,0,0,0,0
+6,Base AI,25.4714,105,48.38375,11,0,1,4,1,0,0,0
+7,Base AI,20.49189,105,60.94994,11,0,1,5,0,0,0,0
+8,Base AI,26.54161,103.8867,50.40411,11,0,3,4,1,0,0,0
+9,Base AI,21.08385,105,100.9843,11,0,1,7,0,0,0,0
+10,Base AI,21.25796,104.7465,59.74412,11,0,1,5,0,0,0,0

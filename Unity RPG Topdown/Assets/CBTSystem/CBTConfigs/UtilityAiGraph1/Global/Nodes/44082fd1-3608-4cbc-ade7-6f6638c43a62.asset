@@ -17,10 +17,11 @@ MonoBehaviour:
   - e62c97ae-c0b3-44f0-9153-c836013323d6
   - c487a793-9ead-4629-b4c8-df49b1ba989c
   - 5021d891-cb24-4e2c-98f3-6782ca70e325
+  - d7c66b77-39b9-4368-8411-de2fae8123b4
   <IsRootNode>k__BackingField: 0
   <Temperature>k__BackingField: 0.8
   <DecisionInterval>k__BackingField: 0.33
   <MinSwitchScore>k__BackingField: 0
   <EmergencyOverride>k__BackingField: 1
   <StickyBonus>k__BackingField: 0
-  CurrentActionNodeScore: 0
+  CurrentActionNodeScore: 0.5354943

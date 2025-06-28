@@ -201,7 +201,7 @@ public class CombatAITest5v5
     public void WriteTestResults(List<TeamRunData> runs)
     {
         string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
-        string version = "A1"; 
+        string version = "A2"; 
         string testType = "5v5";
         string fileName = $"CombatResults_{version}_{testType}_{timestamp}.csv";
         string filePath = Path.Combine(Application.dataPath, "TestResults", fileName);

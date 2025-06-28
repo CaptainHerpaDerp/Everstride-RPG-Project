@@ -88,13 +88,6 @@ namespace Characters.Behaviour
             return Mathf.InverseLerp(min, max, pct);
         }
 
-
-        // 0 when value ≤ a, 1 when value ≥ b, linear in-between
-        float High(float v, float a, float b) => Mathf.Clamp01((v - a) / (b - a));
-
-        // 0 when value ≥ b, 1 when value ≤ a
-        float Low(float v, float a, float b) => Mathf.Clamp01((b - v) / (b - a));
-
     }
 
 }

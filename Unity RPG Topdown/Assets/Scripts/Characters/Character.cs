@@ -83,7 +83,7 @@ namespace Characters
         [FoldoutGroup("Character Stats, Combat"), SerializeField] protected float minHeavyBlockStaminaMultiplier = 1f, maxHeavyBlockStaminaMultiplier = 2.5f;
 
         protected float _damageChargeMultiplier = 1;
-        protected float _chargeHoldTime;
+        [ShowInInspector] protected float _chargeHoldTime;
         protected bool _holdingCharge;
 
         // Combat Context Variables

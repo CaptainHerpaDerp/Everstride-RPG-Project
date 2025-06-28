@@ -66,6 +66,10 @@ namespace Characters.Behaviour
         public float dodge_inSafeAreaWeight = 0.6f;
         [FoldoutGroup("Dodging"), Range(0f, 1f), LabelText("Abundant Stamina Weight"), Tooltip("The more stamina we have, the safer it is to probably just block"), OnValueChanged("RebalanceDodgeFields", includeChildren: false)]
         public float dodge_staminaAbundanceWeight = 0.4f;
+        [FoldoutGroup("Dodging"), Range(0f, 1f), LabelText("Enemy Heavy Attack"), OnValueChanged("RebalanceDodgeFields", includeChildren: false)]
+        public float dodge_enemyHeavyAttackWeight = 0f;
+        [FoldoutGroup("Dodging"), Range(0f, 1f), LabelText("Abundant Health Weight"), OnValueChanged("RebalanceDodgeFields", includeChildren: false)]
+        public float dodge_healthAbundantWeight = 0f;
 
         #endregion
 
@@ -219,7 +223,9 @@ namespace Characters.Behaviour
             List<float> currentFields = new()
             {
                 dodge_inSafeAreaWeight,
-                dodge_staminaAbundanceWeight
+                dodge_staminaAbundanceWeight,
+                dodge_enemyHeavyAttackWeight,
+                dodge_healthAbundantWeight
             };
             List<float> newFields = Rebalance(currentFields);
             if (newFields == null)
@@ -228,6 +234,8 @@ namespace Characters.Behaviour
             }
             dodge_inSafeAreaWeight = newFields[0];
             dodge_staminaAbundanceWeight = newFields[1];
+            dodge_enemyHeavyAttackWeight = newFields[2];
+            dodge_healthAbundantWeight = newFields[3];
         }
 
         public void RebalanceHeavyAttackFields()

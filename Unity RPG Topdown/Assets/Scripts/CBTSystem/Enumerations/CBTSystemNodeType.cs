@@ -10,7 +10,6 @@ namespace CBTSystem.Enumerations
         ReleaseHeavyAttack,
         MoveToAttackRange,
         DodgeAttack,
-        InstantBlock,
     }
 
     public enum CBTConditionType
