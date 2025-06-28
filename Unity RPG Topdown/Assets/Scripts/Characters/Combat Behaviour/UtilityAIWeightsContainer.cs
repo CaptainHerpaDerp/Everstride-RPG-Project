@@ -44,8 +44,10 @@ namespace Characters.Behaviour
         public float lightAttack_proximityWeight = 0.6f;
         [FoldoutGroup("Light Attack"), Range(0f, 1f), LabelText("Low Stamina Bonus"), Tooltip("The lower the stamina, the more it makes sense to attack with a light attack, if between 0-1 between 25%-40% stamina, 1-0 between 40% and 75% stamina"), OnValueChanged("RebalanceLAFields", includeChildren: false)]
         public float lightAttack_staminaLightBonus = 0.4f;
-        [FoldoutGroup("Light Attack"), Range(0f, 1f), LabelText("Low Health Bonus"), Tooltip("The lower the health, the less we want to attack and would rather back off"), OnValueChanged("RebalanceLAFields", includeChildren: false)]
-        public float lightAttack_lowHealthBonus = 0f;
+        [FoldoutGroup("Light Attack"), Range(0f, 1f), LabelText("Health Difference Bonus"), Tooltip("The lower the health, the less we want to attack and would rather back off"), OnValueChanged("RebalanceLAFields", includeChildren: false)]
+        public float lightAttack_healthDiffBonus = 0f;
+        [FoldoutGroup("Light Attack"), Range(0f, 1f), LabelText("Enemy Low Stamina Bonus"), Tooltip("The lower the health, the less we want to attack and would rather back off"), OnValueChanged("RebalanceLAFields", includeChildren: false)]
+        public float lightAttack_enemyLowStaminaBonus = 0f;
 
         #endregion
 
@@ -167,7 +169,8 @@ namespace Characters.Behaviour
             {
                 lightAttack_proximityWeight,
                 lightAttack_staminaLightBonus,
-                lightAttack_lowHealthBonus
+                lightAttack_healthDiffBonus,
+                lightAttack_enemyLowStaminaBonus
             };
 
             List<float> newFields = Rebalance(currentFields);
@@ -179,7 +182,8 @@ namespace Characters.Behaviour
 
             lightAttack_proximityWeight = newFields[0];
             lightAttack_staminaLightBonus = newFields[1];
-            lightAttack_lowHealthBonus = newFields[2];
+            lightAttack_healthDiffBonus = newFields[2];
+            lightAttack_enemyLowStaminaBonus = newFields[3];
         }
 
         public void RebalanceAttackBlockFields()

@@ -1014,11 +1014,13 @@ MonoBehaviour:
   weights: {fileID: 363915488816602733}
   combatStanceMoveSpeed: 1
   radiusStep: 0.25
-  defensiveRadius: 1.5
-  defensiveSafeRadius: 2.5
+  defensiveRadiusMin: 1.5
+  defensiveRadiusMax: 3
   maxAngleStep: 0.65
   minAngleStep: 0.35
   waitDuration: 0.2
+  aggression: 1
+  riskAversion: 0.6
   lowStaminaFactor: 0.8
   lastHitThresholdTime: 3
 --- !u!114 &363915488816602733
@@ -1033,21 +1035,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02cc75f627362574fae43d199a8d0519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveToAttack_recentHit: 0.16799653
-  moveToAttack_healthDiff: 0.4055789
-  moveToAttack_stamDiff: 0.2959654
-  moveToAttack_stamReady: 0.1304592
-  combatStance_recentHit: 0.1471123
-  combatStance_healthDiff: 0.46382663
-  combatStance_stamDiff: 0.28339598
-  combatStance_stamReady: 0.10566517
-  lightAttack_proximityWeight: 0.45816073
-  lightAttack_staminaLightBonus: 0.30317214
-  lightAttack_lowHealthBonus: 0.2386671
-  block_staminaWeight: 0.44368804
-  block_distanceWeight: 0.5563119
-  dodge_inSafeAreaWeight: 0.5547824
-  dodge_staminaAbundanceWeight: 0.4452177
+  moveToAttack_recentHit: 0.09508906
+  moveToAttack_healthDiff: 0.27806067
+  moveToAttack_stamDiff: 0.4943355
+  moveToAttack_stamReady: 0.13251473
+  combatStance_recentHit: 0.10630008
+  combatStance_healthDiff: 0.46145937
+  combatStance_stamDiff: 0.35541573
+  combatStance_stamReady: 0.07682477
+  lightAttack_proximityWeight: 0.23599601
+  lightAttack_staminaLightBonus: 0.20416042
+  lightAttack_healthDiffBonus: 0.3073138
+  lightAttack_enemyLowStaminaBonus: 0.25252974
+  block_staminaWeight: 0.25792056
+  block_distanceWeight: 0.36097988
+  block_lowHealthWeight: 0.38109952
+  dodge_inSafeAreaWeight: 0.418062
+  dodge_staminaAbundanceWeight: 0.05273356
+  dodge_enemyHeavyAttackWeight: 0.46418646
+  dodge_healthAbundantWeight: 0.06501792
+  passiveBlock_lowDistanceWeight: 0.316
+  passiveBlock_lowHealthWeight: 0.3887873
+  passiveBlock_lowStaminaWeight: 0.287
+  heavyAttack_proximityWeight: 0.12621908
+  heavyAttack_lowEnemyHealthWeight: 0.07825523
+  heavyAttack_highStaminaWeight: 0.4699999
+  heavyAttack_lowHealthWeight: 0.32552588
+  releaseHeavyAttack_holdPercentWeight: 0.21409002
+  releaseHeavyAttack_enemyDistanceWeight: 0.31596053
+  releaseHeavyAttack_enemyChargingHeavyAttackWeight: 0.26849145
+  releaseHeavyAttack_enemyAttackBlockWeight: 0.20145792
 --- !u!50 &2620806377453297778 stripped
 Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 6792586133259829838, guid: 71eba9726b4f01048bcc3fcd7c177dc2, type: 3}

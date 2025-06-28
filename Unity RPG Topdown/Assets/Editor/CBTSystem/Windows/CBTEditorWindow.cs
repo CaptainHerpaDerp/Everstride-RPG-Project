@@ -68,7 +68,7 @@ namespace CBTSystem.Windows
 
         private void OnPlayModeStateChanged(PlayModeStateChange state)
         {
-            if (state == PlayModeStateChange.ExitingPlayMode)
+            if (state == PlayModeStateChange.ExitingPlayMode && graphView != null)
             {
                 graphView.ResetNodeStyles();
             }

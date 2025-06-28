@@ -22,14 +22,13 @@ MonoBehaviour:
   - 1c8b43cf-0981-400f-a333-0618dcff21a6
   - c487a793-9ead-4629-b4c8-df49b1ba989c
   - c5413db5-6790-4494-a79b-7128d6944dfe
-  - c17a2a13-e99d-490c-a23a-34227fd22e41
-  - 0ef5dbcb-196e-4279-b7d5-17b039208927
-  - ca9a7077-c25d-4d8e-a0a0-c128493435c3
   - 44082fd1-3608-4cbc-ade7-6f6638c43a62
   - 5021d891-cb24-4e2c-98f3-6782ca70e325
   - d7c66b77-39b9-4368-8411-de2fae8123b4
   - 180c19aa-a814-42ce-b7ac-8ebc59b49c7e
-  - e62c97ae-c0b3-44f0-9153-c836013323d6
+  - 77aa8c4d-0cc2-42dc-b928-e5c69039f60e
+  - ca9a7077-c25d-4d8e-a0a0-c128493435c3
+  - 4f65a8e3-e142-4280-afa4-da763728c7ff
   <OldGroupNodeNames>k__BackingField:
     list: []
   <SerializedNodes>k__BackingField: "{\r\n  \"$type\": \"System.Collections.Generic.List`1[[GraphSystem.Base.Data.Save.BaseNodeSaveData,
@@ -101,46 +100,13 @@ MonoBehaviour:
     1.0,\r\n          \"sqrMagnitude\": 1.0\r\n        },\r\n        \"magnitude\":
     605.082642,\r\n        \"sqrMagnitude\": 366125.0\r\n      }\r\n    },\r\n   
     {\r\n      \"$type\": \"CBTSystem.Data.Save.Nodes.CBTSystemUtilitySelectorNodeSaveData,
-    Assembly-CSharp-Editor\",\r\n      \"Temperature\": 0.09,\r\n      \"DecisionInterval\":
-    0.1,\r\n      \"MinSwitchScore\": 0.0,\r\n      \"EmergencyOverride\": true,\r\n     
-    \"StickyBonus\": 0.0,\r\n      \"NextNodeIDs\": {\r\n        \"$type\": \"System.Collections.Generic.List`1[[System.String,
-    mscorlib]], mscorlib\",\r\n        \"$values\": [\r\n          \"ca9a7077-c25d-4d8e-a0a0-c128493435c3\",\r\n         
-    \"0ef5dbcb-196e-4279-b7d5-17b039208927\"\r\n        ]\r\n      },\r\n      \"IsRootNode\":
-    false,\r\n      \"ID\": \"c17a2a13-e99d-490c-a23a-34227fd22e41\",\r\n      \"GroupID\":
-    null,\r\n      \"Position\": {\r\n        \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n       
-    \"x\": 234.0,\r\n        \"y\": 1204.0,\r\n        \"normalized\": {\r\n         
-    \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n          \"x\":
-    0.190782368,\r\n          \"y\": 0.981632352,\r\n          \"magnitude\": 1.0,\r\n         
-    \"sqrMagnitude\": 1.0\r\n        },\r\n        \"magnitude\": 1226.52844,\r\n       
-    \"sqrMagnitude\": 1504372.0\r\n      }\r\n    },\r\n    {\r\n      \"$type\":
-    \"CBTSystem.Data.Save.Nodes.CBTSystemActionNodeSaveData, Assembly-CSharp-Editor\",\r\n     
-    \"ActionType\": 7,\r\n      \"NextNodeIDs\": {\r\n        \"$type\": \"System.Collections.Generic.List`1[[System.String,
-    mscorlib]], mscorlib\",\r\n        \"$values\": [\r\n          \"44082fd1-3608-4cbc-ade7-6f6638c43a62\"\r\n       
-    ]\r\n      },\r\n      \"IsRootNode\": false,\r\n      \"ID\": \"0ef5dbcb-196e-4279-b7d5-17b039208927\",\r\n     
-    \"GroupID\": null,\r\n      \"Position\": {\r\n        \"$type\": \"UnityEngine.Vector2,
-    UnityEngine.CoreModule\",\r\n        \"x\": 601.0,\r\n        \"y\": 1224.0,\r\n       
-    \"normalized\": {\r\n          \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n         
-    \"x\": 0.440748423,\r\n          \"y\": 0.8976307,\r\n          \"magnitude\":
-    1.0,\r\n          \"sqrMagnitude\": 1.0\r\n        },\r\n        \"magnitude\":
-    1363.58972,\r\n        \"sqrMagnitude\": 1859377.0\r\n      }\r\n    },\r\n   
-    {\r\n      \"$type\": \"CBTSystem.Data.Save.Nodes.CBTSystemActionNodeSaveData,
-    Assembly-CSharp-Editor\",\r\n      \"ActionType\": 2,\r\n      \"NextNodeIDs\":
-    {\r\n        \"$type\": \"System.Collections.Generic.List`1[[System.String, mscorlib]],
-    mscorlib\",\r\n        \"$values\": [\r\n          \"44082fd1-3608-4cbc-ade7-6f6638c43a62\"\r\n       
-    ]\r\n      },\r\n      \"IsRootNode\": false,\r\n      \"ID\": \"ca9a7077-c25d-4d8e-a0a0-c128493435c3\",\r\n     
-    \"GroupID\": null,\r\n      \"Position\": {\r\n        \"$type\": \"UnityEngine.Vector2,
-    UnityEngine.CoreModule\",\r\n        \"x\": 611.0,\r\n        \"y\": 1380.0,\r\n       
-    \"normalized\": {\r\n          \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n         
-    \"x\": 0.404847026,\r\n          \"y\": 0.9143844,\r\n          \"magnitude\":
-    1.0,\r\n          \"sqrMagnitude\": 1.0\r\n        },\r\n        \"magnitude\":
-    1509.212,\r\n        \"sqrMagnitude\": 2277721.0\r\n      }\r\n    },\r\n   
-    {\r\n      \"$type\": \"CBTSystem.Data.Save.Nodes.CBTSystemUtilitySelectorNodeSaveData,
     Assembly-CSharp-Editor\",\r\n      \"Temperature\": 0.8,\r\n      \"DecisionInterval\":
     0.33,\r\n      \"MinSwitchScore\": 0.0,\r\n      \"EmergencyOverride\": true,\r\n     
     \"StickyBonus\": 0.0,\r\n      \"NextNodeIDs\": {\r\n        \"$type\": \"System.Collections.Generic.List`1[[System.String,
-    mscorlib]], mscorlib\",\r\n        \"$values\": [\r\n          \"e62c97ae-c0b3-44f0-9153-c836013323d6\",\r\n         
-    \"c487a793-9ead-4629-b4c8-df49b1ba989c\",\r\n          \"5021d891-cb24-4e2c-98f3-6782ca70e325\",\r\n         
-    \"d7c66b77-39b9-4368-8411-de2fae8123b4\"\r\n        ]\r\n      },\r\n      \"IsRootNode\":
+    mscorlib]], mscorlib\",\r\n        \"$values\": [\r\n          \"c487a793-9ead-4629-b4c8-df49b1ba989c\",\r\n         
+    \"5021d891-cb24-4e2c-98f3-6782ca70e325\",\r\n          \"d7c66b77-39b9-4368-8411-de2fae8123b4\",\r\n         
+    \"77aa8c4d-0cc2-42dc-b928-e5c69039f60e\",\r\n          \"ca9a7077-c25d-4d8e-a0a0-c128493435c3\",\r\n         
+    \"4f65a8e3-e142-4280-afa4-da763728c7ff\"\r\n        ]\r\n      },\r\n      \"IsRootNode\":
     false,\r\n      \"ID\": \"44082fd1-3608-4cbc-ade7-6f6638c43a62\",\r\n      \"GroupID\":
     null,\r\n      \"Position\": {\r\n        \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n       
     \"x\": 116.0,\r\n        \"y\": 806.0,\r\n        \"normalized\": {\r\n         
@@ -181,35 +147,53 @@ MonoBehaviour:
     \"StickyBonus\": 0.3,\r\n      \"NextNodeIDs\": {\r\n        \"$type\": \"System.Collections.Generic.List`1[[System.String,
     mscorlib]], mscorlib\",\r\n        \"$values\": [\r\n          \"c487a793-9ead-4629-b4c8-df49b1ba989c\",\r\n         
     \"5c447b99-4bc9-47f0-969e-7a6c8039656b\",\r\n          \"c5413db5-6790-4494-a79b-7128d6944dfe\",\r\n         
-    \"e62c97ae-c0b3-44f0-9153-c836013323d6\",\r\n          \"d7c66b77-39b9-4368-8411-de2fae8123b4\"\r\n       
-    ]\r\n      },\r\n      \"IsRootNode\": false,\r\n      \"ID\": \"180c19aa-a814-42ce-b7ac-8ebc59b49c7e\",\r\n     
+    \"d7c66b77-39b9-4368-8411-de2fae8123b4\"\r\n        ]\r\n      },\r\n      \"IsRootNode\":
+    false,\r\n      \"ID\": \"180c19aa-a814-42ce-b7ac-8ebc59b49c7e\",\r\n      \"GroupID\":
+    null,\r\n      \"Position\": {\r\n        \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n       
+    \"x\": 104.0,\r\n        \"y\": 403.0,\r\n        \"normalized\": {\r\n         
+    \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n          \"x\":
+    0.249878019,\r\n          \"y\": 0.968277335,\r\n          \"magnitude\": 1.0,\r\n         
+    \"sqrMagnitude\": 1.0\r\n        },\r\n        \"magnitude\": 416.203064,\r\n       
+    \"sqrMagnitude\": 173225.0\r\n      }\r\n    },\r\n    {\r\n      \"$type\":
+    \"CBTSystem.Data.Save.Nodes.CBTSystemActionNodeSaveData, Assembly-CSharp-Editor\",\r\n     
+    \"ActionType\": 3,\r\n      \"NextNodeIDs\": {\r\n        \"$type\": \"System.Collections.Generic.List`1[[System.String,
+    mscorlib]], mscorlib\",\r\n        \"$values\": [\r\n          \"44082fd1-3608-4cbc-ade7-6f6638c43a62\"\r\n       
+    ]\r\n      },\r\n      \"IsRootNode\": false,\r\n      \"ID\": \"77aa8c4d-0cc2-42dc-b928-e5c69039f60e\",\r\n     
     \"GroupID\": null,\r\n      \"Position\": {\r\n        \"$type\": \"UnityEngine.Vector2,
-    UnityEngine.CoreModule\",\r\n        \"x\": 104.0,\r\n        \"y\": 403.0,\r\n       
+    UnityEngine.CoreModule\",\r\n        \"x\": 606.0,\r\n        \"y\": 861.0,\r\n       
     \"normalized\": {\r\n          \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n         
-    \"x\": 0.249878019,\r\n          \"y\": 0.968277335,\r\n          \"magnitude\":
-    1.0,\r\n          \"sqrMagnitude\": 1.0\r\n        },\r\n        \"magnitude\":
-    416.203064,\r\n        \"sqrMagnitude\": 173225.0\r\n      }\r\n    },\r\n   
-    {\r\n      \"$type\": \"CBTSystem.Data.Save.Nodes.CBTSystemConditionNodeSaveData,
-    Assembly-CSharp-Editor\",\r\n      \"ConditionEntries\": {\r\n        \"$type\":
-    \"System.Collections.Generic.List`1[[CBTSystem.Elements.ConditionEntry, CombatBehaviourTreeSystem]],
-    mscorlib\",\r\n        \"$values\": [\r\n          {\r\n            \"$type\":
-    \"CBTSystem.Elements.ConditionEntry, CombatBehaviourTreeSystem\",\r\n           
-    \"ConditionType\": 5,\r\n            \"Operator\": \"=\",\r\n            \"Value\":
-    1.0\r\n          },\r\n          {\r\n            \"$type\": \"CBTSystem.Elements.ConditionEntry,
-    CombatBehaviourTreeSystem\",\r\n            \"ConditionType\": 6,\r\n           
-    \"Operator\": \"=\",\r\n            \"Value\": 1.0\r\n          }\r\n       
-    ]\r\n      },\r\n      \"Connectors\": {\r\n        \"$type\": \"System.Collections.Generic.List`1[[CBTSystem.Enumerations.LogicalOperator,
-    CombatBehaviourTreeSystem]], mscorlib\",\r\n        \"$values\": [\r\n         
-    0\r\n        ]\r\n      },\r\n      \"Priority\": -1,\r\n      \"NextNodeIDs\":
+    \"x\": 0.575563967,\r\n          \"y\": 0.8177567,\r\n          \"normalized\":
+    {\r\n            \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n           
+    \"x\": 0.575564,\r\n            \"y\": 0.8177568,\r\n            \"magnitude\":
+    1.0,\r\n            \"sqrMagnitude\": 1.00000012\r\n          },\r\n         
+    \"magnitude\": 0.99999994,\r\n          \"sqrMagnitude\": 0.99999994\r\n       
+    },\r\n        \"magnitude\": 1052.88037,\r\n        \"sqrMagnitude\": 1108557.0\r\n     
+    }\r\n    },\r\n    {\r\n      \"$type\": \"CBTSystem.Data.Save.Nodes.CBTSystemActionNodeSaveData,
+    Assembly-CSharp-Editor\",\r\n      \"ActionType\": 2,\r\n      \"NextNodeIDs\":
     {\r\n        \"$type\": \"System.Collections.Generic.List`1[[System.String, mscorlib]],
-    mscorlib\",\r\n        \"$values\": [\r\n          \"c17a2a13-e99d-490c-a23a-34227fd22e41\"\r\n       
-    ]\r\n      },\r\n      \"IsRootNode\": false,\r\n      \"ID\": \"e62c97ae-c0b3-44f0-9153-c836013323d6\",\r\n     
+    mscorlib\",\r\n        \"$values\": [\r\n          \"44082fd1-3608-4cbc-ade7-6f6638c43a62\"\r\n       
+    ]\r\n      },\r\n      \"IsRootNode\": false,\r\n      \"ID\": \"ca9a7077-c25d-4d8e-a0a0-c128493435c3\",\r\n     
     \"GroupID\": null,\r\n      \"Position\": {\r\n        \"$type\": \"UnityEngine.Vector2,
-    UnityEngine.CoreModule\",\r\n        \"x\": -146.0,\r\n        \"y\": 1057.0,\r\n       
+    UnityEngine.CoreModule\",\r\n        \"x\": 190.0,\r\n        \"y\": 1014.0,\r\n       
     \"normalized\": {\r\n          \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n         
-    \"x\": -0.136827663,\r\n          \"y\": 0.990594864,\r\n          \"magnitude\":
+    \"x\": 0.184171483,\r\n          \"y\": 0.9828941,\r\n          \"magnitude\":
     1.0,\r\n          \"sqrMagnitude\": 1.0\r\n        },\r\n        \"magnitude\":
-    1067.03564,\r\n        \"sqrMagnitude\": 1138565.0\r\n      }\r\n    }\r\n  ]\r\n}"
+    1031.64722,\r\n        \"sqrMagnitude\": 1064296.0\r\n      }\r\n    },\r\n   
+    {\r\n      \"$type\": \"CBTSystem.Data.Save.Nodes.CBTSystemActionNodeSaveData,
+    Assembly-CSharp-Editor\",\r\n      \"ActionType\": 7,\r\n      \"NextNodeIDs\":
+    {\r\n        \"$type\": \"System.Collections.Generic.List`1[[System.String, mscorlib]],
+    mscorlib\",\r\n        \"$values\": [\r\n          \"44082fd1-3608-4cbc-ade7-6f6638c43a62\"\r\n       
+    ]\r\n      },\r\n      \"IsRootNode\": false,\r\n      \"ID\": \"4f65a8e3-e142-4280-afa4-da763728c7ff\",\r\n     
+    \"GroupID\": null,\r\n      \"Position\": {\r\n        \"$type\": \"UnityEngine.Vector2,
+    UnityEngine.CoreModule\",\r\n        \"x\": 175.0,\r\n        \"y\": 1162.0,\r\n       
+    \"normalized\": {\r\n          \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n         
+    \"x\": 0.14892301,\r\n          \"y\": 0.988848746,\r\n          \"normalized\":
+    {\r\n            \"$type\": \"UnityEngine.Vector2, UnityEngine.CoreModule\",\r\n           
+    \"x\": 0.148923025,\r\n            \"y\": 0.9888488,\r\n            \"magnitude\":
+    1.0,\r\n            \"sqrMagnitude\": 1.0\r\n          },\r\n          \"magnitude\":
+    0.99999994,\r\n          \"sqrMagnitude\": 0.9999999\r\n        },\r\n       
+    \"magnitude\": 1175.10388,\r\n        \"sqrMagnitude\": 1380869.0\r\n      }\r\n   
+    }\r\n  ]\r\n}"
   NodeLinks:
   - BaseNodeID: 5021d891-cb24-4e2c-98f3-6782ca70e325
     TargetNodeID: 683ab1eb-965b-41b8-8b53-0f88b3e32ab7
@@ -220,14 +204,6 @@ MonoBehaviour:
     OutputPortName: Output
     InputPortName: Input
   - BaseNodeID: 1c8b43cf-0981-400f-a333-0618dcff21a6
-    TargetNodeID: 44082fd1-3608-4cbc-ade7-6f6638c43a62
-    OutputPortName: Output
-    InputPortName: Input
-  - BaseNodeID: 44082fd1-3608-4cbc-ade7-6f6638c43a62
-    TargetNodeID: e62c97ae-c0b3-44f0-9153-c836013323d6
-    OutputPortName: Output
-    InputPortName: Input
-  - BaseNodeID: 0ef5dbcb-196e-4279-b7d5-17b039208927
     TargetNodeID: 44082fd1-3608-4cbc-ade7-6f6638c43a62
     OutputPortName: Output
     InputPortName: Input
@@ -251,28 +227,12 @@ MonoBehaviour:
     TargetNodeID: c5413db5-6790-4494-a79b-7128d6944dfe
     OutputPortName: Output
     InputPortName: Input
-  - BaseNodeID: 180c19aa-a814-42ce-b7ac-8ebc59b49c7e
-    TargetNodeID: e62c97ae-c0b3-44f0-9153-c836013323d6
-    OutputPortName: Output
-    InputPortName: Input
   - BaseNodeID: c5413db5-6790-4494-a79b-7128d6944dfe
     TargetNodeID: 44082fd1-3608-4cbc-ade7-6f6638c43a62
     OutputPortName: Output
     InputPortName: Input
   - BaseNodeID: 44082fd1-3608-4cbc-ade7-6f6638c43a62
     TargetNodeID: c487a793-9ead-4629-b4c8-df49b1ba989c
-    OutputPortName: Output
-    InputPortName: Input
-  - BaseNodeID: e62c97ae-c0b3-44f0-9153-c836013323d6
-    TargetNodeID: c17a2a13-e99d-490c-a23a-34227fd22e41
-    OutputPortName: Output
-    InputPortName: Input
-  - BaseNodeID: c17a2a13-e99d-490c-a23a-34227fd22e41
-    TargetNodeID: ca9a7077-c25d-4d8e-a0a0-c128493435c3
-    OutputPortName: Output
-    InputPortName: Input
-  - BaseNodeID: c17a2a13-e99d-490c-a23a-34227fd22e41
-    TargetNodeID: 0ef5dbcb-196e-4279-b7d5-17b039208927
     OutputPortName: Output
     InputPortName: Input
   - BaseNodeID: ca9a7077-c25d-4d8e-a0a0-c128493435c3
@@ -293,5 +253,25 @@ MonoBehaviour:
     InputPortName: Input
   - BaseNodeID: 44082fd1-3608-4cbc-ade7-6f6638c43a62
     TargetNodeID: d7c66b77-39b9-4368-8411-de2fae8123b4
+    OutputPortName: Output
+    InputPortName: Input
+  - BaseNodeID: 44082fd1-3608-4cbc-ade7-6f6638c43a62
+    TargetNodeID: 77aa8c4d-0cc2-42dc-b928-e5c69039f60e
+    OutputPortName: Output
+    InputPortName: Input
+  - BaseNodeID: 77aa8c4d-0cc2-42dc-b928-e5c69039f60e
+    TargetNodeID: 44082fd1-3608-4cbc-ade7-6f6638c43a62
+    OutputPortName: Output
+    InputPortName: Input
+  - BaseNodeID: 4f65a8e3-e142-4280-afa4-da763728c7ff
+    TargetNodeID: 44082fd1-3608-4cbc-ade7-6f6638c43a62
+    OutputPortName: Output
+    InputPortName: Input
+  - BaseNodeID: 44082fd1-3608-4cbc-ade7-6f6638c43a62
+    TargetNodeID: ca9a7077-c25d-4d8e-a0a0-c128493435c3
+    OutputPortName: Output
+    InputPortName: Input
+  - BaseNodeID: 44082fd1-3608-4cbc-ade7-6f6638c43a62
+    TargetNodeID: 4f65a8e3-e142-4280-afa4-da763728c7ff
     OutputPortName: Output
     InputPortName: Input

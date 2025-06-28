@@ -155,9 +155,10 @@ namespace Characters.Behaviour
                 case CBTActionType.MoveToStanceRadius:
 
                     npc.OnUpdateCombatState?.Invoke(NPCState.Moving);
+                    npc.SetMovementSpeed(npc.defaultMovementSpeed);
+
                     mover.Resume();
                     mover.SetTarget(combatTarget.transform, _currentDefensiveRadius);
-                    npc.SetMovementSpeed(npc.defaultMovementSpeed);
 
                     npc.DoTargetViewLock = true;
 
@@ -166,9 +167,10 @@ namespace Characters.Behaviour
                 case CBTActionType.MoveToAttackRange:
 
                     npc.OnUpdateCombatState?.Invoke(NPCState.Moving);
+                    npc.SetMovementSpeed(npc.defaultMovementSpeed);
+
                     mover.Resume();
                     mover.SetTarget(combatTarget.transform);
-                    npc.SetMovementSpeed(npc.defaultMovementSpeed);
 
                     npc.DoTargetViewLock = true;
 
@@ -1035,7 +1037,7 @@ namespace Characters.Behaviour
 
             if (chosen == currentActionNode)
             {
-                Debug.LogWarning($"Not switching action, already executing {chosen.ActionType} with score {rawScores[chosenIndex]:0.00}");
+                //Debug.LogWarning($"Not switching action, already executing {chosen.ActionType} with score {rawScores[chosenIndex]:0.00}");
                 return null;
             }
 
@@ -1093,10 +1095,17 @@ namespace Characters.Behaviour
                     return npc.MinChargeTimeMet();
 
                 case CBTActionType.HoldBlock:
-                    return ctx.DistanceToTarget <= ctx.TargetAttackRange;
+                    float targetAttacking = ctx.SeenIncomingAttack;
+                    bool binRangeAttack = ctx.DistanceToTarget <= ctx.TargetAttackRange * 1.1f; // 10% more than the target's attack range
+                    bool bsufficientHealth = ctx.CurrentHealthPercentage > 0.2f; // 20% health threshold
+
+                    return targetAttacking == 1 && binRangeAttack && bsufficientHealth;
 
                 case CBTActionType.DodgeAttack:
-                    return true;
+                    float dtargetAttacking = ctx.SeenIncomingAttack;
+                    bool dinRangeAttack = ctx.DistanceToTarget <= ctx.TargetAttackRange * 1.1f; // 10% more than the target's attack range
+
+                    return dtargetAttacking == 1 && dinRangeAttack;
 
                 default:
                     Debug.LogWarning($"Action {desiredAction} not implemented in action execution check.");
@@ -1127,6 +1136,7 @@ namespace Characters.Behaviour
             float distanceFactor = 0;
             float staminaLow;
             float rise, fall;
+            float lowHealth;
 
             switch (action)
             {
@@ -1273,25 +1283,43 @@ namespace Characters.Behaviour
                 //         staminaEnough * weights.block_staminaWeight) * riskAversion;
 
                 case CBTActionType.HoldBlock:
+                    // Only consider blocking when an incoming attack is actually detected.
+                    if (ctx.SeenIncomingAttack <= 0f)
+                        return 0f;
 
-                    if (ctx.CurrentStaminaPercentage < 0.05f) return 0f;     // avoid stagger
+                    // Hard-gate: avoid blocking if stamina is too low to hold (below 10%).
+                    if (ctx.CurrentStaminaPercentage < 0.1f)
+                        return 0f;
 
-                    // I want to do this if the distance is low (within attack range of target)
-                    float lowDistanceHold = ctx.ValueLow(ctx.DistanceToTarget, 0, ctx.TargetAttackRange); // 1 close, 0 far
+                    // Score higher the closer we are to the attacker (within attack range).
+                    // ValueLow(a, 0, R) → 1 at 0 distance, 0 at R or beyond.
+                    float distanceScore = ctx.ValueLow(
+                        ctx.DistanceToTarget,
+                        0f,
+                        ctx.TargetAttackRange
+                    );
 
-                    // I want to do this only if my health is quite low
-                    float lowHealth = ctx.ValueLow(ctx.CurrentHealthPercentage, 0, 0.3f); // 1 low, 0 high
+                    // Score higher when our health is quite low (0 → 30% mapped 1 → 0).
+                    float healthScore = ctx.ValueLow(
+                        ctx.CurrentHealthPercentage,
+                        0f,
+                        0.3f
+                    );
 
-                    // I want to do this only if my stamina is quite low, but not lower than 10%
-                    float lowStamina = ctx.ValueLow(ctx.CurrentStaminaPercentage, 0.25f, 0.4f); // 1 low, 0 high
-                    if (ctx.CurrentStaminaPercentage < 0.25f) lowStamina = 0;
+                    // Score higher when stamina is low but still above the 10% floor.
+                    // ValueLow(s, 0.1, 0.4) → 1 at 0.1, 0 at 0.4 or above.
+                    float staminaScore = ctx.ValueLow(
+                        ctx.CurrentStaminaPercentage,
+                        0.1f,
+                        0.4f
+                    );
 
-                    // I want to do this only if my stamina 
-
+                    // Combine weighted factors and apply risk-aversion multiplier.
                     return
-                       (lowDistanceHold * weights.passiveBlock_lowDistanceWeight +
-                        lowHealth * weights.passiveBlock_lowHealthWeight +
-                        lowStamina * weights.passiveBlock_lowStaminaWeight) * riskAversion;
+                        (distanceScore * weights.passiveBlock_lowDistanceWeight +
+                         healthScore * weights.passiveBlock_lowHealthWeight +
+                         staminaScore * weights.passiveBlock_lowStaminaWeight)
+                        * riskAversion;
 
 
                 case CBTActionType.DodgeAttack:
@@ -1322,8 +1350,13 @@ namespace Characters.Behaviour
                         return 0;
                     }
 
+                    if (ctx.DistanceToTarget < ctx.TargetAttackRange)
+                    {
+                        return 0;
+                    }
+
                     // Lerp: Tells you how far along the line between 'a' and 'b' the value is. If the value is at 'a', return 0, if the value is at 'b' return 1.
-                    rise = Mathf.Clamp01(Mathf.InverseLerp(ctx.TargetAttackRange * 0.95f, ctx.TargetAttackRange * 1.2f, ctx.DistanceToTarget));
+                    rise = Mathf.Clamp01(Mathf.InverseLerp(ctx.TargetAttackRange * 1f, ctx.TargetAttackRange * 1.2f, ctx.DistanceToTarget));
 
                     // In this inverseLerp, we subtract by 1, becuase we want to fade out the score as the stamina percentage increases (higher = worse)
                     fall = Mathf.Clamp01(1 - Mathf.InverseLerp(ctx.TargetAttackRange * 1.2f, ctx.TargetAttackRange * 1.5f, ctx.DistanceToTarget));
@@ -1405,11 +1438,18 @@ namespace Characters.Behaviour
                     rawHealthDelta = ctx.TargetHealthPercentage - ctx.CurrentHealthPercentage;
                     hpDiffFactor = Mathf.Clamp01((rawHealthDelta + 1f) * 0.5f);   // 0..1 symmetric
 
+                    float enemyLowStamina = ctx.ValueLow(ctx.TargetStaminaPercentage, 0, 0.3f); // 1 low, 0 high - if the enemy has low stamina, we can hit them more easily
+
+                    // *** Enemy Low Stamina Bonus ***
+
                     return
 
                         (proximity * weights.lightAttack_proximityWeight +
                         staminaLightBonus * weights.lightAttack_staminaLightBonus +
-                        hpDiffFactor * weights.lightAttack_lowHealthBonus) * aggression;
+                        hpDiffFactor * weights.lightAttack_healthDiffBonus +
+                        enemyLowStamina * weights.lightAttack_enemyLowStaminaBonus
+
+                        ) * aggression;
 
                 case CBTActionType.StartHeavyAttack:
 

@@ -95,7 +95,6 @@ namespace Characters
         // Temp
         [SerializeField] private bool godMode;
 
-
         protected float staminaCurrent
         {
             get => _staminaCurrent;

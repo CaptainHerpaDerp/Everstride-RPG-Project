@@ -24,41 +24,52 @@ public class CombatAITest1v1
         // Set the random seed for reproducibility
         UnityEngine.Random.InitState(123456);
 
-        for (int i = 0; i < 50; i++)
+        int runs = 70;
+
+        for (int i = 0; i < runs; i++)
         {
             // Load test scene
             yield return SceneManager.LoadSceneAsync("CombatTestScene", LoadSceneMode.Single);
 
-            // Spawn agents
             var aiA = GameObject.Instantiate(Resources.Load<GameObject>("AI Dummies/Base AI Dummy"));
             var aiB = GameObject.Instantiate(Resources.Load<GameObject>("AI Dummies/Utility AI Dummy"));
-
             aiA.transform.position = new Vector3(-5, 0);
             aiB.transform.position = new Vector3(5, 0);
 
-            NPC npcA = aiA.GetComponent<NPC>();
-            NPC npcB = aiB.GetComponent<NPC>();
-
-            Assert.IsNotNull(npcA, "Base AI Dummy prefab does not contain an NPC component.");
-            Assert.IsNotNull(npcB, "Utility AI Dummy prefab does not contain an NPC component.");
+            var npcA = aiA.GetComponent<NPC>();
+            var npcB = aiB.GetComponent<NPC>();
+            Assert.IsNotNull(npcA);
+            Assert.IsNotNull(npcB);
 
             yield return new WaitForFixedUpdate();
 
-            // Set the game speed to 5x
-            Time.timeScale = 10f;
+            Time.timeScale = 10f;              // 10× speed to finish faster
 
-            float maxDuration = 300; // Fight shouldn't last longer than 5 minutes.. right?
+            const float maxDuration = 600f;    // 600 seconds at 10× speed
             float elapsedTime = 0f;
 
+            int safetyCounter = 0;
+            const int safetyLimit = 10000;     // adjust up if needed
+
+            // —— inner combat loop ——
             while (elapsedTime < maxDuration)
             {
+                // if either died, break out
                 if (npcA.CurrentHealth <= 0 || npcB.CurrentHealth <= 0)
                     break;
 
                 elapsedTime += Time.deltaTime;
                 yield return null;
+
+                // safety bail
+                if (++safetyCounter > safetyLimit)
+                {
+                    Debug.LogWarning($"[Run {i}] Combat loop stuck, breaking out after {safetyCounter} iterations.");
+                    break;
+                }
             }
 
+            // —— determine result ——
             string result;
             if (npcA.CurrentHealth <= 0 && npcB.CurrentHealth <= 0)
                 result = "Draw";
@@ -69,25 +80,20 @@ public class CombatAITest1v1
             else
                 result = "No winner (Timeout)";
 
-            var aiAStats = npcA.combatStats;
-            var aiBStats = npcB.combatStats;
-
-            RunData runData = new RunData
+            runDataList.Add(new RunData
             {
                 result = result,
-                aiAStats = aiAStats,
-                aiBStats = aiBStats,
+                aiAStats = npcA.combatStats,
+                aiBStats = npcB.combatStats,
                 elapsedTime = elapsedTime
-            };
+            });
 
-            runDataList.Add(runData);
-
+            Debug.Log($"Run {i}: {result}");
             yield return new WaitForFixedUpdate();
         }
 
-
+        Time.timeScale = 1f;  // restore normal time
         WriteTestResults(runDataList);
-
         Assert.Pass();
     }
 
