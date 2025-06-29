@@ -7,43 +7,48 @@ namespace Characters.Behaviour
 {
     public class CombatContext
     {
-        // Self
-        public float CurrentStaminaValue;
-        public float CurrentStaminaPercentage;
-        public float CurrentHealthPercentage;
-        public float MaxStamina;
-        public float MaxHealth;
-        public float IsBlocking;
-        public float StaminaRegenBlockedUntil;
-        public float ExhaustionUntil;
-        public float TimeSinceLastHit;
+        #region Self State
+        public float CurrentStaminaValue { get; }
+        public float CurrentStaminaPercentage { get; }
+        public float CurrentHealthPercentage { get; }
+        public float MaxStamina { get; }
+        public float MaxHealth { get; }
+        public float IsBlocking { get; }
+        public float StaminaRegenBlockedUntil { get; }
+        public float ExhaustionUntil { get; }
+        public float TimeSinceLastHit { get; }
 
-        // Target
-        public Transform TargetTransform;
-        public float DistanceToTarget;
-        public float SeenIncomingAttack;
-        public float TargetStaminaPercentage;
-        public float TargetHealthPercentage;
-        public float TargetBlocking;
-        public float TargetAttackRange;
-        public float TargetHeavyAttackChargePercentage; // Percentage of charge for heavy attack, if applicable
-        public float IncomingDamage;
+        #endregion
 
-        public float TargetLightAttackDamage;
-        public float TargetMinHeavyAttackDamage;
-        public float TargetMaxHeavyAttackDamage;
-        public float TargetCurHeavyAttackMultiplierDrain;
+        #region Target State
 
-        // Weapons
-        public float LightAttackRange;
-        public float HeavyAttackRange;
-        public float IdealLightAttackRange;
-        public float LightAttackStaminaCost;
-        public float HeavyAttackChargePercentage;
-        public float RemainingStaminaAtChargePercentage;
-        public float StaminaPercDrainPerBlock;
+        public Transform TargetTransform { get; }
+        public float DistanceToTarget { get; }
+        public float HasSeenIncomingAttack { get; }
+        public float TargetStaminaPercentage { get; }
+        public float TargetHealthPercentage { get; }
+        public float TargetBlocking { get; }
+        public float TargetAttackRange { get; }
+        public float TargetHeavyAttackChargePercentage { get; }
+        public float TargetLightAttackDamage { get; }
+        public float TargetMinHeavyAttackDamage { get; }
+        public float TargetMaxHeavyAttackDamage { get; }
+        public float TargetCurrentHeavyAttackStaminaDrain { get; }
+        public float IncomingDamage { get; }
 
-        // …add more as needed…
+        #endregion
+
+        #region Weapon Stats
+
+        public float LightAttackRange { get; }
+        public float HeavyAttackRange { get; }
+        public float IdealLightAttackRange { get; }
+        public float LightAttackStaminaCost { get; }
+        public float HeavyAttackChargePercentage { get; }
+        public float RemainingStaminaAtChargePercentage { get; }
+        public float StaminaPercentageDrainPerBlock { get; }
+
+        #endregion
 
         /// <summary>
         /// Constructor that pulls everything from the NPC
@@ -84,15 +89,15 @@ namespace Characters.Behaviour
             TargetLightAttackDamage = mgr.CombatTarget.equippedWeapon != null ? mgr.CombatTarget.equippedWeapon.weaponDamage : 0;
             TargetMinHeavyAttackDamage = mgr.CombatTarget.equippedWeapon != null ? mgr.CombatTarget.equippedWeapon.weaponDamage * mgr.CombatTarget.GetHeavyAttackDamageMultiplier(mgr.CombatTarget.chargeAttackMinTime) : 0;
             TargetMaxHeavyAttackDamage = mgr.CombatTarget.equippedWeapon != null ? mgr.CombatTarget.equippedWeapon.weaponDamage * mgr.CombatTarget.GetHeavyAttackDamageMultiplier(mgr.CombatTarget.chargeAttackMaxTime) : 0;
-            TargetCurHeavyAttackMultiplierDrain = mgr.GetHeavyBlockStaminaDrawMultiplier(mgr.CombatTarget.chargeHoldTime);
+            TargetCurrentHeavyAttackStaminaDrain = mgr.GetHeavyBlockStaminaDrawMultiplier(mgr.CombatTarget.chargeHoldTime);
 
             TargetAttackRange = mgr.CombatTarget.WeaponRange;
 
-            SeenIncomingAttack = mgr.SeenIncomingAttackFlag() ? 1 : 0;
+            HasSeenIncomingAttack = mgr.SeenIncomingAttackFlag() ? 1 : 0;
 
             IncomingDamage = GetEnemyIncomingDamage(mgr);
 
-            StaminaPercDrainPerBlock = mgr.staminaPercDrainedPerBlock;
+            StaminaPercentageDrainPerBlock = mgr.staminaPercDrainedPerBlock;
         }
 
         private float GetEnemyIncomingDamage(NPC mgr)

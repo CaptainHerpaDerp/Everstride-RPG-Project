@@ -1,20 +1,15 @@
 ﻿using CBTSystem.Elements;
 using CBTSystem.Enumerations;
 using CBTSystem.ScriptableObjects.Nodes;
-using Codice.Client.BaseCommands;
-using Codice.CM.Client.Differences;
 using Core.Enums;
-using CustomOdinScripts;
 using Items;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using UnityEditor;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 namespace Characters.Behaviour
 {
@@ -24,13 +19,14 @@ namespace Characters.Behaviour
     [RequireComponent(typeof(ScoreEvaluatorUtility))]
     public class UtilityAICombatBehaviourManager : MonoBehaviour
     {
+        #region Fields
+
         [BoxGroup("Component References"), SerializeField] private Mover mover;
         [BoxGroup("Component References"), SerializeField] NPC npc;
         [BoxGroup("Component References"), SerializeField] private CBTSystemContainerSO CBTConfig;
         [BoxGroup("Component References"), SerializeField] private ScoreEvaluatorUtility scoreEval;
 
         [BoxGroup("Combat Stance"), SerializeField] private float combatStanceMoveSpeed;
-
         [BoxGroup("Combat Stance"), SerializeField] private float radiusStep = 1;
         [BoxGroup("Combat Stance"), SerializeField] private float defensiveRadiusMin = 1.5f;
         [BoxGroup("Combat Stance"), SerializeField] private float defensiveRadiusMax = 3f;
@@ -38,17 +34,14 @@ namespace Characters.Behaviour
         [BoxGroup("Combat Stance"), SerializeField] private float waitDuration = 1;
 
         [Header("This value determines the minimum duration an action can be carried out before another can be considered")]
-       // [BoxGroup("Utility Behaviour"), SerializeField] private float actionMinDwellTime = 0.35f;
-
-        [BoxGroup("Scoring Variables, Combat Stance"), SerializeField] private float lowStaminaFactor = 0.8f; // Factor to increase the score when stamina is low
-
         [BoxGroup("Retreat"), SerializeField] private float retreatTimeMax = 5;
         [BoxGroup("Retreat"), SerializeField] private float dodgeTimeMax = 1.5f;
+
         private float _currentRetreatTime, _currentDodgeTime;
 
         [ShowInInspector] public float currentDefensiveRadius { get; protected set; }
 
-        // A list of the current condition nodes that are connected to the current node
+        // Lists of the current condition nodes that are connected to the current node
         private List<CBTSystemConditionNodeSO> curConnectedConditionNodes = new();
         private List<CBTSystemActionNodeSO> curConnectedActionNodes = new();
         private List<CBTSystemUtilitySelectorNodeSO> curConnectedUtilityNodes = new();
@@ -92,18 +85,17 @@ namespace Characters.Behaviour
             }
         }
 
+        #endregion
+
         private void Start()
         {
-
             if (CBTConfig != null)
             {
                 CBTSystemNodeSO rootNode = GetRootNode();
 
                 if (rootNode != null)
                 {
-                    // Debug.Log($"Root Node Type: {rootNode.GetType()}");
-
-                    StartCoroutine(CheckForCondition(rootNode as CBTSystemActionNodeSO));
+                    StartCoroutine(CheckConnectingNodes(rootNode as CBTSystemActionNodeSO));
                 }
                 else
                 {
@@ -112,7 +104,12 @@ namespace Characters.Behaviour
             }
         }
 
-        private IEnumerator CheckForCondition(CBTSystemActionNodeSO startingActionNode)
+        /// <summary>
+        /// Check connecting nodes of the passed in node to see if they can be switched to
+        /// </summary>
+        /// <param name="startingActionNode"></param>
+        /// <returns></returns>
+        private IEnumerator CheckConnectingNodes(CBTSystemActionNodeSO startingActionNode)
         {
             currentActionNode = startingActionNode;
 
@@ -133,12 +130,18 @@ namespace Characters.Behaviour
                 yield return new WaitForEndOfFrame();
 
                 // Try to check if any condition nodes are met, and change the current action node if so
-                if (TryCheckConditionNodes(curConnectedConditionNodes)) ;
-                if (TryEnterActionNodes(currentActionNode)) ;
+                if (TryCheckConditionNodes(curConnectedConditionNodes)) { }
+                
+                if (TryEnterActionNodes(currentActionNode)) { }
+                
                 TryEnterUtilityNodes(currentActionNode);
             }
         }
 
+        /// <summary>
+        /// Performs the actions from a given action node
+        /// </summary>
+        /// <param name="actionNode"></param>
         private void ExecuteActionNode(CBTSystemActionNodeSO actionNode)
         {
             if (combatTarget == null)
@@ -311,8 +314,6 @@ namespace Characters.Behaviour
                             return false;
                         }
 
-                        //Debug.Log($"Evaluating {cbtSystemNode.NodeID}");
-
                         CBTSystemActionNodeSO newActionNode = GetEvaluateUtilitySelectorNode(cbtSystemNode as CBTSystemUtilitySelectorNodeSO);
 
                         // From the node who's condition is met, try to enter the utility nodes
@@ -376,6 +377,17 @@ namespace Characters.Behaviour
             return false;
         }
 
+        /// <summary>
+        /// Attempts to transition from the current action node to a new action node by evaluating utility nodes
+        /// connected to the specified source node.
+        /// </summary>
+        /// <remarks>This method evaluates utility nodes connected to the specified <paramref
+        /// name="sourceNode"/> and attempts to transition to a new action node based on the utility evaluation and
+        /// condition checks. If no valid action node is found or the transition cannot be completed, the method returns
+        /// <see langword="false"/>.</remarks>
+        /// <param name="sourceNode">The source node from which to evaluate connected utility nodes.</param>
+        /// <returns><see langword="true"/> if a valid action node is successfully selected and transitioned to; otherwise, <see
+        /// langword="false"/>.</returns>
         private bool TryEnterUtilityNodes(CBTSystemNodeSO sourceNode)
         {
             // Get the currently connected utility nodes from the source node
@@ -567,6 +579,19 @@ namespace Characters.Behaviour
             }
         }
 
+        /// <summary>
+        /// Evaluates all conditions in the specified condition node and determines whether the overall condition is
+        /// met.
+        /// </summary>
+        /// <remarks>The method evaluates conditions in the order they appear in the
+        /// <c>ConditionEntries</c> list,  applying logical operators from the <c>Connectors</c> list to group
+        /// conditions.  Groups of conditions connected by "And" operators must all evaluate to <see langword="true"/> 
+        /// for the group to pass. Groups separated by "Or" operators are evaluated independently,  and the method
+        /// returns <see langword="true"/> if any group passes.</remarks>
+        /// <param name="conditionNode">The condition node containing the conditions and logical operators to evaluate.  This parameter must not be
+        /// <see langword="null"/> and must have a valid list of condition entries.</param>
+        /// <returns><see langword="true"/> if the conditions in the node evaluate to a logical "true" based on the specified
+        /// operators;  otherwise, <see langword="false"/>.</returns>
         private bool EvaluateAllConditions(CBTSystemConditionNodeSO conditionNode)
         {
             int cacheIndex = 0;
@@ -631,6 +656,17 @@ namespace Characters.Behaviour
             return false;
         }
 
+        /// <summary>
+        /// Evaluates whether a specified condition entry is satisfied based on its operator, value, and type.
+        /// </summary>
+        /// <remarks>This method supports both boolean and numeric conditions. For boolean conditions, the
+        /// method ensures  that the values being compared are either 0 or 1. For numeric conditions, the comparison is
+        /// performed  using the specified operator (e.g., "<", ">", "="). If the operator is invalid, an exception is
+        /// thrown.</remarks>
+        /// <param name="conditionEntry">The condition entry to evaluate, containing the operator, value, and condition type.</param>
+        /// <returns><see langword="true"/> if the condition entry is satisfied based on the specified operator and values; 
+        /// otherwise, <see langword="false"/>.</returns>
+        /// <exception cref="InvalidOperationException">Thrown if the operator specified in <paramref name="conditionEntry"/> is invalid.</exception>
         private bool CheckConditionEntry(ConditionEntry conditionEntry)
         {
             string conditionOperator = conditionEntry.Operator;
@@ -670,10 +706,28 @@ namespace Characters.Behaviour
 
 
         /// <summary>
-        /// Returns the actual value of a given condition
+        /// Evaluates the specified condition type and returns a corresponding numeric value.
         /// </summary>
-        /// <param name="conditionType"></param>
-        /// <returns></returns>
+        /// <remarks>This method evaluates various combat-related conditions for the NPC or its combat
+        /// target. The returned value can represent distances, percentages, or binary states depending on the condition
+        /// type.</remarks>
+        /// <param name="conditionType">The type of condition to evaluate, represented by the <see cref="CBTConditionType"/> enumeration.</param>
+        /// <returns>A numeric value representing the result of the evaluated condition. The meaning of the value depends on the
+        /// condition type: <list type="bullet"> <item> <description>For <see cref="CBTConditionType.CheckDistance"/>,
+        /// the distance to the combat target in world units.</description> </item> <item> <description>For <see
+        /// cref="CBTConditionType.CheckHealth"/>, the NPC's current health percentage (0-100).</description> </item>
+        /// <item> <description>For <see cref="CBTConditionType.CheckStamina"/>, the NPC's current stamina percentage
+        /// (0-100).</description> </item> <item> <description>For <see cref="CBTConditionType.TargetInAttackRange"/>,
+        /// <c>1</c> if the combat target is within the NPC's weapon range; otherwise, <c>0</c>.</description> </item>
+        /// <item> <description>For <see cref="CBTConditionType.TargetRangeCoverage"/>, the percentage (0-100) of the
+        /// NPC's weapon range covered by the distance to the combat target.</description> </item> <item>
+        /// <description>For <see cref="CBTConditionType.CombatTargetAttacking"/>, <c>1</c> if the combat target is
+        /// currently attacking; otherwise, <c>0</c>.</description> </item> <item> <description>For <see
+        /// cref="CBTConditionType.SelfInAttackRange"/>, <c>1</c> if the NPC is within the combat target's weapon range
+        /// (with a 10% buffer); otherwise, <c>0</c>.</description> </item> <item> <description>For <see
+        /// cref="CBTConditionType.HeavySwingChargeProgress"/>, the NPC's heavy swing charge progress as a percentage
+        /// (0-100).</description> </item> </list> If the condition type is not implemented or cannot be evaluated,
+        /// returns <c>0</c>.</returns>
         private float GetConditionValue(CBTConditionType conditionType)
         {
             Character combatTargetCharacter;
@@ -770,6 +824,15 @@ namespace Characters.Behaviour
 
         #region Action Coroutines
 
+        /// <summary>
+        /// Executes the NPC's combat stance behavior, maintaining a dynamic defensive position relative to the combat
+        /// target.
+        /// </summary>
+        /// <remarks>This coroutine continuously adjusts the NPC's position around the combat target based
+        /// on a calculated defensive radius and random angle variations. The NPC locks its view on the target and moves
+        /// at a specified combat stance speed. The defensive radius dynamically scales with the NPC's current health
+        /// percentage.</remarks>
+        /// <returns>An enumerator that controls the coroutine execution for the combat stance behavior.</returns>
         private IEnumerator DoCombatStance()
         {
             npc.DoTargetViewLock = true;
@@ -877,6 +940,15 @@ namespace Characters.Behaviour
             return foundUtilityNodes;
         }
 
+        /// <summary>
+        /// Retrieves a list of connected nodes based on the provided node IDs.
+        /// </summary>
+        /// <remarks>This method searches for nodes in both ungrouped nodes and grouped nodes within the
+        /// CBT configuration. If <paramref name="nextNodeIDs"/> is null, an error is logged, and an empty list is
+        /// returned.</remarks>
+        /// <param name="nextNodeIDs">A list of node IDs representing the nodes to search for. Cannot be null.</param>
+        /// <returns>A list of <see cref="CBTSystemNodeSO"/> objects that correspond to the provided node IDs. If no matching
+        /// nodes are found, the returned list will be empty.</returns>
         private List<CBTSystemNodeSO> GetConnectedNodes(List<string> nextNodeIDs)
         {
             // Create the return list
@@ -964,6 +1036,17 @@ namespace Characters.Behaviour
             return true;
         }
 
+        /// <summary>
+        /// Determines whether the specified combat action can be executed in the given combat context.
+        /// </summary>
+        /// <remarks>This method evaluates various conditions, such as distance to the target, stamina
+        /// levels, and other contextual factors, to determine whether the requested combat action is valid. The
+        /// specific conditions vary depending on the type of action.</remarks>
+        /// <param name="desiredAction">The combat action to evaluate for execution.</param>
+        /// <param name="ctx">The current combat context, which provides information about the target, distances, stamina, and other
+        /// relevant state.</param>
+        /// <returns><see langword="true"/> if the specified <paramref name="desiredAction"/> can be executed based on the
+        /// current combat context; otherwise, <see langword="false"/>.</returns>
         public bool CanExcecute(CBTActionType desiredAction, CombatContext ctx)
         {
             switch (desiredAction)
@@ -1016,6 +1099,18 @@ namespace Characters.Behaviour
             }
         }
 
+        /// <summary>
+        /// Evaluates the utility of action nodes connected to the specified utility selector node and selects the most
+        /// appropriate action node based on the current combat context.
+        /// </summary>
+        /// <remarks>This method evaluates all action nodes connected to the provided utility selector
+        /// node, scoring them based on their utility in the current combat context. It applies additional logic such as
+        /// emergency overrides, sticky bonuses for the current action, and minimum score differences to determine
+        /// whether to switch actions. If no valid candidates are found or switching conditions are not satisfied, the
+        /// method returns <see langword="null"/>.</remarks>
+        /// <param name="utilitySelecorNode">The utility selector node containing the configuration and connected action nodes to evaluate.</param>
+        /// <returns>The selected <see cref="CBTSystemActionNodeSO"/> based on utility evaluation, or <see langword="null"/>  if
+        /// no suitable action node is found or if conditions for switching actions are not met.</returns>
         public CBTSystemActionNodeSO GetEvaluateUtilitySelectorNode(CBTSystemUtilitySelectorNodeSO utilitySelecorNode)
         {
             // Get all action nodes connected to the utility selector node

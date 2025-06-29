@@ -1,0 +1,54 @@
+# AI Version: A3
+# Test Type: 1v1
+# Time: 20250629_222804
+Run Index, Winner,Elapsed time,A Damage,B Damage,A Light Attacks,B Light Attacks,A Heavy Attacks,B Heavy Attacks,A Successful Blocks,B Successful Blocks,A Failed Blocks,B Failed Blocks
+0,Utility AI,9.632031,139.5809,338.33,0,14,9,28,30,0,0,0
+1,Utility AI,14.2597,119.5507,463.1755,0,15,13,41,44,2,0,0
+2,Base AI,8.432118,200.3363,232.75,0,13,8,18,20,2,0,2
+3,Utility AI,12.71581,154,404.25,0,14,12,34,37,1,0,0
+4,Utility AI,12.92379,164.2456,403.1496,0,12,14,36,38,1,0,0
+5,Utility AI,17.96343,192.9536,544.9089,0,26,11,45,56,2,1,0
+6,No winner (Timeout),300.0006,51.62475,114.0815,0,5,2,10,10,0,0,0
+7,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+8,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+9,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+10,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+11,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+12,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+13,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+14,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+15,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+16,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+17,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+18,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+19,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+20,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+21,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+22,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+23,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+24,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+25,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+26,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+27,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+28,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+29,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+30,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+31,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+32,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+33,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+34,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+35,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+36,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+37,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+38,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+39,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+40,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+41,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+42,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+43,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+44,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+45,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+46,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+47,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+48,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0
+49,No winner (Timeout),300.0016,0,0,0,0,0,0,0,0,0,0

@@ -14,31 +14,29 @@ using UnityEngine.TestTools;
 
 public class CombatAITest1v1
 {
-    private const float MAX_DURATION = 10000f; // max time for each combat trial
+    private const float MAX_DURATION = 300; // max time for each combat trial
 
     [UnityTest]
     public IEnumerator Test1v1CombatTrial()
     {
-        Debug.Log("Test Started");
-
-        List<RunData> runDataList = new List<RunData>();
-
         // Set the random seed for reproducibility
         UnityEngine.Random.InitState(123456);
 
         int runs = 50;
-
+        List<RunData> runDataList = new List<RunData>();
 
         for (int i = 0; i < runs; i++)
         {
+            float elapsedTime = 0f;
+
             // Load test scene
             yield return SceneManager.LoadSceneAsync("CombatTestScene", LoadSceneMode.Single);
+            yield return null; // wait for scene to load
 
             var aiA = GameObject.Instantiate(Resources.Load<GameObject>("AI Dummies/Base AI Dummy"));
             var aiB = GameObject.Instantiate(Resources.Load<GameObject>("AI Dummies/Utility AI Dummy"));
             aiA.transform.position = new Vector3(-5, 0);
             aiB.transform.position = new Vector3(5, 0);
-
 
             // have the camea follow AI B 
             Camera.main.transform.SetParent(aiB.transform);
@@ -46,19 +44,19 @@ public class CombatAITest1v1
 
             var npcA = aiA.GetComponent<NPC>();
             var npcB = aiB.GetComponent<NPC>();
+
             Assert.IsNotNull(npcA);
             Assert.IsNotNull(npcB);
 
             yield return new WaitForSecondsRealtime(0.25f);   // let Awake/Start finish
             Time.timeScale = 10f;
 
-            float elapsed = 0f;
-            while (elapsed < MAX_DURATION)
+            while (elapsedTime < MAX_DURATION)
             {
                 if (!npcA || !npcB ) break;                    
                 if (npcA.CurrentHealth <= 0 || npcB.CurrentHealth <= 0) break;
 
-                elapsed += Time.deltaTime;
+                elapsedTime += Time.unscaledDeltaTime;
                 yield return null;
             }
 
@@ -80,7 +78,7 @@ public class CombatAITest1v1
                 result = result,
                 aiAStats = npcA.combatStats,
                 aiBStats = npcB.combatStats,
-                elapsedTime = elapsed
+                elapsedTime = elapsedTime
             });
 
             // —— cleanup ——
@@ -88,14 +86,13 @@ public class CombatAITest1v1
 
             GameObject.Destroy(aiA);
             GameObject.Destroy(aiB);
-            // also clear pools, projectiles, static managers if you use them
-            yield return null;                  // let one frame run so Destroy() takes effect
+            yield return null; 
             Resources.UnloadUnusedAssets();
             GC.Collect();
             yield return SceneManager.UnloadSceneAsync("CombatTestScene");
+            yield return null;
 
             Debug.Log($"Run {i}: {result}");
-            yield return new WaitForFixedUpdate();
         }
 
         Time.timeScale = 1f;  // restore normal time

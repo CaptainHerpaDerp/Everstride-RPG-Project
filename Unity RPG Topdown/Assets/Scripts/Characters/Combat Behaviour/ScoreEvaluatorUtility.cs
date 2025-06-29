@@ -1,5 +1,4 @@
 ﻿using CBTSystem.Enumerations;
-using CBTSystem.ScriptableObjects.Nodes;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +7,10 @@ using UnityEngine;
 namespace Characters.Behaviour
 {
     [RequireComponent(typeof(UtilityAIWeightsContainer))]
+
+    /// <summary>
+    /// Utility class for evaluating combat actions based on the current combat context.
+    /// </summary>
     public class ScoreEvaluatorUtility : MonoBehaviour
     {
         [BoxGroup("Component References"), SerializeField] private UtilityAIWeightsContainer weights;
@@ -15,6 +18,18 @@ namespace Characters.Behaviour
 
         [BoxGroup("Scoring Modifiers, Move Attack"), SerializeField] private float lastHitThresholdTime = 3;
 
+        /// <summary>
+        /// Evaluates the utility score for a given combat action based on the current combat context.
+        /// </summary>
+        /// <remarks>The utility score is calculated based on various factors such as health, stamina,
+        /// distance to the target, recent events (e.g., being hit), and the target's behavior (e.g., attacking or
+        /// blocking). Each action type has its own set of considerations and weights that influence the final score. 
+        /// This method is designed to support decision-making in a utility-based AI system, enabling dynamic and
+        /// context-sensitive behavior for combat scenarios.</remarks>
+        /// <param name="action">The combat action to evaluate, represented by the <see cref="CBTActionType"/> enumeration.</param>
+        /// <param name="ctx">The current combat context, containing information about the actor, target, and environment.</param>
+        /// <returns>A utility score as a <see cref="float"/> between 0 and 1, where higher values indicate greater suitability
+        /// for the specified action in the given context.</returns>
         public float EvaluateUtility(CBTActionType action, CombatContext ctx)
         {
             float recentHit = 0;
@@ -50,20 +65,6 @@ namespace Characters.Behaviour
                      * Is the target holding a heavy attack? If so, I should not go in for an attack, as I might get hit.
                      */
 
-
-
-                    //float noRecentHit = High(ctx.TimeSinceLastHit, 3f, 5f);   // 0 → 1
-                    //float healthier = High(ctx.CurrentHealthPercentage -
-                    //                         ctx.TargetHealthPercentage, 0f, .4f);
-                    //float moreStam = High(ctx.CurrentStaminaPercentage -
-                    //                         ctx.TargetStaminaPercentage, 0f, .3f);
-                    //float staminaOkay = High(ctx.CurrentStaminaPercentage, .3f, .6f);
-
-                    //return noRecentHit * weights.moveToAttack_recentHit +
-                    //        healthier * weights.moveToAttack_healthDiff +
-                    //        moreStam * weights.moveToAttack_stamDiff +
-                    //        staminaOkay * weights.moveToAttack_stamReady;
-
                     if (ctx.DistanceToTarget < ctx.IdealLightAttackRange)
                     {
                         return 0f; // Already at the target's ideal range, no need to move closer
@@ -93,7 +94,7 @@ namespace Characters.Behaviour
                     // *** Target Attacking *** //
 
                     // If the target is attacking, we should not go in for an attack
-                    if (ctx.SeenIncomingAttack > 0f)
+                    if (ctx.HasSeenIncomingAttack > 0f)
                     {
                         // If the target is attacking, we should not go in for an attack
                         return 0f;
@@ -122,18 +123,6 @@ namespace Characters.Behaviour
                      * If we were recently hit, we might want to back off
                      */
 
-                    //recentHit = Low(ctx.TimeSinceLastHit, 0f, 3f);      // 1 → 0
-                    //float weaker = Low(ctx.CurrentHealthPercentage -
-                    //                          ctx.TargetHealthPercentage, -.4f, 0f);
-                    //float lessStam = Low(ctx.CurrentStaminaPercentage -
-                    //                          ctx.TargetStaminaPercentage, -.3f, 0f);
-                    //float lowStamina = Low(ctx.CurrentStaminaPercentage, .2f, .5f);
-
-                    //return recentHit * weights.combatStance_recentHit +
-                    //        weaker * weights.combatStance_healthDiff +
-                    //        lessStam * weights.combatStance_stamDiff +
-                    //        lowStamina * weights.combatStance_stamReady;
-
                     // The more recently we were hit, the more we want to back off
                     recentHit = 1f - Mathf.InverseLerp(0f, lastHitThresholdTime, ctx.TimeSinceLastHit);
 
@@ -156,51 +145,11 @@ namespace Characters.Behaviour
 
                     return ApplyCompensationToScore(rawScore, 3) * weights.combatStance_score;
 
-
-                    rawScore =
-
-                        recentHit *
-                        totalResourceDiff *
-                        stamSufficient * weights.combatStance_score;
-
-                    return ApplyCompensationToScore(rawScore, 3);
-
-                //case CBTActionType.InstantBlock:
-
-                //    /**** Considerations ****/
-
-                //    /* 
-                //     * The variables to evaluate are if we are relatively close to the target (too far to dodge), 
-                //     * if our health is low, we dodging might be too risky
-                //     * if our stamina is too low, we might not be able to block the attack (afford the cost)
-                //     * if our stamina is at 0 or below 5%, we should not block at all
-                //     * if the enemy's stamina is high, and we have both stamina and health to expend, we should block to reduce the enemy's stamina, and fight back later where they can't block anymore
-                //     */
-
-                //    //if (ctx.SeenIncomingAttack == 0) return 0f;
-                //    //if (ctx.CurrentStaminaPercentage < .1f) return 0f;   // avoid stagger
-
-                //    //float veryClose = Low(ctx.DistanceToTarget, 0f, ctx.TargetAttackRange);
-                //    //float stamEnough = High(ctx.CurrentStaminaPercentage, .25f, .5f);
-
-                //    //return veryClose * weights.block_staminaCheapWeight +
-                //    //        stamEnough * weights.block_dangerScoreWeight;
-
-                //    // (gated first)
-                //    if (ctx.SeenIncomingAttack == 0) return 0f;
-                //    if (ctx.CurrentStaminaPercentage < 0.05f) return 0f;     // avoid stagger
-
-                //    float lowDistance = ValueLow(ctx.DistanceToTarget, 0, ctx.TargetAttackRange); // 1 close, 0 far
-                //    float staminaEnough = ValueHigh(ctx.CurrentStaminaPercentage, 0.25f, 0.5f); // 1 high, 0 low
-
-                //    return
-                //         (lowDistance * weights.block_staminaCheapWeight +
-                //         staminaEnough * weights.block_dangerScoreWeight) * riskAversion;
-
+             
                 case CBTActionType.HoldBlock:
 
                    // Only consider blocking when an incoming attack is actually detected
-                    if (ctx.SeenIncomingAttack <= 0f)
+                    if (ctx.HasSeenIncomingAttack <= 0f)
                         return 0f;
 
                     // Hard-gate: avoid blocking if stamina is too low to hold (below 10%).
@@ -213,7 +162,7 @@ namespace Characters.Behaviour
                     float dangerScore = ValueHigh(ctx.IncomingDamage, ctx.TargetLightAttackDamage, ctx.TargetMinHeavyAttackDamage);
 
                     // Find out how much stamina we will lose when blocking the attack
-                    float staminaCost = (ctx.MaxStamina * (ctx.StaminaPercDrainPerBlock * ctx.TargetCurHeavyAttackMultiplierDrain)) / ctx.MaxStamina;
+                    float staminaCost = (ctx.MaxStamina * (ctx.StaminaPercentageDrainPerBlock * ctx.TargetCurrentHeavyAttackStaminaDrain)) / ctx.MaxStamina;
                     float staminaCheap = 1f - staminaCost;
 
                     float healthHigher = ValueHigh(ctx.CurrentHealthPercentage -
@@ -241,17 +190,8 @@ namespace Characters.Behaviour
                      * the lower our stamina, the higher our favorability to dodge, as we cannot block
                      */
 
-                    //if (ctx.SeenIncomingAttack == 0) return 0f;
-
-                    //float safeZone = High(ctx.DistanceToTarget,
-                    //                      ctx.TargetAttackRange * .8f, ctx.TargetAttackRange);
-                    //float stamLow = Low(ctx.CurrentStaminaPercentage, 0f, .25f);
-
-                    //return safeZone * weights.dodge_inSafeAreaWeight +
-                    //        stamLow * weights.dodge_staminaAbundanceWeight;
-
                     // (gated first)
-                    if (ctx.SeenIncomingAttack == 0) return 0f;
+                    if (ctx.HasSeenIncomingAttack == 0) return 0f;
 
                     if (ctx.TargetHeavyAttackChargePercentage <= 0)
                     {
@@ -282,25 +222,8 @@ namespace Characters.Behaviour
                     /**** Considerations ****/
 
                     /* How is my current distance to the enemy, if is just barely within my light attack range, i might wait to wait util i move closer to them, as the chance of hitting them is low.
-                     * How is my stamina? If it is on the lower side, a light attack might be smarter than a heavy attack, as it costs less stamina.
-                     * 
+                     * How is my stamina? If it is on the lower side, a light attack might be smarter than a heavy attack, as it costs less stamina.           
                      */
-
-                    //if (ctx.DistanceToTarget > ctx.LightAttackRange)
-                    //    return 0f;
-
-                    //float close = Low(ctx.DistanceToTarget,
-                    //                      ctx.IdealLightAttackRange, ctx.LightAttackRange);
-                    //close = close * close * (3f - 2f * close);               // smoothstep
-
-                    //float stamPeak = Mathf.Min(High(ctx.CurrentStaminaPercentage, .25f, .4f),
-                    //                             Low(ctx.CurrentStaminaPercentage, .4f, .8f));
-
-                    //float enemyHighHP = High(ctx.TargetHealthPercentage, .2f, .6f);
-
-                    //return close * weights.lightAttack_proximityWeight +
-                    //        stamPeak * weights.lightAttack_staminaLightBonus +
-                    //        enemyHighHP * weights.lightAttack_lowHealthBonus;
 
                     // *** Distance to target ***
 
@@ -363,15 +286,7 @@ namespace Characters.Behaviour
                     if (ctx.CurrentStaminaPercentage < 0.4f)          // hard gate
                         return 0f;
 
-                    //float near = Low(ctx.DistanceToTarget, 0f, ctx.HeavyAttackRange * .6f);
-                    //float highStam = High(ctx.CurrentStaminaPercentage, .4f, .8f);
-                    //enemyHighHP = High(ctx.TargetHealthPercentage, .15f, .4f);
                     float myHighHP = ValueHigh(ctx.CurrentHealthPercentage, .3f, .6f);
-
-                    //return near * weights.heavyAttack_proximityWeight +
-                    //        highStam * weights.heavyAttack_highStaminaWeight +
-                    //        enemyHighHP * weights.heavyAttack_lowEnemyHealthWeight +
-                    //        myHighHP * weights.heavyAttack_lowHealthWeight;
 
                     // WANT to attack if we have stamina
                     float staminaFactor = ValueHigh(ctx.CurrentStaminaPercentage, 0.4f, 1f); // 1 high, 0 low
@@ -432,7 +347,6 @@ namespace Characters.Behaviour
                      * If we are too close to the target, we should retreat
                      * If our stamina is low, we should retreat
                      */
-
 
                     lowHealth = ValueLow(ctx.CurrentHealthPercentage, 0, 0.2f);
 

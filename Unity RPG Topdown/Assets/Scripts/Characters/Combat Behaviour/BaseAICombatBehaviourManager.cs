@@ -24,10 +24,8 @@ namespace Characters.Behaviour
         [BoxGroup("Combat Stance"), SerializeField] private float combatStanceMoveSpeed;
         [BoxGroup("Combat Stance"), SerializeField] private float radiusStep = 1;
         [BoxGroup("Combat Stance"), SerializeField] private float defensiveRadius = 1.5f;
-        [BoxGroup("Combat Stance"), SerializeField] private float defensiveSafeRadius = 2.5f;
         [BoxGroup("Combat Stance"), SerializeField] private float maxAngleStep = 1, minAngleStep = 1;
         [BoxGroup("Combat Stance"), SerializeField] private float waitDuration = 1;
-
 
         // A list of the current condition nodes that are connected to the current node
         private List<CBTSystemConditionNodeSO> curConnectedConditionNodes = new();
@@ -37,7 +35,6 @@ namespace Characters.Behaviour
 
         // The current action node that is being executed
         private CBTSystemActionNodeSO _currentActionNode;
-
         private Coroutine combatStanceCoroutine = null;
 
         public static Action<string> OnNodeChanged;
@@ -223,9 +220,6 @@ namespace Characters.Behaviour
                         currentActionNode = cbtSystemNode as CBTSystemActionNodeSO;
 
                         return true;
-
-                        // Break out of the loop, as we only want to execute one action node at a time
-                        break;
                     }
                     else
                     {
