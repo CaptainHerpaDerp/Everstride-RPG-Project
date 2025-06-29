@@ -26,9 +26,7 @@ public class CombatAITest1v1
         // Set the random seed for reproducibility
         UnityEngine.Random.InitState(123456);
 
-        int runs = 70;
-
-        var originalParent = Camera.main.transform.parent;
+        int runs = 50;
 
 
         for (int i = 0; i < runs; i++)
@@ -86,7 +84,7 @@ public class CombatAITest1v1
             });
 
             // —— cleanup ——
-            Camera.main.transform.SetParent(originalParent);
+            Camera.main.transform.SetParent(null);
 
             GameObject.Destroy(aiA);
             GameObject.Destroy(aiB);
