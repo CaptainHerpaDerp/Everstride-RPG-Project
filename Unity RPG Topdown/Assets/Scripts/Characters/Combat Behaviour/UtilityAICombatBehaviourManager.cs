@@ -18,16 +18,16 @@ using static UnityEngine.GraphicsBuffer;
 
 namespace Characters.Behaviour
 {
-       /// <summary>
+    /// <summary>
     /// Manages the AI combat behaviour for a character using a Behaviour Tree system (CBT). Includes Utility behaviour and assessment for combat actions.
     /// </summary>
+    [RequireComponent(typeof(ScoreEvaluatorUtility))]
     public class UtilityAICombatBehaviourManager : MonoBehaviour
     {
         [BoxGroup("Component References"), SerializeField] private Mover mover;
         [BoxGroup("Component References"), SerializeField] NPC npc;
         [BoxGroup("Component References"), SerializeField] private CBTSystemContainerSO CBTConfig;
-        [BoxGroup("Component References"), SerializeField] private UtilityAIWeightsContainer weights;
-        
+        [BoxGroup("Component References"), SerializeField] private ScoreEvaluatorUtility scoreEval;
 
         [BoxGroup("Combat Stance"), SerializeField] private float combatStanceMoveSpeed;
 
@@ -37,18 +37,16 @@ namespace Characters.Behaviour
         [BoxGroup("Combat Stance"), SerializeField] private float maxAngleStep = 1, minAngleStep = 1;
         [BoxGroup("Combat Stance"), SerializeField] private float waitDuration = 1;
 
-        [SerializeField, Range(0, 1)] float aggression = 0.35f;
-        [SerializeField, Range(0, 1)] float riskAversion = 0.25f;
-
         [Header("This value determines the minimum duration an action can be carried out before another can be considered")]
        // [BoxGroup("Utility Behaviour"), SerializeField] private float actionMinDwellTime = 0.35f;
 
         [BoxGroup("Scoring Variables, Combat Stance"), SerializeField] private float lowStaminaFactor = 0.8f; // Factor to increase the score when stamina is low
 
-        public float staminaRetreatThreshold { get; protected set; } = 0.10f; // The stamina percentage at which the NPC will retreat from combat
-        public float healthRetreatThreshold { get; protected set; } = 0.15f; // The health percentage at which the NPC will retreat from combat
+        [BoxGroup("Retreat"), SerializeField] private float retreatTimeMax = 5;
+        [BoxGroup("Retreat"), SerializeField] private float dodgeTimeMax = 1.5f;
+        private float _currentRetreatTime, _currentDodgeTime;
 
-        [ShowInInspector] protected float _currentDefensiveRadius;
+        [ShowInInspector] public float currentDefensiveRadius { get; protected set; }
 
         // A list of the current condition nodes that are connected to the current node
         private List<CBTSystemConditionNodeSO> curConnectedConditionNodes = new();
@@ -63,7 +61,6 @@ namespace Characters.Behaviour
         private CBTSystemActionNodeSO _currentActionNode;
 
         private Coroutine combatStanceCoroutine = null;
-        private Coroutine dodgeRountine = null;
 
         public static Action<string> OnNodeChanged;
 
@@ -158,7 +155,7 @@ namespace Characters.Behaviour
                     npc.SetMovementSpeed(npc.defaultMovementSpeed);
 
                     mover.Resume();
-                    mover.SetTarget(combatTarget.transform, _currentDefensiveRadius);
+                    mover.SetTarget(combatTarget.transform, currentDefensiveRadius);
 
                     npc.DoTargetViewLock = true;
 
@@ -187,20 +184,6 @@ namespace Characters.Behaviour
                     if (combatStanceCoroutine == null)
                     {
                         combatStanceCoroutine = StartCoroutine(DoCombatStance());
-                    }
-
-                    break;
-
-                case CBTActionType.DodgeAttack:
-
-                    npc.OnUpdateCombatState?.Invoke(NPCState.TargetBlocking);
-
-                    mover.Resume();
-
-                    if (dodgeRountine == null)
-                    {
-                        Debug.Log("Dodge");
-                        dodgeRountine = StartCoroutine(DoDodgeRoutine());
                     }
 
                     break;
@@ -239,6 +222,40 @@ namespace Characters.Behaviour
                     npc.EndHeavyAttack();
                     break;
 
+
+                case CBTActionType.DodgeAttack:
+
+                    _currentDodgeTime += Time.deltaTime;
+
+                    npc.OnUpdateCombatState?.Invoke(NPCState.TargetBlocking);
+                    mover.Resume();
+                    npc.DoTargetViewLock = true;
+                    npc.SetMovementSpeed(npc.defaultMovementSpeed);
+
+                    Vector3 diffA = transform.position - npc.ctx.TargetTransform.position;
+
+                    diffA.Normalize();
+
+                    mover.SetTarget(transform.position + (diffA));
+
+                    break; 
+
+                case CBTActionType.Retreat:
+
+                    _currentRetreatTime += Time.deltaTime;
+
+                    npc.OnUpdateCombatState?.Invoke(NPCState.TargetBlocking);
+                    mover.Resume();
+                    npc.DoTargetViewLock = false;
+                    npc.SetMovementSpeed(npc.defaultMovementSpeed);
+
+                    Vector3 diffB = transform.position - npc.ctx.TargetTransform.position;
+
+                    diffB.Normalize();
+
+                    mover.SetTarget(transform.position + (diffB));
+
+                    break;
             }
         }
 
@@ -371,16 +388,6 @@ namespace Characters.Behaviour
 
             foreach (var utilityNode in connectedUtilityNodes)
             {
-                // For each of the currently connected utility nodes, evaluate the utility selector node and get the next action node
-                CBTSystemActionNodeSO newActionNode = GetEvaluateUtilitySelectorNode(utilityNode);
-
-                // If the newly found action node isnt null, and we are able to exit the current action node, we can set the new action node
-                if (newActionNode != null && TryExitCurrentActionNode())
-                {
-                    currentActionNode = newActionNode;
-                    return true;
-                }
-
                 // If we couldn't find an action node, search through any condition nodes that are connected to the utility node
                 List<CBTSystemConditionNodeSO> connectedConditionNodes = GetConnectedConditionNodes(utilityNode);
 
@@ -393,6 +400,17 @@ namespace Characters.Behaviour
                         return true;
                     }
                 }
+
+                // For each of the currently connected utility nodes, evaluate the utility selector node and get the next action node
+                CBTSystemActionNodeSO newActionNode = GetEvaluateUtilitySelectorNode(utilityNode);
+
+                // If the newly found action node isnt null, and we are able to exit the current action node, we can set the new action node
+                if (newActionNode != null && TryExitCurrentActionNode())
+                {
+                    currentActionNode = newActionNode;
+                    return true;
+                }
+
             }
 
             return false;
@@ -479,12 +497,33 @@ namespace Characters.Behaviour
 
                 case CBTActionType.DodgeAttack:
 
-                    bool farEnough = npc.ctx.DistanceToTarget > npc.ctx.TargetAttackRange;
+                    bool dodgedLongEnough = _currentDodgeTime >= dodgeTimeMax;
 
-                    if (farEnough)
+                    bool farEnough = npc.ctx.DistanceToTarget > npc.ctx.TargetAttackRange * 1.2f;
+                    
+                    if (farEnough == false)
+                    Debug.Log("Cant exit, not far enough");
+
+                    if (farEnough || dodgedLongEnough)
                     {
-                        dodgeRountine = null;
+                        _currentDodgeTime = 0;
+                        return true;
+                    }
 
+                    return false;
+
+                case CBTActionType.Retreat:
+
+                    bool ranFarEnough = npc.ctx.DistanceToTarget > npc.ctx.TargetAttackRange;
+
+                    bool ranLongEnough = _currentRetreatTime >= retreatTimeMax;
+
+                    if (ranFarEnough == false)  
+                        Debug.Log("Cant exit, not far enough");
+
+                    if (ranFarEnough || ranLongEnough)
+                    {
+                        _currentRetreatTime = 0;
                         return true;
                     }
 
@@ -629,24 +668,6 @@ namespace Characters.Behaviour
             }
         }
 
-        #region Condition Checking
-
-        //private bool EvaluateAll(CombatContext ctx)
-        //{
-        //    if (ConditionEntries.Count == 0)
-        //        return true;
-
-        //    bool result = CheckSingle(ConditionEntries[0], ctx);
-        //    for (int i = 1; i < ConditionEntries.Count; i++)
-        //    {
-        //        bool next = CheckSingle(ConditionEntries[i], ctx);
-        //        var op = Connectors[i - 1];
-        //        result = (op == LogicalOp.And) ? (result && next) : (result || next);
-        //    }
-        //    return result;
-        //}
-
-        #endregion
 
         /// <summary>
         /// Returns the actual value of a given condition
@@ -747,18 +768,7 @@ namespace Characters.Behaviour
             }
         }
 
-        #region Action Callback Methods
-
-        private void MoveToTarget(Action callBack)
-        {
-            mover.SetTarget(combatTarget.position);
-
-
-        }
-
-        #endregion
-
-        #region Action Methods
+        #region Action Coroutines
 
         private IEnumerator DoCombatStance()
         {
@@ -779,9 +789,9 @@ namespace Characters.Behaviour
 
                 // Dynamic defensive radius based on the condition of the npc compared to its combat target
 
-                _currentDefensiveRadius = Mathf.Lerp(defensiveRadiusMin, defensiveRadiusMax, npc.ctx.CurrentHealthPercentage * defensiveRadiusMax);
+                currentDefensiveRadius = Mathf.Lerp(defensiveRadiusMin, defensiveRadiusMax, npc.ctx.CurrentHealthPercentage * defensiveRadiusMax);
 
-                float distance = _currentDefensiveRadius + UnityEngine.Random.Range(-radiusStep, radiusStep);
+                float distance = currentDefensiveRadius + UnityEngine.Random.Range(-radiusStep, radiusStep);
 
                 Vector3 offset = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * distance;
 
@@ -795,21 +805,6 @@ namespace Characters.Behaviour
                 yield return new WaitForSeconds(waitDuration);
 
             }
-        }
-
-        private IEnumerator DoDodgeRoutine()
-        {
-            npc.DoTargetViewLock = true;
-
-            npc.SetMovementSpeed(npc.defaultMovementSpeed);
-
-            Vector3 diff = transform.position - npc.ctx.TargetTransform.position;
-
-            diff.Normalize();
-
-            mover.SetTarget(transform.position + (diff * 10));
-
-            yield return null;
         }
 
         #endregion
@@ -963,11 +958,62 @@ namespace Characters.Behaviour
         {
             if (Time.time - currentActionStartTime < actionDwellTime)
             {
-                Debug.LogWarning("Cannot exit yet, haven't dwelled enough!");
                 return false;
             }
 
             return true;
+        }
+
+        public bool CanExcecute(CBTActionType desiredAction, CombatContext ctx)
+        {
+            switch (desiredAction)
+            {
+                case CBTActionType.MoveToStanceRadius:
+                    // only if we're outside our combat stance radius
+                    return ctx.DistanceToTarget > currentDefensiveRadius;
+
+                case CBTActionType.MoveToAttackRange:
+                    // inside your defensive circle, but still too far to hit
+                    return ctx.DistanceToTarget <= currentDefensiveRadius;
+
+                case CBTActionType.CombatStance:
+                    // always valid once in range
+                    return ctx.DistanceToTarget <= currentDefensiveRadius;
+
+                case CBTActionType.LightAttack:
+                    // only if we have enough stamina to attack and the target is in range
+
+                    bool inRange = ctx.DistanceToTarget <= ctx.LightAttackRange;
+
+                    bool minStamina = ctx.CurrentStaminaValue >= ctx.LightAttackStaminaCost;
+
+                    return minStamina && ctx.DistanceToTarget <= ctx.LightAttackRange;
+
+                case CBTActionType.StartHeavyAttack:
+                    // only if we have enough stamina to attack and the target is in range
+                    return ctx.DistanceToTarget <= ctx.HeavyAttackRange;
+
+                case CBTActionType.ReleaseHeavyAttack:
+                    return npc.MinChargeTimeMet();
+
+                case CBTActionType.HoldBlock:
+                    inRange = ctx.DistanceToTarget <= ctx.TargetAttackRange * 1.2f; // 20% more than the attack range
+
+                    return true;
+
+                case CBTActionType.DodgeAttack:
+
+                    inRange = ctx.DistanceToTarget <= ctx.TargetAttackRange * 1.2f; // 20% more than the attack range
+
+                    return inRange;
+
+                case CBTActionType.Retreat:
+                    return true;
+
+                default:
+                    Debug.LogWarning($"Action {desiredAction} not implemented in action execution check.");
+                    return false;
+            }
         }
 
         public CBTSystemActionNodeSO GetEvaluateUtilitySelectorNode(CBTSystemUtilitySelectorNodeSO utilitySelecorNode)
@@ -1012,7 +1058,7 @@ namespace Characters.Behaviour
 
             // Score each of the candidates
             var rawScores = candidates
-                .Select(node => EvaluateUtility(node.ActionType, npc.ctx))
+                .Select(node => scoreEval.EvaluateUtility(node.ActionType, npc.ctx))
                 .ToArray();
 
             // right before you softmax:
@@ -1023,16 +1069,11 @@ namespace Characters.Behaviour
                     utilitySelecorNode.CurrentActionNodeScore = rawScores[i]; // Update the current action node score
                 }
 
-            for (int i = 0; i < candidates.Count; i++)
-            {
-                //Debug.Log($"{Time.time:f1}s  {candidates[i].ActionType}  score={rawScores[i]:0.00}");
-            }
-
             // Turn the scores into probabilities
-            var probabilities = SoftMax(rawScores, utilitySelecorNode.Temperature);
+            var probabilities = ScoreEvaluatorUtility.SoftMax(rawScores, utilitySelecorNode.Temperature);
 
             // Pick one index by weighted random choice, then execute it
-            int chosenIndex = Sample(probabilities);
+            int chosenIndex = ScoreEvaluatorUtility.Sample(probabilities);
             var chosen = candidates[chosenIndex];
 
             if (chosen == currentActionNode)
@@ -1060,528 +1101,6 @@ namespace Characters.Behaviour
             utilitySelecorNode.CurrentActionNodeScore = rawScores[chosenIndex];
 
             return chosen;
-        }
-
-        public bool CanExcecute(CBTActionType desiredAction, CombatContext ctx)
-        {
-            switch (desiredAction)
-            {
-                case CBTActionType.MoveToStanceRadius:
-                    // only if we're outside our combat stance radius
-                    return ctx.DistanceToTarget > _currentDefensiveRadius;
-
-                case CBTActionType.MoveToAttackRange:
-                    // inside your defensive circle, but still too far to hit
-                    return ctx.DistanceToTarget <= _currentDefensiveRadius;
-
-                case CBTActionType.CombatStance:
-                    // always valid once in range
-                    return ctx.DistanceToTarget <= _currentDefensiveRadius;
-
-                case CBTActionType.LightAttack:
-                    // only if we have enough stamina to attack and the target is in range
-
-                    bool inRange = ctx.DistanceToTarget <= ctx.LightAttackRange;
-
-                    bool minStamina = ctx.CurrentStaminaValue >= ctx.LightAttackStaminaCost;
-
-                    return ctx.DistanceToTarget <= ctx.LightAttackRange;
-
-                case CBTActionType.StartHeavyAttack:
-                    // only if we have enough stamina to attack and the target is in range
-                    return ctx.DistanceToTarget <= ctx.HeavyAttackRange;
-
-                case CBTActionType.ReleaseHeavyAttack:
-                    return npc.MinChargeTimeMet();
-
-                case CBTActionType.HoldBlock:
-                    float targetAttacking = ctx.SeenIncomingAttack;
-                    bool binRangeAttack = ctx.DistanceToTarget <= ctx.TargetAttackRange * 1.1f; // 10% more than the target's attack range
-                    bool bsufficientHealth = ctx.CurrentHealthPercentage > 0.2f; // 20% health threshold
-
-                    return targetAttacking == 1 && binRangeAttack && bsufficientHealth;
-
-                case CBTActionType.DodgeAttack:
-                    float dtargetAttacking = ctx.SeenIncomingAttack;
-                    bool dinRangeAttack = ctx.DistanceToTarget <= ctx.TargetAttackRange * 1.1f; // 10% more than the target's attack range
-
-                    return dtargetAttacking == 1 && dinRangeAttack;
-
-                default:
-                    Debug.LogWarning($"Action {desiredAction} not implemented in action execution check.");
-                    return false;
-            }
-        }
-
-        [BoxGroup("Scoring Modifiers, Move Attack"), SerializeField] private float lastHitThresholdTime = 3;
-
-
-        // 0 when value ≤ a, 1 when value ≥ b, linear in-between
-        float High(float v, float a, float b) => Mathf.Clamp01((v - a) / (b - a));
-
-        // 0 when value ≥ b, 1 when value ≤ a
-        float Low(float v, float a, float b) => Mathf.Clamp01((b - v) / (b - a));
-
-
-        public float EvaluateUtility(CBTActionType action, CombatContext ctx)
-        {
-            float recentHit = 0;
-            float rawHealthDelta = 0;
-            float hpDiffFactor = 0;
-            float rawStamDelta = 0;
-            float stamDiffFactor = 0;
-            float stamSufficient = 0;
-            float attackRange = 0;
-            float attackImminentScore = 0;
-            float distanceFactor = 0;
-            float staminaLow;
-            float rise, fall;
-            float lowHealth;
-
-            switch (action)
-            {
-                case CBTActionType.MoveToStanceRadius:
-
-                    // highest when you’re very far
-                    return Mathf.Clamp01((ctx.DistanceToTarget - _currentDefensiveRadius) / _currentDefensiveRadius);
-
-                case CBTActionType.MoveToAttackRange:
-
-                    /**** Considerations ****/
-
-                    /* How is my health, especially relative to the target's health? Can I risk going in for an attack?
-                     * Is the target attacking? If so, I should not go in for an attack, as I might get hit.
-                     * How is my stamina compared to my enemy's? If it is low, i should probably keep my distance and let my stamina regenerate
-                     * How is my health compared to my enemy's? If it is a lot lower, I should definately keep my distance and let my stamina regenerate
-                     * If my health is slightly lower than my enemy's but my stamina is much higher, I can probably risk going in for an attack, as I can block or dodge their attacks
-                     * How long has it been since I was last hit? If it has been a while, I can be more aggressive and go in for an attack
-                     * Is the target holding a heavy attack? If so, I should not go in for an attack, as I might get hit.
-                     */
-
-
-
-                    //float noRecentHit = High(ctx.TimeSinceLastHit, 3f, 5f);   // 0 → 1
-                    //float healthier = High(ctx.CurrentHealthPercentage -
-                    //                         ctx.TargetHealthPercentage, 0f, .4f);
-                    //float moreStam = High(ctx.CurrentStaminaPercentage -
-                    //                         ctx.TargetStaminaPercentage, 0f, .3f);
-                    //float staminaOkay = High(ctx.CurrentStaminaPercentage, .3f, .6f);
-
-                    //return noRecentHit * weights.moveToAttack_recentHit +
-                    //        healthier * weights.moveToAttack_healthDiff +
-                    //        moreStam * weights.moveToAttack_stamDiff +
-                    //        staminaOkay * weights.moveToAttack_stamReady;
-
-
-                    // Take the time since last hit into account (If we have not been hit in a while, we can be more aggressive)
-                    float t = Mathf.InverseLerp(3.0f, 5.0f, ctx.TimeSinceLastHit);
-                    //  t = 0  (≤3 s) … 1 (≥5 s)
-                    recentHit = Mathf.SmoothStep(0f, 1f, t);
-
-                    // The difference of my health to the target's health into consideration (If my health is lower than the target's, I should be more defensive)
-                    rawHealthDelta = ctx.CurrentHealthPercentage - ctx.TargetHealthPercentage; // −1 .. +1
-                    hpDiffFactor = Mathf.Clamp01((rawHealthDelta + 1f) * 0.5f);   // 0..1 symmetric
-
-                    // The difference of my stamina to the target's stamina into consideration (If my stamina is lower than the target's, I should be more defensive)
-                    rawStamDelta = ctx.CurrentStaminaPercentage - ctx.TargetStaminaPercentage;
-                    stamDiffFactor = Mathf.Clamp01((rawStamDelta + 1f) * 0.5f);
-
-                    stamSufficient = Mathf.InverseLerp(0.2f, 0.5f, ctx.CurrentStaminaPercentage); // 0.2 is the minimum stamina to attack (score 0), 0.5 will raise the score to 1
-
-                    // *** Target Attacking *** //
-
-                    // If the target is attacking, we should not go in for an attack
-                    if (ctx.SeenIncomingAttack > 0f)
-                    {
-                        // If the target is attacking, we should not go in for an attack
-                        return 0f;
-                    }
-
-                    return
-                        (recentHit * weights.moveToAttack_recentHit +
-
-                        hpDiffFactor * weights.moveToAttack_healthDiff +
-
-                        stamDiffFactor * weights.moveToAttack_stamDiff +
-
-                        stamSufficient * weights.moveToAttack_stamReady) * aggression;
-
-                // Combat stance is where the character will encircle their target, maintaining their distance while being ready to attack or block
-                case CBTActionType.CombatStance:
-
-                    /**** Considerations ****/
-
-                    /* 
-                     * If our health is lower than our target, we need to be more defensive, and stay in combat stance
-                     * If our stamina is lower than our target, we need to be more defensive, and stay in combat stance
-                     * If we were recently hit, we might want to back off
-                     */
-
-                    //recentHit = Low(ctx.TimeSinceLastHit, 0f, 3f);      // 1 → 0
-                    //float weaker = Low(ctx.CurrentHealthPercentage -
-                    //                          ctx.TargetHealthPercentage, -.4f, 0f);
-                    //float lessStam = Low(ctx.CurrentStaminaPercentage -
-                    //                          ctx.TargetStaminaPercentage, -.3f, 0f);
-                    //float staminaLow = Low(ctx.CurrentStaminaPercentage, .2f, .5f);
-
-                    //return recentHit * weights.combatStance_recentHit +
-                    //        weaker * weights.combatStance_healthDiff +
-                    //        lessStam * weights.combatStance_stamDiff +
-                    //        staminaLow * weights.combatStance_stamReady;
-
-                    // The more recently we were hit, the more we want to back off
-                    recentHit = 1f - Mathf.InverseLerp(0f, lastHitThresholdTime, ctx.TimeSinceLastHit);
-
-                    // The higher the health of the enemy compared to us, the more we want to back off
-                    rawHealthDelta = ctx.TargetHealthPercentage - ctx.CurrentHealthPercentage;
-                    hpDiffFactor = Mathf.Clamp01((rawHealthDelta + 1f) * 0.5f);   // 0..1 symmetric
-
-                    rawStamDelta = ctx.TargetStaminaPercentage - ctx.CurrentStaminaPercentage;
-                    stamDiffFactor = Mathf.Clamp01((rawStamDelta + 1f) * 0.5f);
-
-                    stamSufficient = 1f - Mathf.InverseLerp(0.2f, 0.5f, ctx.CurrentStaminaPercentage);                 
-
-                    return 
-                     (recentHit * weights.combatStance_recentHit +
-
-                     hpDiffFactor * weights.combatStance_healthDiff +
-
-                     stamDiffFactor * weights.combatStance_stamDiff +
-
-                     stamSufficient * weights.combatStance_stamReady) * riskAversion;
-
-                //case CBTActionType.InstantBlock:
-
-                //    /**** Considerations ****/
-
-                //    /* 
-                //     * The variables to evaluate are if we are relatively close to the target (too far to dodge), 
-                //     * if our health is low, we dodging might be too risky
-                //     * if our stamina is too low, we might not be able to block the attack (afford the cost)
-                //     * if our stamina is at 0 or below 5%, we should not block at all
-                //     * if the enemy's stamina is high, and we have both stamina and health to expend, we should block to reduce the enemy's stamina, and fight back later where they can't block anymore
-                //     */
-
-                //    //if (ctx.SeenIncomingAttack == 0) return 0f;
-                //    //if (ctx.CurrentStaminaPercentage < .1f) return 0f;   // avoid stagger
-
-                //    //float veryClose = Low(ctx.DistanceToTarget, 0f, ctx.TargetAttackRange);
-                //    //float stamEnough = High(ctx.CurrentStaminaPercentage, .25f, .5f);
-
-                //    //return veryClose * weights.block_distanceWeight +
-                //    //        stamEnough * weights.block_staminaWeight;
-
-                //    // (gated first)
-                //    if (ctx.SeenIncomingAttack == 0) return 0f;
-                //    if (ctx.CurrentStaminaPercentage < 0.05f) return 0f;     // avoid stagger
-
-                //    float lowDistance = ctx.ValueLow(ctx.DistanceToTarget, 0, ctx.TargetAttackRange); // 1 close, 0 far
-                //    float staminaEnough = ctx.ValueHigh(ctx.CurrentStaminaPercentage, 0.25f, 0.5f); // 1 high, 0 low
-
-                //    return
-                //         (lowDistance * weights.block_distanceWeight +
-                //         staminaEnough * weights.block_staminaWeight) * riskAversion;
-
-                case CBTActionType.HoldBlock:
-                    // Only consider blocking when an incoming attack is actually detected.
-                    if (ctx.SeenIncomingAttack <= 0f)
-                        return 0f;
-
-                    // Hard-gate: avoid blocking if stamina is too low to hold (below 10%).
-                    if (ctx.CurrentStaminaPercentage < 0.1f)
-                        return 0f;
-
-                    // Score higher the closer we are to the attacker (within attack range).
-                    // ValueLow(a, 0, R) → 1 at 0 distance, 0 at R or beyond.
-                    float distanceScore = ctx.ValueLow(
-                        ctx.DistanceToTarget,
-                        0f,
-                        ctx.TargetAttackRange
-                    );
-
-                    // Score higher when our health is quite low (0 → 30% mapped 1 → 0).
-                    float healthScore = ctx.ValueLow(
-                        ctx.CurrentHealthPercentage,
-                        0f,
-                        0.3f
-                    );
-
-                    // Score higher when stamina is low but still above the 10% floor.
-                    // ValueLow(s, 0.1, 0.4) → 1 at 0.1, 0 at 0.4 or above.
-                    float staminaScore = ctx.ValueLow(
-                        ctx.CurrentStaminaPercentage,
-                        0.1f,
-                        0.4f
-                    );
-
-                    // Combine weighted factors and apply risk-aversion multiplier.
-                    return
-                        (distanceScore * weights.passiveBlock_lowDistanceWeight +
-                         healthScore * weights.passiveBlock_lowHealthWeight +
-                         staminaScore * weights.passiveBlock_lowStaminaWeight)
-                        * riskAversion;
-
-
-                case CBTActionType.DodgeAttack:
-
-                    /**** Considerations ****/
-
-                    /* 
-                     * The variables to evaluate are if we are too close to the target (low chance to successfly move out of the way),
-                     * depending on the speed of the target weapon's base attack, we might not be able to dodge in time
-                     * if the target is performing a heavy attack, we have a higher chance of being able to dodge
-                     * the lower our stamina, the higher our favorability to dodge, as we cannot block
-                     */
-
-                    //if (ctx.SeenIncomingAttack == 0) return 0f;
-
-                    //float safeZone = High(ctx.DistanceToTarget,
-                    //                      ctx.TargetAttackRange * .8f, ctx.TargetAttackRange);
-                    //float stamLow = Low(ctx.CurrentStaminaPercentage, 0f, .25f);
-
-                    //return safeZone * weights.dodge_inSafeAreaWeight +
-                    //        stamLow * weights.dodge_staminaAbundanceWeight;
-
-                    // (gated first)
-                    if (ctx.SeenIncomingAttack == 0) return 0f;
-
-                    if (ctx.TargetHeavyAttackChargePercentage <= 0)
-                    {
-                        return 0;
-                    }
-
-                    if (ctx.DistanceToTarget < ctx.TargetAttackRange)
-                    {
-                        return 0;
-                    }
-
-                    // Lerp: Tells you how far along the line between 'a' and 'b' the value is. If the value is at 'a', return 0, if the value is at 'b' return 1.
-                    rise = Mathf.Clamp01(Mathf.InverseLerp(ctx.TargetAttackRange * 1f, ctx.TargetAttackRange * 1.2f, ctx.DistanceToTarget));
-
-                    // In this inverseLerp, we subtract by 1, becuase we want to fade out the score as the stamina percentage increases (higher = worse)
-                    fall = Mathf.Clamp01(1 - Mathf.InverseLerp(ctx.TargetAttackRange * 1.2f, ctx.TargetAttackRange * 1.5f, ctx.DistanceToTarget));
-
-                    // Combine the two lerps into a bump                 
-                    float dodgeCurve = Mathf.Min(rise, fall);
-
-                    staminaLow = ctx.ValueLow(ctx.CurrentStaminaPercentage, 0, 0.3f); // 0 lots, 1 low - if we have a lot of stamina, we should just block
-
-                    // Much more favourable when the enemy is performing a heavy attack, as we can dodge out of the way more easily
-                    float enemyHeavyAttack = ctx.TargetHeavyAttackChargePercentage > 0 ? 1 : 0; // 1 if heavy attack, 0 if not
-
-                    // Less favourable when our health is low, as dodging might be risky
-                    lowHealth = ctx.ValueHigh(ctx.CurrentHealthPercentage, .4f, .7f); // 1 high, 0 low    
-
-
-                    return
-
-                       (dodgeCurve * weights.dodge_inSafeAreaWeight +
-                        staminaLow * weights.dodge_staminaAbundanceWeight +
-                        enemyHeavyAttack * weights.dodge_enemyHeavyAttackWeight +
-                        lowHealth * weights.dodge_healthAbundantWeight) * riskAversion;
-
-                case CBTActionType.LightAttack:
-
-                    /**** Considerations ****/
-
-                    /* How is my current distance to the enemy, if is just barely within my light attack range, i might wait to wait util i move closer to them, as the chance of hitting them is low.
-                     * How is my stamina? If it is on the lower side, a light attack might be smarter than a heavy attack, as it costs less stamina.
-                     * 
-                     */
-
-                    //if (ctx.DistanceToTarget > ctx.LightAttackRange)
-                    //    return 0f;
-
-                    //float close = Low(ctx.DistanceToTarget,
-                    //                      ctx.IdealLightAttackRange, ctx.LightAttackRange);
-                    //close = close * close * (3f - 2f * close);               // smoothstep
-
-                    //float stamPeak = Mathf.Min(High(ctx.CurrentStaminaPercentage, .25f, .4f),
-                    //                             Low(ctx.CurrentStaminaPercentage, .4f, .8f));
-
-                    //float enemyHighHP = High(ctx.TargetHealthPercentage, .2f, .6f);
-
-                    //return close * weights.lightAttack_proximityWeight +
-                    //        stamPeak * weights.lightAttack_staminaLightBonus +
-                    //        enemyHighHP * weights.lightAttack_lowHealthBonus;
-
-                    // *** Distance to target ***
-
-                    float currentAttackOpt = Mathf.InverseLerp(ctx.IdealLightAttackRange , ctx.LightAttackRange, ctx.DistanceToTarget);
-
-                    // 1 when at ideal range, 0 when at max range
-                    float proximity = 1f - currentAttackOpt;
-
-                    // Clamp the value
-                    proximity = Mathf.Clamp01(proximity);
-
-                    // Smoothstep for a softer falloff so that it ramps up nicely
-                    proximity = proximity * proximity * (3f - 2f * proximity); // This formula gives a smooth transition from 0 to 1
-
-                    // *** Current Stamina ***
-
-                    // The goal is to have a curve that turns on between 25% and 40%, peaks at 40%, then fades out by 75%.
-                    
-                    // Lerp: Tells you how far along the line between 'a' and 'b' the value is. If the value is at 'a', return 0, if the value is at 'b' return 1.
-                    rise = Mathf.Clamp01(Mathf.InverseLerp(0.25f, 0.40f, ctx.CurrentStaminaPercentage));
-
-                    // In this inverseLerp, we subtract by 1, becuase we want to fade out the score as the stamina percentage increases (higher = worse)
-                    fall = Mathf.Clamp01(1 - Mathf.InverseLerp(0.40f, 0.75f, ctx.CurrentStaminaPercentage));
-
-                    // Combine the two lerps into a bump
-                    // We use m in here because we want to get the lower value of the two lerps, as we want to fade out the score as the stamina percentage increases
-                    float staminaLightBonus = Mathf.Min(rise, fall);
-
-                    // *** Current Health Difference***
-
-                    // The higher the health of the enemy compared to us, the more we want to back off
-                    rawHealthDelta = ctx.TargetHealthPercentage - ctx.CurrentHealthPercentage;
-                    hpDiffFactor = Mathf.Clamp01((rawHealthDelta + 1f) * 0.5f);   // 0..1 symmetric
-
-                    float enemyLowStamina = ctx.ValueLow(ctx.TargetStaminaPercentage, 0, 0.3f); // 1 low, 0 high - if the enemy has low stamina, we can hit them more easily
-
-                    // *** Enemy Low Stamina Bonus ***
-
-                    return
-
-                        (proximity * weights.lightAttack_proximityWeight +
-                        staminaLightBonus * weights.lightAttack_staminaLightBonus +
-                        hpDiffFactor * weights.lightAttack_healthDiffBonus +
-                        enemyLowStamina * weights.lightAttack_enemyLowStaminaBonus
-
-                        ) * aggression;
-
-                case CBTActionType.StartHeavyAttack:
-
-                    /**** Considerations ****/
-
-                    /* How is my current stamina? Higher stamina means I could use some to perform a heavy attack.
-                     * How low is the enemy's health? If it is quite low, i should try to finish them off now with light attacks, rather than let them regain health and stamina while i charge for a heavy attack.
-                     * How far is the enemy from me? The closer they are, the higher the chance of them getting hit by the heavy attack. Otherwise I might as well just perform a light attack.
-                     */
-
-                    if (ctx.CurrentStaminaPercentage < 0.4f)          // hard gate
-                        return 0f;
-
-                    //float near = Low(ctx.DistanceToTarget, 0f, ctx.HeavyAttackRange * .6f);
-                    //float highStam = High(ctx.CurrentStaminaPercentage, .4f, .8f);
-                    //enemyHighHP = High(ctx.TargetHealthPercentage, .15f, .4f);
-                    //float myHighHP = High(ctx.CurrentHealthPercentage, .3f, .6f);
-
-                    //return near * weights.heavyAttack_proximityWeight +
-                    //        highStam * weights.heavyAttack_highStaminaWeight +
-                    //        enemyHighHP * weights.heavyAttack_lowEnemyHealthWeight +
-                    //        myHighHP * weights.heavyAttack_lowHealthWeight;
-
-                    // WANT to attack if we have stamina
-                    float staminaFactor = ctx.ValueHigh(ctx.CurrentStaminaPercentage, 0.4f, 1f); // 1 high, 0 low
-
-                    // DONT want to attack if the enemy's health is low
-                    float enemyHealthFactor = ctx.ValueHigh(ctx.TargetHealthPercentage, .1f, 0.3f); // 1 high, 0 low
-
-                    // WANT to attack if the enemy is close enough                          
-                    distanceFactor = ctx.ValueLow(ctx.DistanceToTarget, 0, ctx.HeavyAttackRange * 0.6f); // 1 close, 0 far
-
-                    // DONT want to attack if my health is low, as I might get hit while charging
-                    float healthFactor = ctx.ValueHigh(ctx.CurrentHealthPercentage, 0.2f, 0.5f); // 1 high, 0 low
-
-                    // high when we have stamina & are close
-                    return
-
-                        (distanceFactor * weights.heavyAttack_proximityWeight +
-                        enemyHealthFactor * weights.heavyAttack_lowEnemyHealthWeight +
-                        staminaFactor * weights.heavyAttack_highStaminaWeight +
-                        healthFactor * weights.heavyAttack_lowHealthWeight) * aggression;
-
-
-                case CBTActionType.ReleaseHeavyAttack:
-
-                    /**** Considerations ****/
-
-                    /* What is the current stamina drain of the heavy attack?
-                     * Is the target blocking? I'd rather them not to be blocking.
-                     * What is the current hit coverage area, do i have time to continue charging my heavy attack, or are the enemy about to leave my attack range?
-                     * Is the target charging their own heavy attack? If so, I should release mine to interrupt them.
-                     * Is the target blocking, and if so, what is their current stamina at? Will the attack i perform stagger them? It'd be better to stagger the opponent rather than let the regain stamina and block my attack.
-                     */
-
-                    float currentHoldPerentage = ctx.TargetHeavyAttackChargePercentage;
-
-                    // WANT to release the farther the target is, as we want to hit them before they can escape
-                    distanceFactor = Mathf.Clamp01(1 - Mathf.InverseLerp(ctx.TargetAttackRange * 0.8f, ctx.TargetAttackRange, ctx.DistanceToTarget));
-
-                    float enemyChargingHeavyAttack = ctx.TargetHeavyAttackChargePercentage > 0f ? 1f : 0f; // 1 if the enemy is charging a heavy attack, 0 otherwise
-
-                    float enemyBlocking = ctx.TargetBlocking;
-
-                    // only peaks once min‐charge is met, else zero
-                    return 
-                        (currentHoldPerentage * weights.releaseHeavyAttack_holdPercentWeight +
-                        distanceFactor * weights.releaseHeavyAttack_enemyDistanceWeight +
-                        enemyChargingHeavyAttack * weights.releaseHeavyAttack_enemyChargingHeavyAttackWeight +
-                        enemyBlocking * weights.releaseHeavyAttack_enemyAttackBlockWeight) * aggression;
-
-                default:
-                    Debug.LogError($"Action {action} not implemented in utility evaluation.");
-                    return 0f;
-
-            }
-        }
-
-        static float[] SoftMax(float[] scores, float temperature = 1.0f)
-        {
-            int n = scores.Length;
-            float max = scores.Max();
-            float sum = 0f;
-            float[] exps = new float[n];
-
-            for (int i = 0; i < n; i++)
-            {
-                float e = Mathf.Exp((scores[i] - max) / temperature);
-                exps[i] = e;
-                sum += e;
-            }
-
-            for (int i = 0; i < n; i++)
-            {
-                exps[i] /= sum;
-            }
-
-            return exps;
-        }
-
-        static int Sample(IList<float> probs)
-        {
-            float rand = UnityEngine.Random.value; // [0,1)
-            float cumulative = 0f;
-            for (int i = 0; i < probs.Count; i++)
-            {
-                cumulative += probs[i];
-                if (rand <= cumulative)
-                    return i;
-            }
-            return probs.Count - 1; // fallback due to rounding
-        }
-
-        /// <summary>
-        /// Helper to check if a score is within 0 and 1 and flags it if it isnt
-        /// </summary>
-        bool WithinBounds(float score)
-        {
-            if (score < 0 || score > 1)
-            {
-                Debug.LogWarning($"Score {score} is out of bounds! It should be between 0 and 1.");
-                return false;
-            }
-
-            return true;
-        }
-
-        float ApplyCompensationToScore(float rawScore, int numConsiderations)
-        {
-            float modFactor = 1f - (1f / numConsiderations);
-            float makeUp = (1f - rawScore) * modFactor; // how much we need to make up for
-            return rawScore + (makeUp * rawScore);
         }
 
         #endregion

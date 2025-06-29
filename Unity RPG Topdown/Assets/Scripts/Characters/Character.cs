@@ -75,7 +75,11 @@ namespace Characters
         [Header("The time after a successful block that the character will be unable to regain stamina")]
         [FoldoutGroup("Character Stats, Stamina"), SerializeField] protected float staminaPostBlockRecoveryDelayDuration = 1f;
 
-        [FoldoutGroup("Character Stats, Combat"), SerializeField] protected float chargeAttackMinTime = 0.4f, chargeAttackMaxTime = 1;
+        //[Header("The percent of the character's max stamina drained when blocking (minimum)")]
+        [FoldoutGroup("Character Stats, Stamina"), SerializeField] public float staminaPercDrainedPerBlock { get; protected set; } = 0.15f;
+
+        [FoldoutGroup("Character Stats, Combat"), SerializeField] public float chargeAttackMinTime { get; protected set; } = 0.4f;
+        [FoldoutGroup("Character Stats, Combat"), SerializeField] public float chargeAttackMaxTime { get; protected set; } = 1;
         [FoldoutGroup("Character Stats, Combat"), SerializeField] protected float chargeAttackMinHoldTime = 0.25f;
         [FoldoutGroup("Character Stats, Combat"), SerializeField] protected float minHeavyDamageMultiplier = 1.25f, maxHeavyDamageMultiplier = 2.5f;
 
@@ -83,7 +87,7 @@ namespace Characters
         [FoldoutGroup("Character Stats, Combat"), SerializeField] protected float minHeavyBlockStaminaMultiplier = 1f, maxHeavyBlockStaminaMultiplier = 2.5f;
 
         protected float _damageChargeMultiplier = 1;
-        [ShowInInspector] protected float _chargeHoldTime;
+        public float chargeHoldTime { get;  protected set; }
         protected bool _holdingCharge;
 
         // Combat Context Variables
@@ -951,7 +955,7 @@ namespace Characters
             }
 
             // For now, remove 15% of the max stamina to the current
-            float totalCost = (MaxStamina * 0.15f) * staminaDrawMultiplier;
+            float totalCost = (MaxStamina * staminaPercDrainedPerBlock) * staminaDrawMultiplier;
 
             // Return false if the character cannot afford the block cost, and sets the current stamina to 0
             if (staminaCurrent - totalCost <= 0)
@@ -1200,7 +1204,7 @@ namespace Characters
             {
                 damageAmount = PhysDamageTotal,
                 source = this.transform,
-                blockStaminaDrawMultiplier = GetHeavyBlockStaminaDrawMultiplier()
+                blockStaminaDrawMultiplier = GetHeavyBlockStaminaDrawMultiplier(chargeHoldTime)
             };
 
             OnDamageDealt(damagePacket.damageAmount);
@@ -1269,7 +1273,7 @@ namespace Characters
                 return 0;
             }
 
-            float t = Mathf.Clamp01((_chargeHoldTime - chargeAttackMinTime) / (chargeAttackMaxTime - chargeAttackMinTime));
+            float t = Mathf.Clamp01((chargeHoldTime - chargeAttackMinTime) / (chargeAttackMaxTime - chargeAttackMinTime));
 
             float staminaCost = Mathf.Lerp(equippedWeapon.heavyAttackMinStaminaCost, equippedWeapon.heavyAttackMaxStaminaCost, t);
 
@@ -1283,23 +1287,21 @@ namespace Characters
         public float GetHeavyAttackHoldPercentage()
         {
             // Returns the percentage of the heavy attack hold time
-            return Mathf.Clamp01(_chargeHoldTime / chargeAttackMaxTime);
+            return Mathf.Clamp01(chargeHoldTime / chargeAttackMaxTime);
         }
 
-        protected float GetHeavyAttackDamageMultiplier()
+        public float GetHeavyAttackDamageMultiplier(float chargeTime)
         {
             if (equippedWeapon == null)
             {
-                Debug.LogWarning("Trying to get heavy attack damage multiplier without an equipped weapon!");
                 return 1;
             }
             if (state != CharacterState.Attacking)
             {
-                Debug.LogWarning("Trying to get heavy attack damage multiplier when not attacking!");
                 return 1;
             }
 
-            float t = Mathf.Clamp01((_chargeHoldTime - chargeAttackMinTime) / (chargeAttackMaxTime - chargeAttackMinTime));
+            float t = Mathf.Clamp01((chargeTime - chargeAttackMinTime) / (chargeAttackMaxTime - chargeAttackMinTime));
             float damageMultiplier = Mathf.Lerp(minHeavyDamageMultiplier, maxHeavyDamageMultiplier, t);
 
             //Debug.Log($"Muiltiplier : {damageMultiplier}");
@@ -1307,32 +1309,30 @@ namespace Characters
             return damageMultiplier;
         }
 
-        protected float GetHeavyBlockStaminaDrawMultiplier()
+        public float GetHeavyBlockStaminaDrawMultiplier(float chargeTime)
         {
             if (equippedWeapon == null)
             {
-                Debug.LogWarning("Trying to get heavy attack damage multiplier without an equipped weapon!");
                 return 1;
             }
             if (state != CharacterState.Attacking)
             {
-                Debug.LogWarning("Trying to get heavy attack damage multiplier when not attacking!");
                 return 1;
             }
-            if (_chargeHoldTime < chargeAttackMinTime)
+            if (chargeHoldTime < chargeAttackMinTime)
             {
 
                 return 1;
             }
 
-            float t = Mathf.Clamp01((_chargeHoldTime - chargeAttackMinTime) / (chargeAttackMaxTime - chargeAttackMinTime));
+            float t = Mathf.Clamp01((chargeTime - chargeAttackMinTime) / (chargeAttackMaxTime - chargeAttackMinTime));
             float blockStaminaDrawMultiplier = Mathf.Lerp(minHeavyBlockStaminaMultiplier, maxHeavyBlockStaminaMultiplier, t);
             return blockStaminaDrawMultiplier;
         }
 
         public bool MinChargeTimeMet()
         {
-            return _chargeHoldTime > chargeAttackMinHoldTime;
+            return chargeHoldTime > chargeAttackMinHoldTime;
         }
 
         #endregion

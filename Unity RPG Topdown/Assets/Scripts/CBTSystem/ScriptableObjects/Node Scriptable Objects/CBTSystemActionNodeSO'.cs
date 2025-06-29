@@ -30,6 +30,7 @@ namespace CBTSystem.ScriptableObjects.Nodes
                 case CBTActionType.LightAttack:
                 case CBTActionType.StartHeavyAttack:
                 case CBTActionType.ReleaseHeavyAttack:
+                case CBTActionType.Retreat:
                     return ActionPriority.Combat;
 
                 // reflex / must-interrupt

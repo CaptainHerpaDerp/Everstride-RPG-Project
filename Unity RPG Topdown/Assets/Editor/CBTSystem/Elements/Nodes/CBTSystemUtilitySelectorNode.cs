@@ -50,13 +50,13 @@ namespace CBTSystem.Elements.Nodes
             settingsFoldout.Clear();
 
             /* Temperature slider ------------------------------------------------ */
-            var tempSlider = new Slider("Temperature", 0f, 2f)
+            var tempSlider = new Slider("Temperature", 0.05f, 2f)
             {
                 value = Temperature,
                 showInputField = true
             };
             tempSlider.tooltip = "0 = always best action, 1 = balanced mix, 2 = high randomness";
-            tempSlider.RegisterValueChangedCallback(e => Temperature = e.newValue);
+            tempSlider.RegisterValueChangedCallback(e => Temperature = Mathf.Clamp(e.newValue, 0.05f, 5));
             settingsFoldout.Add(tempSlider);
 
             /* Decision interval ------------------------------------------------- */

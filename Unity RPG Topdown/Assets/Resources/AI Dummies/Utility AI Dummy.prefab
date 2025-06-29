@@ -940,6 +940,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6792586133259829875, guid: 71eba9726b4f01048bcc3fcd7c177dc2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 363915488816602733}
+    - targetCorrespondingSourceObject: {fileID: 6792586133259829875, guid: 71eba9726b4f01048bcc3fcd7c177dc2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8390266660076596398}
     - targetCorrespondingSourceObject: {fileID: 8267731862357750729, guid: 71eba9726b4f01048bcc3fcd7c177dc2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4679856575305258256}
@@ -1011,7 +1014,7 @@ MonoBehaviour:
   mover: {fileID: 4515156324272552853}
   npc: {fileID: 8807487077852693172}
   CBTConfig: {fileID: 11400000, guid: d800d3fce4882e04792913a4c4aab222, type: 2}
-  weights: {fileID: 363915488816602733}
+  scoreEval: {fileID: 8390266660076596398}
   combatStanceMoveSpeed: 1
   radiusStep: 0.25
   defensiveRadiusMin: 1.5
@@ -1019,10 +1022,9 @@ MonoBehaviour:
   maxAngleStep: 0.65
   minAngleStep: 0.35
   waitDuration: 0.2
-  aggression: 1
-  riskAversion: 0.6
   lowStaminaFactor: 0.8
-  lastHitThresholdTime: 3
+  retreatTimeMax: 5
+  dodgeTimeMax: 1.5
 --- !u!114 &363915488816602733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1035,36 +1037,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02cc75f627362574fae43d199a8d0519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveToAttack_recentHit: 0.09508906
-  moveToAttack_healthDiff: 0.27806067
-  moveToAttack_stamDiff: 0.4943355
-  moveToAttack_stamReady: 0.13251473
-  combatStance_recentHit: 0.10630008
-  combatStance_healthDiff: 0.46145937
-  combatStance_stamDiff: 0.35541573
-  combatStance_stamReady: 0.07682477
-  lightAttack_proximityWeight: 0.23599601
-  lightAttack_staminaLightBonus: 0.20416042
-  lightAttack_healthDiffBonus: 0.3073138
-  lightAttack_enemyLowStaminaBonus: 0.25252974
-  block_staminaWeight: 0.25792056
-  block_distanceWeight: 0.36097988
-  block_lowHealthWeight: 0.38109952
-  dodge_inSafeAreaWeight: 0.418062
-  dodge_staminaAbundanceWeight: 0.05273356
-  dodge_enemyHeavyAttackWeight: 0.46418646
-  dodge_healthAbundantWeight: 0.06501792
-  passiveBlock_lowDistanceWeight: 0.316
-  passiveBlock_lowHealthWeight: 0.3887873
-  passiveBlock_lowStaminaWeight: 0.287
-  heavyAttack_proximityWeight: 0.12621908
-  heavyAttack_lowEnemyHealthWeight: 0.07825523
-  heavyAttack_highStaminaWeight: 0.4699999
-  heavyAttack_lowHealthWeight: 0.32552588
-  releaseHeavyAttack_holdPercentWeight: 0.21409002
-  releaseHeavyAttack_enemyDistanceWeight: 0.31596053
-  releaseHeavyAttack_enemyChargingHeavyAttackWeight: 0.26849145
-  releaseHeavyAttack_enemyAttackBlockWeight: 0.20145792
+  moveToAttack_recentHit: 0.09507929
+  moveToAttack_healthDiff: 0.15050264
+  moveToAttack_stamDiff: 0.20224388
+  moveToAttack_stamReady: 0.25376657
+  moveToAttack_moreResources: 0.2984076
+  combatStance_score: 0.2177424
+  lightAttack_proximityWeight: 0.3128606
+  lightAttack_staminaLightBonus: 0.1716843
+  lightAttack_healthDiffBonus: 0.14254124
+  lightAttack_enemyLowStaminaBonus: 0.07551348
+  lightAttack_highStaminaBonus: 0.2974003
+  block_master: 0.25
+  dodge_master: 0.3
+  heavyAttack_proximityWeight: 0.14297721
+  heavyAttack_lowEnemyHealthWeight: 0.06733545
+  heavyAttack_highStaminaWeight: 0.34743872
+  heavyAttack_lowHealthWeight: 0.18258779
+  heavyAttack_highHealthWeight: 0.2596608
+  releaseHeavyAttack_holdPercentWeight: 0.20382218
+  releaseHeavyAttack_enemyDistanceWeight: 0.34876737
+  releaseHeavyAttack_enemyChargingHeavyAttackWeight: 0.2556145
+  releaseHeavyAttack_enemyAttackBlockWeight: 0.19179592
+  retreat_master: 0.151
+--- !u!114 &8390266660076596398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2620806377453297743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e54e462056569e343ac9f35ea62db3af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weights: {fileID: 363915488816602733}
+  utilityAI: {fileID: 4152671577798009747}
+  lastHitThresholdTime: 3
 --- !u!50 &2620806377453297778 stripped
 Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 6792586133259829838, guid: 71eba9726b4f01048bcc3fcd7c177dc2, type: 3}

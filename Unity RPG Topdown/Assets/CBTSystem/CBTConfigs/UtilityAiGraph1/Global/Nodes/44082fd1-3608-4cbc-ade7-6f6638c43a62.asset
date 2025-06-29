@@ -16,14 +16,15 @@ MonoBehaviour:
   <NextNodeIDs>k__BackingField:
   - c487a793-9ead-4629-b4c8-df49b1ba989c
   - 5021d891-cb24-4e2c-98f3-6782ca70e325
-  - d7c66b77-39b9-4368-8411-de2fae8123b4
   - 77aa8c4d-0cc2-42dc-b928-e5c69039f60e
+  - d7c66b77-39b9-4368-8411-de2fae8123b4
+  - 8c921be0-05df-4a73-8eeb-cbdd8c60aa08
   - ca9a7077-c25d-4d8e-a0a0-c128493435c3
-  - 4f65a8e3-e142-4280-afa4-da763728c7ff
+  - fa12d084-283e-4ff3-a1dd-4a653d6eff19
   <IsRootNode>k__BackingField: 0
-  <Temperature>k__BackingField: 0.8
-  <DecisionInterval>k__BackingField: 0.33
+  <Temperature>k__BackingField: 0.19
+  <DecisionInterval>k__BackingField: 0.1
   <MinSwitchScore>k__BackingField: 0
   <EmergencyOverride>k__BackingField: 1
-  <StickyBonus>k__BackingField: 0
+  <StickyBonus>k__BackingField: 0.2
   CurrentActionNodeScore: 0

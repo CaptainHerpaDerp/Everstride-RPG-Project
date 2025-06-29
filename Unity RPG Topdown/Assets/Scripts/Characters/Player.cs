@@ -244,24 +244,24 @@ namespace Characters
                 // Wait until the attack button is released
                 while (Input.GetKey(KC.Attack))
                 {
-                    _chargeHoldTime += Time.deltaTime;
+                    chargeHoldTime += Time.deltaTime;
                     yield return null;
                 }
 
                 /* If the mouse is released but the charge time already exceeds the min heavy attack threshhold,
                  we need to wait for the remaining duration before releasing and performing a heavy attack */
 
-                if (_chargeHoldTime > chargeAttackMinHoldTime && _chargeHoldTime < chargeAttackMinTime)
+                if (chargeHoldTime > chargeAttackMinHoldTime && chargeHoldTime < chargeAttackMinTime)
                 {
-                    float remainingChargeTime = chargeAttackMinTime - _chargeHoldTime;
+                    float remainingChargeTime = chargeAttackMinTime - chargeHoldTime;
                     yield return new WaitForSeconds(remainingChargeTime);
                 }
             }
 
             // Calculate the damage charge multiplier based on chargeTime
-            if (equippedWeapon.canChargeAttack && _chargeHoldTime >= chargeAttackMinTime)
+            if (equippedWeapon.canChargeAttack && chargeHoldTime >= chargeAttackMinTime)
             {
-                _damageChargeMultiplier = GetHeavyAttackDamageMultiplier();
+                _damageChargeMultiplier = GetHeavyAttackDamageMultiplier(chargeHoldTime);
                 ReduceStamina(GetCurrentHeavyAttackStaminaCost());
             }
             else
@@ -541,6 +541,11 @@ namespace Characters
                     return;
                 }
 
+                if (CurrentStamina <= equippedWeapon.lightAttackStaminaCost)
+                {
+                    return;
+                }
+
                 StopMovement();
 
                 if (chainAttackOpportunity != null)
@@ -712,7 +717,7 @@ namespace Characters
             _damageChargeMultiplier = 1;
 
             // reset the hold time
-            _chargeHoldTime = 0;
+            chargeHoldTime = 0;
 
             // Reset the player state back to normal after the attack animation finishes
             SetState(CharacterState.Normal);
@@ -951,6 +956,9 @@ namespace Characters
 
         protected override void DoDeath()
         {
+
+            animationController.StopWalkLoop();
+
             SetState(CharacterState.Death);
 
             animationController.DoDeathAnimation();

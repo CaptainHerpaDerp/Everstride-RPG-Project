@@ -395,6 +395,8 @@ namespace Characters
         {
             collisionColliderCircle.enabled = false;
 
+            animationController.StopWalkLoop();
+
             OnHideHealthBar?.Invoke();
             OnDeath?.Invoke();
 
@@ -499,9 +501,9 @@ namespace Characters
             OnAttackStart?.Invoke();
 
             // Increase the heavy attack hold time
-            if (_chargeHoldTime < chargeAttackMaxTime)
+            if (chargeHoldTime < chargeAttackMaxTime)
             {
-                _chargeHoldTime += Time.deltaTime;
+                chargeHoldTime += Time.deltaTime;
             }
 
             // Change holding charge to true, and set the charge hold angle to the angle to the target transform (capture once in this updated loop method)
@@ -514,7 +516,7 @@ namespace Characters
 
         public void EndHeavyAttack()
         {
-            if (_chargeHoldTime <= 0f)
+            if (chargeHoldTime <= 0f)
             {
                 Debug.LogWarning("NPC " + NPCName + " tried to end heavy attack when not charging!");
                 return;
@@ -537,7 +539,7 @@ namespace Characters
             OnAttackEnd?.Invoke();
 
             ReduceStamina(GetCurrentHeavyAttackStaminaCost());
-            _damageChargeMultiplier = GetHeavyAttackDamageMultiplier();
+            _damageChargeMultiplier = GetHeavyAttackDamageMultiplier(chargeHoldTime);
 
             attackCR = StartAttack(_chargeHoldAngle);
             StartCoroutine(attackCR);
@@ -600,7 +602,6 @@ namespace Characters
         {
             if (state != CharacterState.Blocking)
             {
-                Debug.LogWarning("NPC " + NPCName + " tried to exit block state when not blocking!");
                 return false;
             }
 
@@ -704,7 +705,7 @@ namespace Characters
             attackCR = null;
 
             // Reset any charged attack hold time
-            _chargeHoldTime = 0f;
+            chargeHoldTime = 0f;
 
             // Reset the charge multiplier
             _damageChargeMultiplier = 1;
@@ -797,7 +798,7 @@ namespace Characters
 
         protected virtual void UpdateAnimationState()
         {
-            if (state != CharacterState.Normal || knockbackController.IsKnockbackActive())
+            if (state != CharacterState.Normal || knockbackController.IsKnockbackActive() || IsDead())
                 return;
 
             float xAxis = 0;
